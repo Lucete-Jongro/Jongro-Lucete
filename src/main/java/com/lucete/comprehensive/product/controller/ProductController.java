@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -35,16 +35,24 @@ public class ProductController {
 //    public void insertPage(){}
 
     @PostMapping("/Insert")
-    public String insertProduct(@ModelAttribute ProductDTO product, RedirectAttributes rttr, Locale locale) {
+    public String insertProduct(@ModelAttribute ProductDTO product,  @RequestParam List<MultipartFile> multipartFile) throws IOException {
 
-        logger.info("product : {}", product);
 
         productService.insertProduct(product);
 
+        // 업로드 파일 정보 처리
+        for (MultipartFile file : multipartFile) {
+            try {
+                productService.uploadFile(file, product);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 //        rttr.addFlashAttribute("successMessage", messageSource.getMessage("insertProduct", null, locale.KOREAN));
 
         return "redirect:/product/Insert";
     }
+
 
     private List<ProductCategoryDTO> categoryList = new ArrayList<>();
 

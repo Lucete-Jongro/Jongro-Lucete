@@ -192,7 +192,7 @@
 
 <div class="product-insert-container">
     <h4 style="font-weight: bold; font-size: 25px;">&nbsp;신규 상품 등록</h4>
-    <form action="/product/Insert" method="post">
+    <form action="/product/Insert" method="post" enctype="multipart/form-data">
         <div class="insert-table-area">
             <table class="insert-table">
                 <tr>
@@ -233,7 +233,7 @@
                 <tr>
                     <td id="box6">상품 사진 첨부</td>
                     <td>
-                        <input type="file" accept="image/*" name="FILE_NAME" id="image-text">
+                        <input type="file" accept="*/*" name="multipartFile" id="image-text">
                     </td>
                 </tr>
             </table>

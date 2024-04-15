@@ -29,4 +29,23 @@
         )
     </insert>
 
+    <insert id="uploadFile" parameterType="com.lucete.comprehensive.common.file.FileDTO">
+        INSERT INTO
+        upload_file(
+                    FILE_NAME,
+                    UPLOAD_DATE,
+                    FILE_PASS,
+                    FILE_SIZE,
+                    PROD_SERIAL,
+                    REV_NO
+        )
+        VALUES (
+                #{ fileName },
+                #{ uploadFile },
+                #{ filePass },
+                #{ fileSize },
+                #{ product.prodSerial },
+                #{ revNo }
+               )
+    </insert>
 </mapper>
