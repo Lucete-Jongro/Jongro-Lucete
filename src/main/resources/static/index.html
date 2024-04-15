@@ -3,57 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin ProductCategory Page</title>
+    <title>Document</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="/css/mystyle.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
-    <style>
-        .product-category{
-            overflow: hidden;
-        }
-        .product-category-box{
-            margin : 30px;
-            width: 700px;
-            height: 500px;
-            border : 5px solid #969696;
-            border-radius : 10px;
-            overflow: hidden;
 
-        }
-        .category-box{
-            margin : 10px;
-            width: 680px;
-            height: 235px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-        }
-        .box{
-            margin: 10px;
-            width: 340px;
-            height: 115px;
-            background-color: gray;
-            border-radius: 30px;
-            background-color: #DEE2E6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            font-weight: bold;
-            border: #fff;
-        }
-    </style>
+
 </head>
-
 <body>
 <header class="header">
     <div class="containor">
         <nav class="navbar">
-            <a href="Admin-MainPage.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
+            <a href="index.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
             <ul class="navbar-list" style="list-style: none;">
+
+                <li class="navicon" id="search"><img src="/image/검색 아이콘.png" height="25">
+
                 </li>
-                <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href="shoppingcart.html"><img src="/image/장바구니 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href="mypage.html"><img src="/image/마이페이지 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href="login.html"><img src="/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href="index.html"><img src="/image/로그아웃 아이콘.png" height="25"></a></li>
                 <li class="searchBar" >
                     <input type="search">
                     <input type="submit">
@@ -64,59 +36,78 @@
     </div>
 </header>
 
+
 <div class="category-banner">
     <nav class="category-navbar">
 
 
         <ul class="category-list" style="list-style: none;">
-            <li class="category" style= "font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
+            <li class="category"
+                style="font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
             <br>
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
-            <li class="category"><a href="Admin-OrderCategory-Page.html">주문관리</a></li>
-            <li class="category"><a href="Admin-ProductCategory-Page.html">상품관리</a></li>
+            <li class="category"><a href="PRODUCT_mainview .html">주얼리</a></li>
+            <li class="category"><a href="DIY_PRODUCT_mainview.html">DIY 자재</a></li>
+            <li class="category"><a href="DIYkit_PRODUCT_mainview.html">DIY Kit</a></li>
             <br>
-            <li class="category" style="font-weight: bold; background-color: transparent !important;">Customer</li>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Library</li>
 
-            <li class="category"><a href="Admin-UserCategory-Page.html">회원관리</a></li>
-            <li class="category"><a href="1.문의_게시판_관리.html">게시판 관리</a></li>
-            <li class="category"><a href="2.리뷰_관리.html">리뷰 게시판 관리</a></li>
-            <li class="category"><a href="3.공지사항_관리.html">공지사항 관리</a></li>
-            <li class="category"><a href="4.쿠폰_관리.html">쿠폰 관리</a></li>
-            <li class="category"><a href="5.포인트_지급_관리.html">포인트 관리</a></li>
-            <li class="category"><a href="Admin-OneDayClass-Category-Page.html">원데이 클래스 관리</a></li>
+            <li class="category"><a href="ONEDAY_CLASS_mainview .html">원데이 클래스</a></li>
+            <li class="category"><a href="inquiry/list">게시판</a></li>
+            <li class="category"><a href="NOTICE_01mainview.html">공지사항</a></li>
             <br><br><br><br><br><br><br>
         </ul>
     </nav>
 </div>
 
-<div class="product-category">
-    <h4 style="font-size: 25px;">&nbsp;&nbsp;상품 관리</h4>
-    <div class="product-category-box">
-        <div class="category-box">
-            <a class="box" href="Admin-OrderInquiry-Page.html">
-                <img src="/image/주문.png" height="50px">
-                주문 상품 관리
-            </a>
-            <a class="box" href="Admin-ProductInquiry-Page.html">
-                <img src="/image/판매.png" height="50px">
-                판매 상품 조회
-            </a>
-        </div>
-        <div class="category-box">
-            <button class="box" onclick="location.href='product/Insert'">
-                <img src="/image/등록.png" height="50px">
-                신규 상품 등록
-            </button>
-            <a class="box" href="Admin-ProductModify-Page.html">
-                <img src="/image/수정.png" height="50px">
-                상품 수정
-            </a>
-        </div>
-    </div>
 
+<div class="banner-img">
+    <img src="/image/메인사진.jpg" height="480" class="main-img">
 </div>
 
 <br><br><br><br><br><br><br>
+
+
+<div class="new-banner">
+    <p style="font-size:larger; font-weight: bolder;">NEW</p>
+    <ul class="image-list">
+        <li class="banner-imgs"><a href=""><img src="/image/반지 2 .png" class="img"></a>
+            <p>silver layering set</p>
+            <p>26,000원</p></li>
+        <li class="banner-imgs"><a href="PRODUCT_datailview.html"><img src="/image/목걸이.jfif" class="img"></a>
+            <p>Dolphin necklace</p>
+            <p>36,000원</p></li><li class="banner-imgs"><a href=""><img src="/image/반지4.jfif" class="img"></a>
+        <p>silver cubic ring</p>
+        <p>21,000원</p></li>
+        <li class="banner-imgs"><a href=""><img src="/image/반지5.jfif" class="img"></a>
+            <p>Blackgold Ring set</p>
+            <p>27,000원</p></li>
+        <li class="banner-imgs"><a href=""><img src="/image/반지6.jfif" class="img"></a>
+            <p>single Silver Ring</p>
+            <p>18,000원</p></li>
+        <li class="banner-imgs"><a href=""><img src="/image/팔찌.jfif" class="img"></a>
+            <p>rosegold bracelet</p>
+            <p>28,000원</p></li>
+    </ul>
+</div>
+
+<div class="main-banner2">
+    <p style="font-size:larger; font-weight: bolder;">ONE-DAY CLASS</p>
+    <a href="ONEDAY_CLASS_mainview .html"><img src="/image/원데이클래스 메인.jfif" height="500" class="oneday-class-img"></a>
+    <a href="NOTICE_01mainview.html"><img src="/image/공지사항 사진1.jpg" height="250" class="notice-img">
+        <p class="notice">Notice</p></a>
+
+    <a href="REVIEW_01mainview.html"><img src="/image/리뷰게시판 사진.jpg" height="238" class="review-img">
+        <p class="review">Review</p></a>
+
+
+</div>
+
+
+
+
+<br><br><br><br><br><br><br>
+
 
 <footer class="footer">
     <div class="containor">
