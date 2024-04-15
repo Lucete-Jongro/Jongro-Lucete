@@ -14,7 +14,7 @@
 <header class="header">
     <div class="containor">
         <nav class="navbar">
-            <a href="index.html"><img src="/image/asdf.png" height="90"></a>
+            <a href="index.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
             <ul class="navbar-list" style="list-style: none;">
 
                 <li class="navicon" id="search"><img src="/image/검색 아이콘.png" height="25">
@@ -37,26 +37,28 @@
 
     <h1 class="login-title">Login</h1>
     <br><br>
-    <img src="assets/image/로그인메인 .png" height="400" id="login-image">
+    <img src="/image/로그인메인 .png" height="400" id="login-image">
 
     <form th:action="@{/auth/login}" th:method="post">
         <ul class="login-list" style="list-style: none;">
             ID<br>
-            <input type="text" class="login-input">
+            <input type="text" name="username" class="login-input"> <!-- name 속성 추가 -->
         </ul>
         <ul class="login-list" style="list-style: none;">
             PASSWORD<br>
-            <input type="text" class="login-input">
+            <input type="password" name="password" class="login-input"> <!-- name 속성 추가 -->
         </ul>
         <input type="submit" value="로그인하기" class="login" style="color: white">
     </form>
 
     <br>
-    <button class="login2" th:href="@{/user/signup.html}">회원가입</button>
+    <a th:href="@{/user/signup.html}">
+        <button class="login2">회원가입</button>
+    </a>
     <button class="login2">비회원 주문조회</button>
     <br>
-    <h class="finding" style="border-right: 1px solid rgb(172, 172, 172);"><a href="">ID 찾기</a></h>
-    <h class="finding"><a href="">PASSWORD 찾기</a></h>
+    <h class="finding" style="border-right: 1px solid rgb(172, 172, 172);"><a th:href="@{/auth/findid.html}">ID 찾기</a></h>
+    <h class="finding"><a th:href="@{/auth/findpwd.html}">PASSWORD 찾기</a></h>
 
 </div>
 
