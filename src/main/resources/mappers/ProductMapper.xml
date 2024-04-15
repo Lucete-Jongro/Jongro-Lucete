@@ -24,7 +24,7 @@
         #{prodPrice},
         #{prodAccount},
         #{prodSoldOut},
-        #{prodCategory.prodCategoryId}, <!-- prodCategory는 ProductCategoryDTO 객체 -->
+        #{prodCategory},
         #{prodView}
         )
     </insert>
