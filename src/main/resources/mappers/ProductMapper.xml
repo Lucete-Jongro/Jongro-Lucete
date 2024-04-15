@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lucete.comprehensive.product.model.dao.ProductMapper">
+
+    <!-- ProductDTO 객체를 삽입하는 SQL 매핑 -->
+    <insert id="insertProduct" parameterType="com.lucete.comprehensive.product.model.dto.ProductDTO">
+        INSERT INTO
+        product(
+        PROD_SERIAL,
+        PROD_NAME,
+        PROD_AMOUNT,
+        PROD_PRICE ,
+        PROD_ACCOUNT ,
+        PROD_SOLD_OUT ,
+        PROD_CATEGORY ,
+        PROD_VIEW
+        )
+        VALUES(
+        #{prodSerial},
+        #{prodName},
+        #{prodAmount},
+        #{prodPrice},
+        #{prodAccount},
+        #{prodSoldOut},
+        #{prodCategory.prodCategoryId}, <!-- prodCategory는 ProductCategoryDTO 객체 -->
+        #{prodView}
+        )
+    </insert>
+
+</mapper>

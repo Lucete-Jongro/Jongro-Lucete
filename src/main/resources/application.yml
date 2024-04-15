@@ -1,0 +1,18 @@
+#spring.application.name=Lucete
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/lucete
+    username: lucete
+    password: lucete
+
+#mybats config
+mybatis:
+  mapper-locations: mappers/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+#logging:
+#  file:
+#    name: myapp.log
+#    path: C:/Users/hi/Desktop/product-jan/Lucete
