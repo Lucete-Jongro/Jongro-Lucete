@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lucete.comprehensive.board.inquiry.dao.InquiryMapper">
+
+    <resultMap id="inquiryResultMap" type="com.lucete.comprehensive.board.inquiry.dto.InquiryDTO">
+        <id property="inquiryNo" column="INQUIRY_NO"/>
+        <result property="inquiryTitle" column="INQUIRY_TITLE"/>
+        <result property="inquiryContent" column="INQUIRY_CONTENT"/>
+        <result property="inquiryDate" column="INQUIRY_DATE"/>
+        <result property="inquiryReStatus" column="INQUIRY_RE_STATUS"/>
+        <result property="inquiryCategory" column="INQUIRY_CATEGORY"/>
+        <result property="inquiryUpdate" column="INQUIRY_UPDATE"/>
+        <result property="inquiryDeleteStatus" column="INQUIRY_DELETE_STATUS"/>
+        <association property="memNo" resultMap="memberResultMap"/>
+    </resultMap>
+
+    <resultMap id="memberResultMap" type="com.lucete.comprehensive.user.member.MemberDTO">
+        <id property="memNo" column="MEM_NO"/>
+    </resultMap>
+
+    <select id="selectTotalCount" resultType="int" parameterType="hashmap">
+        SELECT
+            COUNT(*)
+        FROM
+            inquiry
+        <if test="searchCondition == 'memNo'">
+        JOIN
+            member_info b ON (a.MEM_NO = b.MEM_NO)
+        </if>
+        <where>
+            <if test="searchCondition == 'memNo'">
+                b.MEM_NAME LIKE CONCAT('%' #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'title'">
+                a.INQUIRY_TITLE LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'content'">
+                a.INQUIRY_CONTENT LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+        </where>
+    </select>
+
+</mapper>
