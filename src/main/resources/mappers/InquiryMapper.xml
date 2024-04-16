@@ -73,15 +73,12 @@
         LIMIT #{offSet}, #{limit}
     </select>
 
-    <insert id="registInquiry">
+    <insert id="insertInquiry">
         INSERT INTO
-                   inquiry
-                            (INQUIRY_TITLE, INQUIRY_CONTENT,INQUIRY_CATEGORY, MEM_NO)
+            inquiry
+                (INQUIRY_TITLE, INQUIRY_CONTENT,INQUIRY_CATEGORY, INQUIRY_DATE, MEM_NO)
         VALUES
-                (#{INQUIRY_TITLE}, #{ INQUIRY_CONTENT}, #{ INQUIRY_CATEGORY}, #{MEM_NO})
-        <selectKey keyProperty="inquiryNo" order="AFTER" resultType="int">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
+                (#{ inquiryTitle }, #{ inquiryContent }, #{ inquiryCategory }, NOW(), #{memNo});
     </insert>
 
 

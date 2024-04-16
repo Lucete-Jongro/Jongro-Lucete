@@ -17,7 +17,8 @@ public class InquiryDTO {
     private LocalDateTime inquiryUpdate;
     private char inquiryDeleteStatus;
 
-    public InquiryDTO(){}
+    public InquiryDTO() {
+    }
 
     public InquiryDTO(int inquiryNo, String inquiryTitle, String inquiryContent, LocalDateTime inquiryDate, char inquiryReStatus, String inquiryCategory, int memNo, LocalDateTime inquiryUpdate, char inquiryDeleteStatus) {
         this.inquiryNo = inquiryNo;
@@ -118,4 +119,3 @@ public class InquiryDTO {
                 '}';
     }
 }
-

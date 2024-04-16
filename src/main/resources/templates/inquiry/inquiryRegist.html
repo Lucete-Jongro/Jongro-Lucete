@@ -29,13 +29,6 @@
             margin: 0 auto;
         }
 
-        .board-table {
-            font-size: 12px;
-            width: 100%;
-            border-top: 1px solid #ccc;
-            border-bottom: 1px solid #ccc;
-        }
-
         .board-table a {
             color: #333;
             display: inline-block;
@@ -93,10 +86,6 @@
             line-height: 23px;
         }
 
-        .a3 {
-            padding-left: 185px;
-        }
-
         .a4 {
             font-size: 13px;
             padding-top: 20px;
@@ -115,9 +104,14 @@
         .b2 {
             position: relative;
             padding-right: 100px;
-            padding-bottom:150px;
-            padding-top: 300px;
+            padding-bottom:100px;
+
         }
+        .grow-wrap {
+            padding-bottom: 200px;
+            margin-bottom: 100px;
+        }
+
     </style>
 
 </head>
@@ -184,22 +178,19 @@
 
     <div class="hp_mb20_1"></div>
 
-
+    <form action="/inquiry/regist" method="post" id="inquiryRegistForm">
     <div class="a1">제목
-        <form action="/inquiry/regist" method="post" id="inquiryRegistForm">
             <div>
-                <input type="text" style="width: 350px; height: 24px;" placeholder="제목을 입력하세요." name="INQUIRY_TITLE">
+                <input type="text" style="width: 350px; height: 24px;" placeholder="제목을 입력하세요." name="inquiryTitle">
             </div>
             <br>
-
-            <span class="a2">글쓴이</span>
             <span class="a3">분류</span>
-
             <br>
-            <div><input type="text" style="width: 220px; height: 24px;" placeholder="이름을 입력하세요." name="MEM_NO">
+            <!-- 작성자 회원 번호 -->
+            <div><input type="hidden" style="width: 220px; height: 24px;" th:text="${ memNo }">
 
 
-                <select name="INQUIRY_CATEGORY" style="width: 125px; height: 24px;" id="cs1">
+                <select name="inquiryCategory" style="width: 125px; height: 24px;" id="cs1">
                     <option value="nomal">일반</option>
                     <option value="product">상품</option>
                     <option value="diykit">DIY키트</option>
@@ -210,79 +201,37 @@
                 <div class="a4">글 작성</div>
 
                 <div class="grow-wrap">
-                    <textarea onInput="this.parentNode.dataset.replicatedValue = this.value"
-                              style="width: 600px; height:270px;" name="INQUIRY_CONTENT"></textarea>
-                </div>
+                    <textarea style="width: 550px; height:270px;" name="inquiryContent"></textarea>
 
+                </div>
             </div>
-        </form>
     </div>
-</div>
+    <br>
+    <div class="b2">
+            <button type="submit" id="button-submit2">등록</button>
+        </div>
+    </form>
+
+
 
 <!-- 등록버튼 -->
-<div class="b2">
-    <button onclick="openSaveModal()" id="button-submit2">등록</button>
-</div>
+<!--<div class="b2">-->
+<!--    <button onclick="openSaveModal()" id="button-submit2">등록</button>-->
+<!--</div>-->
+<!--<div id="savemodal" class="modal" style="display: none;">-->
+<!--    <div class="modal_content" style="width: 200px;">-->
+<!--        <p>등록 하시겠습니까?</p>-->
+<!--        <br>-->
 
-<div id="savemodal" class="modal" style="display: none;">
-    <div class="modal_content" style="width: 200px;">
-        <p>등록 하시겠습니까?</p>
-        <br>
-
-        <button id="save_button" onclick="saveChanges()">네</button>
-        <button id="cancel_button" onclick="closeSaveModal()">아니오</button>
-    </div>
-</div>
-<script>
-    function openSaveModal() {
-        document.getElementById("savemodal").style.display = "block";
-    }
-
-    function closeSaveModal() {
-        document.getElementById("savemodal").style.display = "none";
-    }
-
-    function saveChanges() {
-        // 저장된 정보를 조회페이지에 반영하는 로직 추가하면됨
-        const data = {
-            title: "문의글 제목",
-            content: "문의 내용",
-            category: "문의 분류",
-            memNo:123
-        };
-        fetch("/api/save", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => response.json())
-            .then(result=>{
-                if(result.success) {
-                    alert("등록이 완료 되었습니다.~ ")
-                    location.reload();
-                }else {
-                    alert("등록에 실패했습니다.")
-                }
-
-            })
-            .catch(error => {
-                // 네트워크 오류 또는 기타 예외 처리
-                console.error("오류 발생:", error);
-                alert("등록에 실패했습니다.");
-            });
-
-        closeSaveModal();
-    }
-
-</script>
+<!--        <button type="submit" id="save_button" onclick="saveChanges()">네</button>-->
+<!--        <button id="cancel_button" onclick="closeSaveModal()">아니오</button>-->
+<!--    </div>-->
+<!--</div>-->
 
 <!-- 공백용 -->
 <div id="wrapper">
     <div></div>
 </div>
-
 
 
 <footer class="footer">

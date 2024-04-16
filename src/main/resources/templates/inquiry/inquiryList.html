@@ -89,17 +89,6 @@
             box-sizing: border-box;
         }
 
-        .clearfix:after {
-            content: '';
-            display: block;
-            clear: both;
-        }
-
-        .container2 {
-            width: 1100px;
-            margin: 0 auto;
-        }
-
         .category-select-btn {
             float: right;
             height: 30px;
@@ -160,7 +149,7 @@
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Library</li>
 
             <li class="category"><a href="ONEDAY_CLASS_mainview .html">원데이 클래스</a></li>
-            <li class="category"><a href="inquiry/list">게시판</a></li>
+            <li class="category"><a href="/inquiry/list">게시판</a></li>
             <li class="category"><a href="NOTICE_01mainview.html">공지사항</a></li>
             <br><br><br><br><br><br><br>
         </ul>
@@ -186,14 +175,17 @@
             <!-- 카테고리 선택적 조회  -->
             <div class="category-select-btn">
 
-                <select name="category-select" id="searchCondition">
-                    <option value="allselect" th:selected="${ paging.searchCondition eq'allselect'}">전체조회</option>
+                <form id="searchForm" action="/inquiry/list">
+                <select id ="category-select" name="searchCondition">
+                    <option value="allselect" th:selected="${ paging.searchCondition eq 'allselect'}">전체조회</option>
                     <option value="nomal" th:selected="${ paging.searchCondition eq 'nomal'}">일반</option>
                     <option value="product" th:selected="${ paging.searchCondition eq 'product'}">상품</option>
                     <option value="diykit" th:selected="${ paging.searchCondition eq 'diykit'}">DIY키트</option>
                     <option value="onedayclass" th:selected="${ paging.searchCondition eq 'onedayclass'}">원데이 클래스</option>
                 </select>
-            </div>
+
+            </form>
+        </div>
         </div>
 
 
@@ -210,13 +202,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="inquiry : ${inquiryList}">
-                        <td th:text = "${inquiry.inquiryNo}"></td>
-                        <th><a href="@{/inquiry/detail(inquiryNo=${inquiry.inquiryNo}}" th:text="${inquiry.inquiryTitle}"></a>
-                        </th>
-                        <td th:text="${inquiry.inquiryCategory}"></td>
-                        <td th:text ="${inquiry.memName}"></td>
-                        <td th:text ="${#temporals.format(inquiry.createdDate, 'yyyy.MM.dd')}"></td>
+                    <tr th:each="inquiry : ${ inquiryList }" th:onclick="|location.href='/inquiry/detail?inquiryNo=${inquiry.inquiryNo}'|">
+                        <td th:text = "${ inquiry.inquiryNo }"></td>
+                        <td th:text="${ inquiry.inquiryTitle }"></td>
+                        <td th:text="${ inquiry.inquiryCategory }"></td>
+                        <td th:text ="${ inquiry.memNo }"></td>
+                        <td th:text ="${#temporals.format(inquiry.inquiryDate, 'yyyy.MM.dd')}"></td>
                     </tr>
 
                     </tbody>
@@ -278,7 +269,7 @@
             <th:block
                     th:each="page : ${ #numbers.sequence(paging.startPage, paging.endPage)}">
                 <button
-                        th:onclick="'location.href=\'/board/list?page=' + @{${page}} + '\''"
+                        th:onclick="'location.href=\'/inquiry/list?page=' + @{${page}} + '\''"
                         th:text="${ page }" th:disabled="${ paging.page eq page }">
                 </button>
             </th:block>
@@ -290,7 +281,7 @@
 
             <!-- 맨 끝으로 이동 -->
             <button
-                    th:onclick="'location.href=\'/board/list?page=' + @{${paging.maxPage}} + '\''">>></button>
+                    th:onclick="'location.href=\'/inquiry/list?page=' + @{${paging.maxPage}} + '\''">>></button>
         </th:block>
 
     </div>
@@ -302,7 +293,7 @@
     </div>
 
     <footer class="footer">
-        <div class="containor">
+        <div class="container">
             <p>L u c e t e</p>
             <ul class="info" style="list-style: none;">
                 <li class="info-list" style="font-size: smaller;"><a href>이용약관</a></li>

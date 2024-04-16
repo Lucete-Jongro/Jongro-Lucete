@@ -12,7 +12,9 @@ public interface InquiryMapper {
 
     int selectTotalCount(Map<String, String> searchMap);
     List<InquiryDTO> selectInquiryList(SelectCriteria selectCriteria);
-    void registInquiry(InquiryDTO inquiry);
+
+    void insertInquiry(InquiryDTO inquiry);
+
 
 }
 
