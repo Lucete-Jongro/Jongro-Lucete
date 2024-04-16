@@ -2,6 +2,9 @@ package com.lucete.comprehensive.user.member.controller;
 
 import com.lucete.comprehensive.user.member.model.dto.SignUpDTO;
 import com.lucete.comprehensive.user.member.model.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,36 +13,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-    @RequestMapping("/user")
-    public class MemberController {
+@RequestMapping("/user")
+public class MemberController {
+    @Autowired
     private MemberService memberService;
 
 
 
-        @GetMapping("/signup")
-        public void signup() {}
+    @GetMapping("/signup")
+    public void signup() {}
 
-        @PostMapping("/signup")
-        public ModelAndView signup(ModelAndView mv, @ModelAttribute SignUpDTO signupDTO) {
+    @PostMapping("/signup")
+    public ModelAndView signup(ModelAndView mv, @ModelAttribute SignUpDTO signupDTO) {
 
-            int result = memberService.regist(signupDTO);
+        int result = memberService.regist(signupDTO);
 
-            String message = "";
+        String message = "";
 
-            if (result > 0) {
-                message = "회원가입이 정상적으로 완료되었습니다.";
-                mv.setViewName("auth/login");
-            } else {
-                message = "회원가입에 실패하였습니다.";
-                mv.setViewName("user/signup");
-            }
-
-            mv.addObject("message", message);
-
-            return mv;
+        if (result > 0) {
+            message = "회원가입이 정상적으로 완료되었습니다.";
+            mv.setViewName("auth/login");
+        } else {
+            message = "회원가입에 실패하였습니다.";
+            mv.setViewName("user/signup");
         }
-        @GetMapping("/regist")
-        public void registPage(){}
 
+        mv.addObject("message", message);
+
+        return mv;
     }
+
+
+}
 

@@ -13,7 +13,7 @@
     </resultMap>
 
     <insert id="regist" parameterType="com.lucete.comprehensive.user.member.model.dto.SignUpDTO">
-        INSERT INTO TBL_USER (
+        INSERT INTO MEMBER_INFO (
         MEM_ID
         ,MEM_NAME
         ,PASSWORD
@@ -31,14 +31,14 @@
         )
     </insert>
 
-    <select id="findByUsername" resultMap="login">
+    <select id="findMem" resultMap="login">
         SELECT
         MEM_NO
         ,MEM_ID
-        ,USER_NAME
+        ,MEM_NAME
         ,PASSWORD
         ,ADMIN_AUTHORITY
-        FROM  TBL_USER
+        FROM  MEMBER_INFO
         WHERE  MEM_ID = #{ memId }
     </select>
 </mapper>

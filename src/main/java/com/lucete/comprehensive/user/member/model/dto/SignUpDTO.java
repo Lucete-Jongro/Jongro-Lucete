@@ -12,7 +12,7 @@ public class SignUpDTO implements Serializable {
     private String address;
 
 
-    public SignUpDTO(String memId, String memName, String password, String email, String phone, String address, Date memDate) {
+    public SignUpDTO(String memId, String memName, String password, String email, String phone, String address) {
         this.memId = memId;
         this.memName = memName;
         this.password = password;
