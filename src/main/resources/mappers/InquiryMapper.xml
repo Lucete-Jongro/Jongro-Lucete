@@ -31,7 +31,7 @@
         </if>
         <where>
             <if test="searchCondition == 'memNo'">
-                b.MEM_NAME LIKE CONCAT('%' #{ searchValue }, '%')
+                b.MEM_NAME LIKE CONCAT('%', #{ searchValue }, '%')
             </if>
             <if test="searchCondition == 'title'">
                 a.INQUIRY_TITLE LIKE CONCAT('%', #{ searchValue }, '%')
@@ -41,5 +41,49 @@
             </if>
         </where>
     </select>
+
+    <select id="selectInquiryList" resultMap="inquiryResultMap">
+        SELECT
+            a.INQUIRY_NO,
+            a.INQUIRY_TITLE,
+            a.INQUIRY_CONTENT,
+            a.INQUIRY_DATE,
+            a.INQUIRY_RE_STATUS,
+            a.INQUIRY_CATEGORY,
+            a.INQUIRY_UPDATE,
+            b.MEM_NAME,
+            a.INQUIRY_DELETE_STATUS
+        FROM
+            inquiry a
+        JOIN
+            member_info b ON(a.MEM_NO = b.MEM_NO)
+        <where>
+            <if test="searchCondition == 'memNo'">
+                b.MEM_NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'title'">
+                a.INQUIRY_TITLE LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'content'">
+                a.INQUIRY_CONTENT LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+        </where>
+        ORDER BY
+            a.INQUIRY_NO DESC
+        LIMIT #{offSet}, #{limit}
+    </select>
+
+    <insert id="registInquiry">
+        INSERT INTO
+                   inquiry
+                            (INQUIRY_TITLE, INQUIRY_CONTENT,INQUIRY_CATEGORY, MEM_NO)
+        VALUES
+                (#{INQUIRY_TITLE}, #{ INQUIRY_CONTENT}, #{ INQUIRY_CATEGORY}, #{MEM_NO})
+        <selectKey keyProperty="inquiryNo" order="AFTER" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+
 
 </mapper>

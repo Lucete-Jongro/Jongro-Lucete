@@ -1,11 +1,15 @@
 package com.lucete.comprehensive.board.inquiry.controller;
 
+import com.lucete.comprehensive.board.inquiry.dto.InquiryDTO;
 import com.lucete.comprehensive.board.inquiry.service.InquiryService;
+import com.lucete.comprehensive.user.member.MemberDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -47,15 +51,17 @@ public class InquiryController {
          model.addAttribute("paging", inquiryListAndPaging.get("paging"));
          model.addAttribute("inquiryList", inquiryListAndPaging.get("inquiryList"));
 
-         return "inquiryList";
+         return "inquiry/inquiryList";
 
      }
      @GetMapping("/regist")
      public String getRegistPage(){
+
         return "inquiry/inquiryRegist";
      }
 
-//     @PostMapping("regist")
+
+//     @PostMapping("/regist")
 //    public String registInquiry(InquiryDTO inquiry, @AuthenticationPrincipal MemberDTO member) {
 //
 //        inquiry.setMemNo(member);
@@ -63,13 +69,8 @@ public class InquiryController {
 //
 //        inquiryService.registInquiry(inquiry);
 //
-//        return "redirect:/inquiry/list";
+//        return "redirect:/inquiry/List";
 //     }
-
-
-
-
-
 
 
 }
