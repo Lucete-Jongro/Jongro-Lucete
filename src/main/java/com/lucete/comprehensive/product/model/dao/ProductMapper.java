@@ -1,6 +1,7 @@
 package com.lucete.comprehensive.product.model.dao;
 
 import com.lucete.comprehensive.common.file.FileDTO;
+import com.lucete.comprehensive.common.paging.SelectCriteria;
 import com.lucete.comprehensive.product.model.dto.ProductDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,4 +15,8 @@ public interface ProductMapper {
     void insertProduct(ProductDTO productDTO);
 
     void insertImage(FileDTO fileDTO);
+
+    int selectTotalCount(Map<String, String> searchMap);
+
+    List<ProductDTO> selectProductList(SelectCriteria selectCriteria);
 }
