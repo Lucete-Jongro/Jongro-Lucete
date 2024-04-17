@@ -1,5 +1,6 @@
 package com.lucete.comprehensive.board.inquiry.dto;
 
+import com.lucete.comprehensive.user.member.MemberDTO;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
@@ -14,13 +15,14 @@ public class InquiryDTO {
     private char inquiryReStatus;
     private String inquiryCategory;
     private int memNo;
+    private String memName;
     private LocalDateTime inquiryUpdate;
     private char inquiryDeleteStatus;
 
     public InquiryDTO() {
     }
 
-    public InquiryDTO(int inquiryNo, String inquiryTitle, String inquiryContent, LocalDateTime inquiryDate, char inquiryReStatus, String inquiryCategory, int memNo, LocalDateTime inquiryUpdate, char inquiryDeleteStatus) {
+    public InquiryDTO(int inquiryNo, String inquiryTitle, String inquiryContent, LocalDateTime inquiryDate, char inquiryReStatus, String inquiryCategory, int memNo, String memName, LocalDateTime inquiryUpdate, char inquiryDeleteStatus) {
         this.inquiryNo = inquiryNo;
         this.inquiryTitle = inquiryTitle;
         this.inquiryContent = inquiryContent;
@@ -28,6 +30,7 @@ public class InquiryDTO {
         this.inquiryReStatus = inquiryReStatus;
         this.inquiryCategory = inquiryCategory;
         this.memNo = memNo;
+        this.memName = memName;
         this.inquiryUpdate = inquiryUpdate;
         this.inquiryDeleteStatus = inquiryDeleteStatus;
     }
@@ -88,6 +91,14 @@ public class InquiryDTO {
         this.memNo = memNo;
     }
 
+    public String getMemName() {
+        return memName;
+    }
+
+    public void setMemName(String memName) {
+        this.memName = memName;
+    }
+
     public LocalDateTime getInquiryUpdate() {
         return inquiryUpdate;
     }
@@ -114,6 +125,7 @@ public class InquiryDTO {
                 ", inquiryReStatus=" + inquiryReStatus +
                 ", inquiryCategory='" + inquiryCategory + '\'' +
                 ", memNo=" + memNo +
+                ", memName='" + memName + '\'' +
                 ", inquiryUpdate=" + inquiryUpdate +
                 ", inquiryDeleteStatus=" + inquiryDeleteStatus +
                 '}';

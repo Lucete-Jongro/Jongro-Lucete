@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -164,17 +164,16 @@
         <tbody>
         <tr class="" style="height: 40px;">
             <th>제목</th>
-            <td colspan="3">원데이 클래스 과정 문의합니다.</td>
+            <td colspan="3" th:text="${ inquiry.inquiryTitle }"></td>
         </tr>
         <tr class="article-info">
             <th>글쓴이</th>
-            <td>서미래</td>
+<!--            <td th:text="${ memName }"></td>-->
             <th>날짜</th>
-            <td>DATE 2024-01-17 17:52:50</td>
+            <td th:text ="${#temporals.format(inquiry.inquiryDate, 'yyyy.MM.dd')}"></td>
         </tr>
         <tr class="article-body">
-            <td colspan="4">안녕하세요.<br>
-                원데이 클래스 할 때 각인도 원하는 대로 할 수 있나요?<br> 어느정도 각인까지 가능한지 궁금합니다. </td>
+            <td colspan="4" th:text="${ inquiry.inquiryContent}"></td>
         </tr>
         </tbody>
     </table>
@@ -184,36 +183,37 @@
     <!-- 수정, 삭제 버튼 + 모달창
          수정 부분 JS 추가 필요 -->
     <div class="b2">
-        <button id="button-submit2" onclick="openDeleteModal()">삭제</button>
+        <button id="button-submit2"  th:onclick="|location.href='/inquiry/delete?inquiryNo=${inquiry.inquiryNo}'|">삭제</button>
         <button id="button-submit3" onclick="">수정</button>
 
     </div>
 
-    <div id="savemodal" class="modal" style="display: none;">
-        <div class="modal_content" style="width: 200px;">
-            <p>삭제 하시겠습니까?</p>
-            <p></p>
-            <br>
+<!--    <div id="savemodal" class="modal" style="display: none;">-->
+<!--        <div class="modal_content" style="width: 200px;">-->
+<!--            <p>삭제 하시겠습니까?</p>-->
+<!--            <p></p>-->
+<!--            <br>-->
 
-            <button id="save_button" onclick="deleteyes()">네</button>
-            <button id="cancel_button" onclick="closeModal()">아니오</button>
-        </div>
-    </div>
+<!--            <button id="save_button" onclick="deleteyes()">네</button>-->
+<!--            <button id="cancel_button" onclick="closeModal()">아니오</button>-->
+<!--        </div>-->
+<!--    </div>-->
 
-    <script>
-        function openDeleteModal() {
-            document.getElementById("savemodal").style.display = "block";
-        }
+<!--    <script>-->
+<!--        function openDeleteModal() {-->
+<!--            document.getElementById("savemodal").style.display = "block";-->
+<!--        }-->
 
-        function closeModal() {
-            document.getElementById("savemodal").style.display = "none";
-        }
+<!--        function closeModal() {-->
+<!--            document.getElementById("savemodal").style.display = "none";-->
+<!--        }-->
 
-        function deleteyes() {
-            // 저장된 정보를 조회페이지에 반영하는 로직 추가하면됨
-            alert("삭제가 완료 되었습니다.  ")
-            closeModal();
-        }
+<!--        function deleteyes() {-->
+
+<!--            alert("삭제가 완료 되었습니다. ")-->
+<!--            closeModal();-->
+<!--        }-->
+
     </script>
     <br>
 
@@ -233,8 +233,6 @@
     </table>
 </div>
 
-
-</div>
 
 
 <!-- 공백용 -->

@@ -2,9 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>inquiryDelete</title>
 </head>
 <body>
+<script>
+    function removeInquiry(inquiryNo) {
 
+        fetch('/inquiry/removeInquiry', {
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json; charset=UTF-8'
+            },
+            body : JSON.stringify({ inquiryNo })
+        })
+            .catch(error => console.log(error));
+
+    }
+
+</script>
 </body>
 </html>

@@ -156,7 +156,7 @@
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Library</li>
 
             <li class="category"><a href="ONEDAY_CLASS_mainview .html">원데이 클래스</a></li>
-            <li class="category"><a href="inquiry/list">게시판</a></li>
+            <li class="category"><a href="/inquiry/list">게시판</a></li>
             <li class="category"><a href="NOTICE_01mainview.html">공지사항</a></li>
             <br><br><br><br><br><br><br>
         </ul>
@@ -187,14 +187,15 @@
             <span class="a3">분류</span>
             <br>
             <!-- 작성자 회원 번호 -->
-            <div><input type="hidden" style="width: 220px; height: 24px;" th:text="${ memNo }">
+            <div>
+<!--                <input type="hidden" style="width: 220px; height: 24px;" th:text="">-->
 
 
                 <select name="inquiryCategory" style="width: 125px; height: 24px;" id="cs1">
-                    <option value="nomal">일반</option>
-                    <option value="product">상품</option>
-                    <option value="diykit">DIY키트</option>
-                    <option value="onedayclass">원데이 클래스</option>
+                    <option value="일반">일반</option>
+                    <option value="상품">상품</option>
+                    <option value="DIY키트">DIY키트</option>
+                    <option value="원데이클래스">원데이 클래스</option>
 
                 </select>
                 <br>
@@ -209,8 +210,9 @@
     <br>
     <div class="b2">
             <button type="submit" id="button-submit2">등록</button>
-        </div>
+    </div>
     </form>
+</div>
 
 
 

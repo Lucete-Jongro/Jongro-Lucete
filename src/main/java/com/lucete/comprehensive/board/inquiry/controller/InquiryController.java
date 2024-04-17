@@ -10,6 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +42,7 @@ public class InquiryController {
         log.info("inquiryList searchCondition : {}", searchCondition);
         log.info("inquiryList searchValue : {}", searchValue);
 
+
          Map<String,String> searchMap = new HashMap<>();
          searchMap.put("searchCondition", searchCondition);
          searchMap.put("searchValue", searchValue);
@@ -48,7 +50,6 @@ public class InquiryController {
          Map<String, Object> inquiryListAndPaging = inquiryService.selectInquiryList(searchMap,page);
          model.addAttribute("paging", inquiryListAndPaging.get("paging"));
          model.addAttribute("inquiryList", inquiryListAndPaging.get("inquiryList"));
-
          return "inquiry/inquiryList";
 
      }
@@ -59,16 +60,52 @@ public class InquiryController {
      }
 
 
+    /*소비자 문의글 등록 */
      @PostMapping("/regist")
     public String registInquiry(InquiryDTO inquiry) {
 
         //inquiry.setMemNo(member);
         log.info("registInquiry inquiry : {}", inquiry);
 
+         MemberDTO memberDTO = new MemberDTO();
+
+         inquiry.setMemNo(memberDTO.getMemNo());
+         System.out.println("되니!!!!!!!!!!!!!!!!!!!" + inquiry.getMemNo());
+         inquiry.setMemName(memberDTO.getMemName());
+         System.out.println("되니!@@@@@@@@@@@@@@" + inquiry.getMemName());
+
         inquiryService.registInquiry(inquiry);
 
         return "redirect:/inquiry/list";
      }
+
+     /*소비자 문의글 상세 보기 */
+     @GetMapping("/detail")
+    public String getInquiryDetail(@RequestParam int inquiryNo, Model model) {
+
+        InquiryDTO inquiryDetail = inquiryService.selectInquiryDetail(inquiryNo);
+        log.info("inquiryDetail : {}", inquiryDetail);
+        model.addAttribute("inquiry", inquiryDetail);
+
+        return "inquiry/inquiryDetail";
+     }
+
+     /* 소비자 문의글 삭제 */
+     @RequestMapping("/delete")
+     public String removeInquiry(InquiryDTO removeInquiry) {
+
+         log.info("removeInquiry no : {}", removeInquiry.getInquiryNo());
+
+         inquiryService.removeInquiry(removeInquiry);
+
+         return "redirect:/inquiry/list";
+
+     }
+
+
+
+
+
 
 
 

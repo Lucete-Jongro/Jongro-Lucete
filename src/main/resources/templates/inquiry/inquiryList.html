@@ -80,6 +80,9 @@
         .board-table tbody th p {
             display: none;
         }
+        .board-table .th-title {
+            padding-right: 50px;
+        }
 
         * {
             list-style: none;
@@ -206,7 +209,7 @@
                         <td th:text = "${ inquiry.inquiryNo }"></td>
                         <td th:text="${ inquiry.inquiryTitle }"></td>
                         <td th:text="${ inquiry.inquiryCategory }"></td>
-                        <td th:text ="${ inquiry.memNo }"></td>
+                        <td th:text ="${ inquiry.memName }"></td>
                         <td th:text ="${#temporals.format(inquiry.inquiryDate, 'yyyy.MM.dd')}"></td>
                     </tr>
 

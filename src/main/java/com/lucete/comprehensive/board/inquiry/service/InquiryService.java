@@ -45,14 +45,29 @@ public class InquiryService {
         inquiryListPaging.put("paging", selectCriteria);
         inquiryListPaging.put("inquiryList", inquiryList);
 
+
         return inquiryListPaging;
 
     }
 
     public void registInquiry(InquiryDTO inquiry){
-
+        /* 게시글 등록 */
         inquiryMapper.insertInquiry(inquiry);
+
     }
+
+    public InquiryDTO selectInquiryDetail(int inquiryNo){
+        /*게시글 상세 내용 조회 */
+        return inquiryMapper.selectInquiryDetail(inquiryNo);
+    }
+    public void removeInquiry(InquiryDTO removeInquiry) {
+        inquiryMapper.deleteInquiry(removeInquiry);
+
+
+        //회원 로그인 되면 회원만 삭제 접근 하는 기능 넣어야함
+
+    }
+
 
 
 }
