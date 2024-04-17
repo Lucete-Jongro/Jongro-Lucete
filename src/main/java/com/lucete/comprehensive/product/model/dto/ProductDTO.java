@@ -10,7 +10,7 @@ public class ProductDTO {
     private String prodAccount;
     private char prodSoldOut;
     private int prodCategory;
-    private int prodView;
+    private int prodView;   // 조회수
 
     public ProductDTO() {}
 
@@ -88,6 +88,7 @@ public class ProductDTO {
     public void setProdView(int prodView) {
         this.prodView = prodView;
     }
+
 
     @Override
     public String toString() {
