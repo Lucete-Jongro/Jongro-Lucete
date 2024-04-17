@@ -11,7 +11,6 @@ public class SignUpDTO implements Serializable {
     private String phone;
     private String address;
 
-
     public SignUpDTO(String memId, String memName, String password, String email, String phone, String address) {
         this.memId = memId;
         this.memName = memName;
@@ -19,7 +18,6 @@ public class SignUpDTO implements Serializable {
         this.email = email;
         this.phone = phone;
         this.address = address;
-
     }
 
     public String getMemId() {
@@ -69,6 +67,4 @@ public class SignUpDTO implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
-
-
 }

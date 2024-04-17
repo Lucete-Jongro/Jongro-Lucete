@@ -9,4 +9,6 @@ public interface MemberMapper {
     int regist(SignUpDTO signupDTO);
 
     SignInDTO findMem(String MemId);
+    String selectMemberById(String memberId);
+
 }

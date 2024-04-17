@@ -7,14 +7,24 @@ public class SignInDTO implements Serializable {
     private String memId;
     private String memName;
     private String password;
+    private char adminAuthority;
 
 
-    public SignInDTO(int memNo, String memId, String memName, String password) {
+
+    public SignInDTO(int memNo, String memId, String memName, String password, char adminAuthority) {
         this.memNo = memNo;
         this.memId = memId;
         this.memName = memName;
         this.password = password;
+        this.adminAuthority = adminAuthority;
+    }
 
+    public char getAdminAuthority() {
+        return adminAuthority;
+    }
+
+    public void setAdminAuthority(char adminAuthority) {
+        this.adminAuthority = adminAuthority;
     }
 
     public int getMemNo() {

@@ -6,6 +6,7 @@
     <title>LUCETE</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
+    <script src="/js/event.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
@@ -106,53 +107,62 @@
 </header>
 
 
-<form action="/user/signup" method="post">
+<form action="/user/signup" method="post" onsubmit="return checkPasswordMatch();">
     <div>
 
         <h1>Join</h1>
         <br>
-        <label for="regist_name" id="memName">이름 : <input type="text" id="user_name"
-                                             name="MEM_NAME" class="no-border" required>
+        <label for="regist_name" id="memName">이름 :
         </label>
+        <input type="text" id="user_name"
+               name="memName" class="no-border" required>
         <br><br>
         <hr>
         <br>
         <label for="regist_ID" style="display: inline-block;">아이디 :
-            <input type="text" name="MEM_ID" class="no-border" required>
+
+
         </label>
+        <input type="text" name="memId" id="memId" class="no-border" required>
         <!-- 가입완료 alrt창 필요  -->
-        <button type="button" id="checkDuplicate">중복확인</button>
+        <input type="button" value="중복확인" id="duplicationCheck">
+        <div id="idCheckResult"></div>
         <br><br>
 
         <hr>
         <br>
-        <label for="password">비밀번호: <input type="password" id="user_pwd"
-                                           name="PASSWORD" class="no-border" required>
+        <label for="password">비밀번호:
         </label>
+        <input type="password" id="user_pwd"
+               name="password" class="no-border" required>
         <br><br>
         <hr>
         <br>
-        <label for="password">비밀번호 확인 : <input type="password" id="user_pwd_check"
-                                               name="checkPwd" class="no-border" required>
+        <label for="password">비밀번호 확인 :
         </label>
+        <input type="password" id="user_pwd_check"
+               name="password" class="no-border" required>
         <br><br>
         <hr>
         <br>
-        <label for="phone">휴대폰 번호: <input type="text" id="user_phone"
-                                          name="PHONE" class="no-border" required>
+        <label for="phone">휴대폰 번호:
         </label>
+        <input type="text" id="user_phone"
+               name="phone" class="no-border" required>
         <br><br>
         <hr>
         <br>
-        <label for="email">이메일: <input type="email" id="user_email"
-                                       name="EMAIL" class="no-border" required>
+        <label for="email">이메일:
         </label>
+        <input type="email" id="user_email"
+               name="email" class="no-border" required>
         <br><br>
         <hr>
         <br>
-        <label for="address">주소: <textarea id="user_address"
-                                           name="ADDRESS" rows="1" cols="100" class="no-border" required>
-            </textarea> </label>
+        <label for="address">주소:  </label>
+        <textarea id="user_address"
+                  name="address" rows="1" cols="100" class="no-border" required>
+            </textarea>
         <br><br>
         <hr>
     </div>

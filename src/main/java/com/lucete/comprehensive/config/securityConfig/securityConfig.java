@@ -45,7 +45,7 @@ public class securityConfig {
 
         }).formLogin( login -> {
             login.loginPage("/auth/login");
-            login.usernameParameter("memberId");
+            login.usernameParameter("memId");
             login.passwordParameter("password");
             login.defaultSuccessUrl("/", true);
 
