@@ -131,4 +131,22 @@ public class ProductController {
         return "/product/Insert";
 
     }
+
+    @GetMapping("/select")
+    public String productSelect(Model model,
+                                @RequestParam(defaultValue = "1") int page,
+                                @RequestParam(required = false) String searchCondition,
+                                @RequestParam(required = false) String searchValue) {
+
+        Map<String, String> searchMap = new HashMap<>();
+        searchMap.put("searchCondition", searchCondition);
+        searchMap.put("searchValue", searchValue);
+
+        Map<String, Object> productSelectPaging = productService.productSelect(searchMap, page);
+        model.addAttribute("paging", productSelectPaging.get("paging"));
+        model.addAttribute("productList", productSelectPaging.get("productList"));
+
+        model.addAttribute("categories", categoryList);
+        return "product/select";
+    }
 }

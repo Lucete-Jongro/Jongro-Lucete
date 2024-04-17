@@ -3,176 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin MainPage</title>
+    <title>Document</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="/css/mystyle.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
-    <style>
 
-        .chart-container{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .item{
-            width: 700px;
-            font-size: 14px;
-            font-weight: bold;
 
-        }
-        .item-name{
-            width: 700px;
-            font-style: 14px;
-            font-weight: bold;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-        .item-bar{
-            height: 60px;
-            background-color: #6CA7ED;
-        }
-
-        .title-view {
-            padding: 25px 20px 70px;
-            position: relative;
-            margin-left: 25%;
-        }
-
-        table {
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
-
-        .container {
-            width: 1100px;
-            margin: 0 auto;
-        }
-
-        .board-table {
-            font-size: 12px;
-            width: 100%;
-            border-top: 1px solid #ccc;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .board-table a {
-            color: #333;
-            display: inline-block;
-            line-height: 1.4;
-            word-break: break-all;
-            vertical-align: middle;
-        }
-
-        .board-table a:hover {
-            text-decoration: underline;
-        }
-
-        .board-table th {
-            text-align: center;
-        }
-
-        .board-table .th-num {
-            width: 70px;
-            text-align: center;
-        }
-
-        .board-table .th-date {
-            width: 80px;
-        }
-
-        .board-table th,
-        .board-table td {
-            padding: 14px 0;
-        }
-
-        .board-table tbody td {
-            border-top: 1px solid #e7e7e7;
-            text-align: center;
-        }
-
-        .board-table tbody th {
-            padding-left: 28px;
-            padding-right: 14px;
-            border-top: 1px solid #e7e7e7;
-            text-align: left;
-        }
-
-        .board-table tbody th p {
-            display: none;
-        }
-
-        * {
-            list-style: none;
-            text-decoration: none;
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-
-        .clearfix:after {
-            content: '';
-            display: block;
-            clear: both;
-        }
-
-        .container2 {
-            width: 1100px;
-            margin: 0 auto;
-        }
-
-        .category-select-btn {
-            float: right;
-            height: 30px;
-
-        }
-
-        .b-title {
-            margin-top: 50px;
-            width: 300px;
-            font-weight: bold
-        }
-
-        #wrapper {
-            height: auto;
-            min-height: 100%;
-            padding-bottom: 10px;
-
-        }
-
-    </style>
-    <script>
-        const data = [
-            { name: "A", score: 50 },
-            { name: "B", score: 80 },
-            { name: "C", score: 30 },
-            { name: "D", score: 70 },
-            { name: "E", score: 90 }
-        ];
-        const container = document.querySelector(".chart-container");
-        data.forEach(item => {
-            const newItem = document.createElement("div");
-            newItem.classList.add("item");
-            const name = document.createElement("div");
-            name.classList.add("item-name");
-            name.innerText = item.name;
-            const bar = document.createElement("div");
-            bar.classList.add("item-bar");
-            bar.style.width = `${item.score}%`;
-            newItem.appendChild(name);
-            newItem.appendChild(bar);
-            container.appendChild(newItem);
-        });
-    </script>
 </head>
 <body>
 <header class="header">
     <div class="containor">
         <nav class="navbar">
-            <a href="Admin-MainPage.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
+            <a href="index.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
             <ul class="navbar-list" style="list-style: none;">
                 </li>
-                <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href="shoppingcart.html"><img src="/image/장바구니 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href="mypage.html"><img src="/image/마이페이지 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href="login.html"><img src="/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href="index.html"><img src="/image/로그아웃 아이콘.png" height="25"></a></li>
                 <li class="searchBar" >
                     <input type="search">
                     <input type="submit">
@@ -189,13 +39,14 @@
 
 
         <ul class="category-list" style="list-style: none;">
-            <li class="category" style= "font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
+            <li class="category"
+                style="font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
             <br>
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
             <li class="category"><a href="Admin-OrderCategory-Page.html">주문관리</a></li>
             <li class="category"><a href="Admin-ProductCategory-Page.html">상품관리</a></li>
             <br>
-            <li class="category" style="font-weight: bold; background-color: transparent !important;">Customer</li>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Library</li>
 
             <li class="category"><a href="Admin-UserCategory-Page.html">회원관리</a></li>
             <li class="category"><a href="inquiry/adminList">게시판 관리</a></li>
@@ -307,7 +158,11 @@
 
 </div>
 
+
+
+
 <br><br><br><br><br><br><br>
+
 
 <footer class="footer">
     <div class="containor">

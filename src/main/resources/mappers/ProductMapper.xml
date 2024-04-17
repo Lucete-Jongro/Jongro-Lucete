@@ -4,6 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lucete.comprehensive.product.model.dao.ProductMapper">
 
+    <resultMap type="com.lucete.comprehensive.product.model.dto.ProductDTO" id="generalProductResultMap">
+        <id property="prodSerial" column="PROD_SERIAL"/>
+        <association property="prodCategory" resultMap="categoryResultMap"/>
+    </resultMap>
+
+    <resultMap type="com.lucete.comprehensive.product.model.dto.ProductCategoryDTO" id="categoryResultMap">
+        <id property="prodCategory" column="PROD_CATEGORY"/>
+    </resultMap>
+
     <!-- ProductDTO 객체를 삽입하는 SQL 매핑 -->
     <insert id="insertProduct" parameterType="com.lucete.comprehensive.product.model.dto.ProductDTO">
         INSERT INTO product (PROD_NAME, PROD_AMOUNT, PROD_PRICE, PROD_ACCOUNT, PROD_SOLD_OUT, PROD_CATEGORY, PROD_VIEW)
@@ -17,4 +26,59 @@
         INSERT INTO upload_file(FILE_NAME, UPLOAD_DATE, FILE_PASS, FILE_SIZE, PROD_SERIAL, REV_NO)
         VALUES (#{fileName}, #{uploadDate}, #{filePass}, #{fileSize}, #{prodSerial}, #{revNo});
     </insert>
+
+    <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
+
+        SELECT
+                COUNT(*)
+        FROM
+            product a
+<!--        JOIN-->
+<!--            product_category b ON(a.PROD_CATEGORY = b.PROD_CATEGORY)-->
+<!--        <where>-->
+<!--            <if test="searchCondition == 'jewelry'">-->
+<!--                a.PROD_CATEGORY = 1 AND a.PROD_NAME LIKE CONCAT('%', #{ searchValue }, '%')-->
+<!--            </if>-->
+<!--            <if test="searchCondition == 'DIY_KIT'">-->
+<!--                a.PROD_CATEGORY = 2 AND a.PROD_NAME LIKE CONCAT('%', #{ searchValue }, '%')-->
+<!--            </if>-->
+<!--            <if test="searchCondition == 'DIY_mater'">-->
+<!--                a.PROD_CATEGORY = 3 AND a.PROD_NAME LIKE CONCAT('%', #{ searchValue }, '%')-->
+<!--            </if>-->
+        WHERE
+--             AND
+                a.PROD_AMOUNT > 0
+<!--        </where>-->
+
+    </select>
+
+    <select id="selectProductList" resultMap="generalProductResultMap">
+
+        SELECT
+            a.PROD_SERIAL,
+            a.PROD_NAME,
+            b.FILE_PASS,
+            a.PROD_PRICE,
+            a.PROD_AMOUNT
+        FROM
+            product a
+        JOIN
+            upload_file b ON (a.PROD_SERIAL = b.PROD_SERIAL)
+        <where>
+            <if test="searchCondition == 'jewelry'">
+                    a.PROD_CATEGORY = 1 AND a.PROD_NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'DIY_KIT'">
+                    a.PROD_CATEGORY = 2 AND a.PROD_NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'DIY_mater'">
+                    a.PROD_CATEGORY = 3 AND a.PROD_NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+        </where>
+        AND
+            a.PROD_AMOUNT > 0
+        ORDER BY
+            a.PROD_SERIAL DESC
+    </select>
+
 </mapper>
