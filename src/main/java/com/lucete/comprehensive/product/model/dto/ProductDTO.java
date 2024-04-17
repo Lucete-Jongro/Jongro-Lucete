@@ -11,8 +11,6 @@ public class ProductDTO {
     private char prodSoldOut;
     private int prodCategory;
     private int prodView;   // 조회수
-    private String fileName;    // 파일명
-    private String filePass;    // 파일 경로 -> path 오타
 
     public ProductDTO() {}
 
@@ -91,21 +89,6 @@ public class ProductDTO {
         this.prodView = prodView;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public String getFilePass() {
-        return filePass;
-    }
-
-    public void setFilePass(String filePass) {
-        this.filePass = filePass;
-    }
 
     @Override
     public String toString() {
@@ -118,8 +101,6 @@ public class ProductDTO {
                 ", prodSoldOut=" + prodSoldOut +
                 ", prodCategory=" + prodCategory +
                 ", prodView=" + prodView +
-                ", fileName='" + fileName + '\'' +
-                ", filePass='" + filePass + '\'' +
                 '}';
     }
 }

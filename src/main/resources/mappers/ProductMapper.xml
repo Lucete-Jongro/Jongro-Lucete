@@ -6,46 +6,15 @@
 
     <!-- ProductDTO 객체를 삽입하는 SQL 매핑 -->
     <insert id="insertProduct" parameterType="com.lucete.comprehensive.product.model.dto.ProductDTO">
-        INSERT INTO
-        product(
-        PROD_SERIAL,
-        PROD_NAME,
-        PROD_AMOUNT,
-        PROD_PRICE ,
-        PROD_ACCOUNT ,
-        PROD_SOLD_OUT ,
-        PROD_CATEGORY ,
-        PROD_VIEW
-        )
-        VALUES(
-        #{prodSerial},
-        #{prodName},
-        #{prodAmount},
-        #{prodPrice},
-        #{prodAccount},
-        #{prodSoldOut},
-        #{prodCategory},
-        #{prodView}
-        )
+        INSERT INTO product (PROD_NAME, PROD_AMOUNT, PROD_PRICE, PROD_ACCOUNT, PROD_SOLD_OUT, PROD_CATEGORY, PROD_VIEW)
+        VALUES (#{prodName}, #{prodAmount}, #{prodPrice}, #{prodAccount}, #{prodSoldOut}, #{prodCategory}, #{prodView});
+        <selectKey keyProperty="prodSerial" order="AFTER" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
 
-    <insert id="uploadFile" parameterType="com.lucete.comprehensive.common.file.FileDTO">
-        INSERT INTO
-        upload_file(
-                    FILE_NAME,
-                    UPLOAD_DATE,
-                    FILE_PASS,
-                    FILE_SIZE,
-                    PROD_SERIAL,
-                    REV_NO
-        )
-        VALUES (
-                #{ fileName },
-                #{ uploadFile },
-                #{ filePass },
-                #{ fileSize },
-                #{ product.prodSerial },
-                #{ revNo }
-               )
+    <insert id="insertImage" parameterType="com.lucete.comprehensive.common.file.FileDTO">
+        INSERT INTO upload_file(FILE_NAME, UPLOAD_DATE, FILE_PASS, FILE_SIZE, PROD_SERIAL, REV_NO)
+        VALUES (#{fileName}, #{uploadDate}, #{filePass}, #{fileSize}, #{prodSerial}, #{revNo});
     </insert>
 </mapper>

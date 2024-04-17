@@ -4,10 +4,14 @@ import com.lucete.comprehensive.common.file.FileDTO;
 import com.lucete.comprehensive.product.model.dto.ProductDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ProductMapper {
-    void insertProduct(@Param("product") ProductDTO product);
+    void insertProduct(ProductDTO productDTO);
 
-    void uploadFile(@Param("fileDTO") FileDTO fileDTO);
+    void insertImage(FileDTO fileDTO);
 }
