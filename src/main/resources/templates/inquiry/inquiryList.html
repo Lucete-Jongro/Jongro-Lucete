@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>inquiryList</title>
     <link rel="stylesheet" th:href="@{ /css/style.css }">
+    <link rel="stylesheet" th:href="@{ /css/mystyle.css }">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
@@ -121,7 +122,7 @@
 <header class="header">
     <div class="containor">
         <nav class="navbar">
-            <a href="index.html"><img src="assets/image/로고 누끼(이름만).png" height="90"></a>
+            <a href="index.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
             <ul class="navbar-list" style="list-style: none;">
 
                 <li class="navicon" id="search"><img src="assets/image/검색 아이콘.png" height="25">
@@ -158,7 +159,7 @@
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Library</li>
 
             <li class="category"><a href="ONEDAY_CLASS_mainview .html">원데이 클래스</a></li>
-            <li class="category"><a href="BOARD_mainview .html">게시판</a></li>
+            <li class="category"><a href="inquiry/list">게시판</a></li>
             <li class="category"><a href="NOTICE_01mainview.html">공지사항</a></li>
             <br><br><br><br><br><br><br>
         </ul>
@@ -184,13 +185,12 @@
             <!-- 카테고리 선택적 조회  -->
             <div class="category-select-btn">
 
-                <select name="category-select" id="cs1" th:change="">
-                    <option value="allselect" th:selected="${selectedCategory == 'allselect'}">전체조회</option>
-                    <option value="nomal" th:selected="${selectedCategory == 'nomal'}">일반</option>
-                    <option value="product" th:selected="${selectedCategory == 'product'}">상품</option>
-                    <option value="diykit" th:selected="${selectedCategory == 'diykit'}">DIY키트</option>
-                    <option value="onedayclass" th:selected="${selectedCategory == 'onedayclass'}">원데이 클래스</option>
-                    <option value="event" th:selected="${selectedCategory == 'event'}">이벤트</option>
+                <select name="category-select" id="searchCondition">
+                    <option value="allselect" th:selected="${ paging.searchCondition eq'allselect'}">전체조회</option>
+                    <option value="nomal" th:selected="${ paging.searchCondition eq 'nomal'}">일반</option>
+                    <option value="product" th:selected="${ paging.searchCondition eq 'product'}">상품</option>
+                    <option value="diykit" th:selected="${ paging.searchCondition eq 'diykit'}">DIY키트</option>
+                    <option value="onedayclass" th:selected="${ paging.searchCondition eq 'onedayclass'}">원데이 클래스</option>
                 </select>
             </div>
         </div>
@@ -213,8 +213,8 @@
                         <td th:text = "${inquiry.inquiryNo}"></td>
                         <th><a href="@{/inquiry/detail(inquiryNo=${inquiry.inquiryNo}}" th:text="${inquiry.inquiryTitle}"></a>
                         </th>
-                        <td th:text="${inquiry.category.categoryName}"></td>
-                        <td th:text ="${inquiry.writer.memNo}"></td>
+                        <td th:text="${inquiry.inquiryCategory}"></td>
+                        <td th:text ="${inquiry.memName}"></td>
                         <td th:text ="${#temporals.format(inquiry.createdDate, 'yyyy.MM.dd')}"></td>
                     </tr>
 
@@ -224,12 +224,77 @@
         </div>
         <div class="hp_mb20"></div>
         <div>
-            <button onclick="location.href='inquiryWrite.html'" class="button-write">글쓰기</button>
+            <button type="button" id="inquiryRegist" class="button-write">글쓰기</button>
         </div>
 
     </div>
 
-    <!-- 공백용 -->
+    <!-- 페이징 바 -->
+    <div id="paging" align="center" style="margin-top: 20px;">
+
+        <th:block
+                th:if="${ paging.searchCondition != null and paging.searchValue != null }">
+            <!-- 맨 앞으로 이동 -->
+            <button
+                    th:onclick="'location.href=\'/inquiry/list?page=1&searchCondition=' + @{${paging.searchCondition}} + '&searchValue=' + @{${paging.searchValue}} + '\''">&lt;&lt;</button>
+
+            <!-- 이전 페이지로 이동 -->
+            <button
+                    th:onclick="'location.href=\'/inquiry/list?page=' + @{${paging.page - 1}} + '&searchCondition=' + @{${paging.searchCondition}} + '&searchValue=' + @{${paging.searchValue}} + '\''"
+                    th:disabled="${ paging.page <= 1 }">&lt;</button>
+
+            <!-- 숫자 버튼 -->
+            <th:block
+                    th:each="page : ${ #numbers.sequence(paging.startPage, paging.endPage)}">
+                <button
+                        th:onclick="'location.href=\'/inquiry/list?page=' + @{${page}} + '&searchCondition=' + @{${paging.searchCondition}} + '&searchValue=' + @{${paging.searchValue}} + '\''"
+                        th:text="${ page }" th:disabled="${ paging.page eq page }">
+                </button>
+            </th:block>
+
+            <!-- 다음 페이지로 이동 -->
+            <button
+                    th:onclick="'location.href=\'/inquiry/list?page=' + @{${paging.page + 1}} + '&searchCondition=' + @{${paging.searchCondition}} + '&searchValue=' + @{${paging.searchValue}} + '\''"
+                    th:disabled="${ paging.page >= paging.maxPage }">></button>
+
+            <!-- 맨 끝으로 이동 -->
+            <button
+                    th:onclick="'location.href=\'/inquiry/list?page=' + @{${paging.maxPage}} + '&searchCondition=' + @{${paging.searchCondition}} + '&searchValue=' + @{${paging.searchValue}} + '\''">>></button>
+
+        </th:block>
+
+        <th:block
+                th:if="${ paging.searchCondition == null  || paging.searchValue == null }">
+            <!-- 맨 앞으로 이동 -->
+            <button th:onclick="'location.href=\'/inquiry/list?page=1\''">&lt;&lt;</button>
+
+            <!-- 이전 페이지로 이동 -->
+            <button
+                    th:onclick="'location.href=\'/inquiry/list?page=' + @{${paging.page - 1}} + '\''"
+                    th:disabled="${ paging.page <= 1 }">&lt;</button>
+
+            <!-- 숫자 버튼 -->
+            <th:block
+                    th:each="page : ${ #numbers.sequence(paging.startPage, paging.endPage)}">
+                <button
+                        th:onclick="'location.href=\'/board/list?page=' + @{${page}} + '\''"
+                        th:text="${ page }" th:disabled="${ paging.page eq page }">
+                </button>
+            </th:block>
+
+            <!-- 다음 페이지로 이동 -->
+            <button
+                    th:onclick="'location.href=\'/inquiry/list?page=' + @{${paging.page + 1}} + '\''"
+                    th:disabled="${ paging.page >= paging.maxPage }">></button>
+
+            <!-- 맨 끝으로 이동 -->
+            <button
+                    th:onclick="'location.href=\'/board/list?page=' + @{${paging.maxPage}} + '\''">>></button>
+        </th:block>
+
+    </div>
+
+        <!-- 공백용 -->
     <div id="wrapper">
         <div></div>
     </div>
