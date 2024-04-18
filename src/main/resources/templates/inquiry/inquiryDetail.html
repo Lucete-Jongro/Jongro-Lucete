@@ -54,7 +54,7 @@
 
                 border-radius: 5px;
             }
-            #button-submit3 {
+            #updateBtn {
                 background: #EEEEEE;
                 color: black;
                 float: right;
@@ -63,7 +63,8 @@
                 height: 25px;
 
                 border-radius: 5px;
-                margin-right: 40px;
+                margin-right: 30px;
+
             }
 
             .cell {
@@ -164,7 +165,8 @@
         <tbody>
         <tr class="" style="height: 40px;">
             <th>제목</th>
-            <td colspan="3" th:text="${ inquiry.inquiryTitle }"></td>
+            <td colspan="3" class="inquiry-title" th:text="${ inquiry.inquiryTitle }"></td>
+
         </tr>
         <tr class="article-info">
             <th>글쓴이</th>
@@ -181,11 +183,14 @@
     <br>
 
     <!-- 회원 본인이 쓴 글을 눌렀을 떄만 수정/삭제 버튼 보이게 수정필요  -->
+    <div class="b2">
     <form action="/inquiry/delete" method="GET" onsubmit="return delete_event()">
-        <input type="hidden" name="inquiryNo" th:value="${inquiry.inquiryNo}">
-         <div class="b2">
+        <input type="hidden" name="inquiryNo" th:value="${inquiry.inquiryNo}"/>
             <button type="submit" id="button-submit2">삭제</button>
-<!--            <button id="button-submit3" onclick="">수정</button>-->
+    </form>
+    <div>
+        <button type="button" id="updateBtn" th:onclick="'location.href=\'/inquiry/update/' + ${inquiry.inquiryNo} + '\''">수정</button>
+    </div>
         </div>
         <script type="text/javascript">
             function delete_event() {
@@ -197,35 +202,6 @@
             }
         </script>
 
-    </form>
-
-<!--    <div id="savemodal" class="modal" style="display: none;">-->
-<!--        <div class="modal_content" style="width: 200px;">-->
-<!--            <p>삭제 하시겠습니까?</p>-->
-<!--            <p></p>-->
-<!--            <br>-->
-
-<!--            <button id="save_button" onclick="deleteyes()">네</button>-->
-<!--            <button id="cancel_button" onclick="closeModal()">아니오</button>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--    <script>-->
-<!--        function openDeleteModal() {-->
-<!--            document.getElementById("savemodal").style.display = "block";-->
-<!--        }-->
-
-<!--        function closeModal() {-->
-<!--            document.getElementById("savemodal").style.display = "none";-->
-<!--        }-->
-
-<!--        function deleteyes() {-->
-
-<!--            alert("삭제가 완료 되었습니다. ")-->
-<!--            closeModal();-->
-<!--        }-->
-
-    </script>
     <br>
 
     <table>

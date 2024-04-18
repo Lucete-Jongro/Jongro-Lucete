@@ -70,6 +70,14 @@ public class InquiryService {
 
     }
 
+    public void updateInquiry(InquiryDTO inquiryNo) {
+
+        /* 게시글 수정 */
+        inquiryMapper.updateInquiry(inquiryNo);
+
+        //회원 로그인 되면 회원만 수정 접근 하는 기능 넣어야함
+    }
+
 
 
 }

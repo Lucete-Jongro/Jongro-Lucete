@@ -31,17 +31,16 @@ public class InquiryController {
         this.inquiryService = inquiryService;
     }
 
+    /* 문의글 리스트 조회 */
      @GetMapping("/list")
     public String getInquiryList(@RequestParam(defaultValue = "1") int page,
                                  @RequestParam(required = false) String searchCondition,
                                  @RequestParam(required = false) String searchValue,
                                  Model model) {
 
-
         log.info("inquiryList page : {}", page);
         log.info("inquiryList searchCondition : {}", searchCondition);
         log.info("inquiryList searchValue : {}", searchValue);
-
 
          Map<String,String> searchMap = new HashMap<>();
          searchMap.put("searchCondition", searchCondition);
@@ -58,7 +57,6 @@ public class InquiryController {
 
         return "inquiry/inquiryRegist";
      }
-
 
     /*소비자 문의글 등록 */
      @PostMapping("/regist")
@@ -100,10 +98,32 @@ public class InquiryController {
 
      }
 
+     /* 업데이트 페이지 반환*/
+    @GetMapping("/update/{inquiryNo}")
+    public String inquiryEdit(@PathVariable("inquiryNo") int inquiryNo, Model model){
 
+        model.addAttribute("inquiry",inquiryService.selectInquiryDetail(inquiryNo));
 
+        return "/inquiry/inquiryUpdate";
+    }
 
+     /* 소비자 문의글 수정 페이지 */
+    @PostMapping("/update/{inquiryNo}")
+    public String inquiryUpdate(@PathVariable("inquiryNo") int inquiryNo, InquiryDTO inquiry) {
 
+        /*현재의 문의글을 반환*/
+        InquiryDTO inquiryTemp = inquiryService.selectInquiryDetail(inquiryNo);
+
+        /*수정 내용 덮기*/
+        inquiryTemp.setInquiryTitle(inquiry.getInquiryTitle());
+        System.out.println(inquiryTemp.getInquiryTitle());
+        inquiryTemp.setInquiryContent(inquiry.getInquiryContent());
+
+        /*업데이트 */
+        inquiryService.updateInquiry(inquiryTemp);
+
+        return "redirect:/inquiry/list";
+    }
 
 
 

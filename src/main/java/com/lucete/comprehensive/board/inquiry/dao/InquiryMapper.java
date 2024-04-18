@@ -21,6 +21,8 @@ public interface InquiryMapper {
 
     void deleteInquiry(int inquiryNo);
 
+
+    void updateInquiry(InquiryDTO inquiryNo);
 }
 
 

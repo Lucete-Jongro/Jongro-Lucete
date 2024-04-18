@@ -115,9 +115,20 @@
     </select>
 
     <delete id="deleteInquiry">
+<!-- status 부분만 변경해서 update 하여 데이터는 남기려 했으나 안되서
+     delete로 데이터까지 삭제 되는 방향으로 진행  -->
     DELETE FROM inquiry
     WHERE INQUIRY_NO = #{ inquiryNo }
     </delete>
+
+    <update id="updateInquiry">
+        UPDATE inquiry
+        SET INQUIRY_TITLE = #{ inquiryTitle },
+            INQUIRY_CONTENT = #{ inquiryContent },
+            INQUIRY_UPDATE = NOW()
+        WHERE
+            INQUIRY_NO = #{inquiryNo}
+    </update>
 
 
 </mapper>
