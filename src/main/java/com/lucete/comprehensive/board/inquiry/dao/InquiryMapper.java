@@ -19,7 +19,7 @@ public interface InquiryMapper {
     InquiryDTO selectInquiryDetail(int inquiryNo);
 
 
-    void deleteInquiry(InquiryDTO removeInquiry);
+    void deleteInquiry(int inquiryNo);
 
 }
 

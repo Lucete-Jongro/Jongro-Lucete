@@ -180,13 +180,24 @@
 
     <br>
 
-    <!-- 수정, 삭제 버튼 + 모달창
-         수정 부분 JS 추가 필요 -->
-    <div class="b2">
-        <button id="button-submit2"  th:onclick="|location.href='/inquiry/delete?inquiryNo=${inquiry.inquiryNo}'|">삭제</button>
-        <button id="button-submit3" onclick="">수정</button>
+    <!-- 회원 본인이 쓴 글을 눌렀을 떄만 수정/삭제 버튼 보이게 수정필요  -->
+    <form action="/inquiry/delete" method="GET" onsubmit="return delete_event()">
+        <input type="hidden" name="inquiryNo" th:value="${inquiry.inquiryNo}">
+         <div class="b2">
+            <button type="submit" id="button-submit2">삭제</button>
+<!--            <button id="button-submit3" onclick="">수정</button>-->
+        </div>
+        <script type="text/javascript">
+            function delete_event() {
+                if(confirm("정말 삭제하시겠습니까?") == true) {
+                    return true;
+                }else {
+                    return false;
+                }
+            }
+        </script>
 
-    </div>
+    </form>
 
 <!--    <div id="savemodal" class="modal" style="display: none;">-->
 <!--        <div class="modal_content" style="width: 200px;">-->

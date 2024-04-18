@@ -68,6 +68,8 @@
             <if test="searchCondition == 'content'">
                 a.INQUIRY_CONTENT LIKE CONCAT('%', #{ searchValue }, '%')
             </if>
+            AND
+            a.INQUIRY_DELETE_STATUS = 'N'
         </where>
         ORDER BY
             a.INQUIRY_NO DESC
@@ -112,14 +114,10 @@
        a.INQUIRY_DELETE_STATUS = 'N'
     </select>
 
-    <update id="deleteInquiry">
-        UPDATE
-            inquiry
-        SET
-            INQUIRY_DELETE_STATUS = 'Y'
-        WHERE
-            INQUIRY_NO = #{ inquiryNo }
-    </update>
+    <delete id="deleteInquiry">
+    DELETE FROM inquiry
+    WHERE INQUIRY_NO = #{ inquiryNo }
+    </delete>
 
 
 </mapper>

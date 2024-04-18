@@ -60,8 +60,10 @@ public class InquiryService {
         /*게시글 상세 내용 조회 */
         return inquiryMapper.selectInquiryDetail(inquiryNo);
     }
-    public void removeInquiry(InquiryDTO removeInquiry) {
-        inquiryMapper.deleteInquiry(removeInquiry);
+
+    public void deleteInquiry(int inquiryNo) {
+        /* 게시글 삭제 */
+        inquiryMapper.deleteInquiry(inquiryNo);
 
 
         //회원 로그인 되면 회원만 삭제 접근 하는 기능 넣어야함

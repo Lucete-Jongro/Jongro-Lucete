@@ -92,11 +92,9 @@ public class InquiryController {
 
      /* 소비자 문의글 삭제 */
      @RequestMapping("/delete")
-     public String removeInquiry(InquiryDTO removeInquiry) {
+     public String inquiryDelete(InquiryDTO inquiry) {
 
-         log.info("removeInquiry no : {}", removeInquiry.getInquiryNo());
-
-         inquiryService.removeInquiry(removeInquiry);
+         inquiryService.deleteInquiry(inquiry.getInquiryNo());
 
          return "redirect:/inquiry/list";
 
