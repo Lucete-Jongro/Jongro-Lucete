@@ -22,4 +22,6 @@ public interface ProductMapper {
     List<ProductDTO> selectProductList(SelectCriteria selectCriteria);
 
     List<ProductCategoryDTO> findCategory();
+
+    List<String> getAllCategory();
 }
