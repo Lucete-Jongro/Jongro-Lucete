@@ -45,13 +45,39 @@ public class InquiryService {
         inquiryListPaging.put("paging", selectCriteria);
         inquiryListPaging.put("inquiryList", inquiryList);
 
+
         return inquiryListPaging;
 
     }
 
     public void registInquiry(InquiryDTO inquiry){
+        /* 게시글 등록 */
+        inquiryMapper.insertInquiry(inquiry);
 
-        inquiryMapper.registInquiry(inquiry);
     }
+
+    public InquiryDTO selectInquiryDetail(int inquiryNo){
+        /*게시글 상세 내용 조회 */
+        return inquiryMapper.selectInquiryDetail(inquiryNo);
+    }
+
+    public void deleteInquiry(int inquiryNo) {
+        /* 게시글 삭제 */
+        inquiryMapper.deleteInquiry(inquiryNo);
+
+
+        //회원 로그인 되면 회원만 삭제 접근 하는 기능 넣어야함
+
+    }
+
+    public void updateInquiry(InquiryDTO inquiryNo) {
+
+        /* 게시글 수정 */
+        inquiryMapper.updateInquiry(inquiryNo);
+
+        //회원 로그인 되면 회원만 수정 접근 하는 기능 넣어야함
+    }
+
+
 
 }

@@ -20,11 +20,12 @@
         <id property="memNo" column="MEM_NO"/>
     </resultMap>
 
+
     <select id="selectTotalCount" resultType="int" parameterType="hashmap">
         SELECT
             COUNT(*)
         FROM
-            inquiry
+            inquiry a
         <if test="searchCondition == 'memNo'">
         JOIN
             member_info b ON (a.MEM_NO = b.MEM_NO)
@@ -67,23 +68,67 @@
             <if test="searchCondition == 'content'">
                 a.INQUIRY_CONTENT LIKE CONCAT('%', #{ searchValue }, '%')
             </if>
+            AND
+            a.INQUIRY_DELETE_STATUS = 'N'
         </where>
         ORDER BY
             a.INQUIRY_NO DESC
         LIMIT #{offSet}, #{limit}
     </select>
 
-    <insert id="registInquiry">
+    <insert id="insertInquiry" parameterType="com.lucete.comprehensive.board.inquiry.dto.InquiryDTO">
         INSERT INTO
-                   inquiry
-                            (INQUIRY_TITLE, INQUIRY_CONTENT,INQUIRY_CATEGORY, MEM_NO)
-        VALUES
-                (#{INQUIRY_TITLE}, #{ INQUIRY_CONTENT}, #{ INQUIRY_CATEGORY}, #{MEM_NO})
-        <selectKey keyProperty="inquiryNo" order="AFTER" resultType="int">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
+            inquiry
+                (INQUIRY_TITLE, INQUIRY_CONTENT,INQUIRY_CATEGORY, INQUIRY_DATE, MEM_NO)
+        values
+                (#{ inquiryTitle },
+                #{ inquiryContent },
+                #{ inquiryCategory },
+                NOW(),
+                (SELECT
+                    MEM_NO
+                from
+                    member_info
+                where
+                    EMAIL = 'janesmith@example.com'))
     </insert>
 
+    <select id="selectInquiryDetail" resultMap="inquiryResultMap">
+    SELECT
+        a.INQUIRY_NO,
+        a.INQUIRY_TITLE,
+        a.INQUIRY_CONTENT,
+        a.INQUIRY_DATE,
+        a.INQUIRY_RE_STATUS,
+        a.INQUIRY_CATEGORY,
+        a.INQUIRY_UPDATE,
+        b.MEM_NAME,
+        a.INQUIRY_DELETE_STATUS
+    FROM
+        inquiry a
+    JOIN
+        member_info b ON (a.MEM_NO = b.MEM_NO)
+    WHERE
+        a.INQUIRY_NO = #{ inquiryNo }
+    AND
+       a.INQUIRY_DELETE_STATUS = 'N'
+    </select>
+
+    <delete id="deleteInquiry">
+<!-- status 부분만 변경해서 update 하여 데이터는 남기려 했으나 안되서
+     delete로 데이터까지 삭제 되는 방향으로 진행  -->
+    DELETE FROM inquiry
+    WHERE INQUIRY_NO = #{ inquiryNo }
+    </delete>
+
+    <update id="updateInquiry">
+        UPDATE inquiry
+        SET INQUIRY_TITLE = #{ inquiryTitle },
+            INQUIRY_CONTENT = #{ inquiryContent },
+            INQUIRY_UPDATE = NOW()
+        WHERE
+            INQUIRY_NO = #{inquiryNo}
+    </update>
 
 
 </mapper>

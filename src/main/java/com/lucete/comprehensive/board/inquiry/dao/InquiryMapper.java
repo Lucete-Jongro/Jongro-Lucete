@@ -7,12 +7,23 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 import java.util.Map;
 
+
 @Mapper
 public interface InquiryMapper {
 
     int selectTotalCount(Map<String, String> searchMap);
     List<InquiryDTO> selectInquiryList(SelectCriteria selectCriteria);
-    void registInquiry(InquiryDTO inquiry);
 
+    void insertInquiry(InquiryDTO inquiry);
+
+    InquiryDTO selectInquiryDetail(int inquiryNo);
+
+
+    void deleteInquiry(int inquiryNo);
+
+
+    void updateInquiry(InquiryDTO inquiryNo);
 }
+
+
 
