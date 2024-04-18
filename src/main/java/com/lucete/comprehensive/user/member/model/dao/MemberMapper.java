@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MemberMapper {
     int regist(SignUpDTO signupDTO);
 
-    SignInDTO findMem(String MemId);
+    SignInDTO findByUsername(String username);
     String selectMemberById(String memberId);
 
 }

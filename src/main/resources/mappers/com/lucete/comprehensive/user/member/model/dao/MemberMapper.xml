@@ -31,24 +31,15 @@
         )
     </insert>
 
-    <select id="findMem" resultMap="login">
+
+    <select id="findByUsername" resultMap="login">
         SELECT
         MEM_NO
         ,MEM_ID
         ,MEM_NAME
-        ,PASSWORD
-        ,ADMIN_AUTHORITY
+        ,PASSWORD, admin_authority
+
         FROM  MEMBER_INFO
-        WHERE  MEM_ID = #{ memId }
-    </select>
-    <select id="selectMemberById" resultType="string">
-        SELECT
-        MEM_ID
-        FROM
-        MEMBER_INFO
-        WHERE
-        MEM_YN = 'Y'
-        AND
-        MEM_ID = #{ memId }
+        WHERE  MEM_ID = #{memName}
     </select>
 </mapper>

@@ -38,17 +38,16 @@ public class securityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         /* 요청에 대한 권한 체크 */
         http.authorizeHttpRequests( auth -> {
-            auth.requestMatchers("/auth/login", "/user/signup", "/", "/index").permitAll();
+            auth.requestMatchers("/auth/login", "/user/signup", "/auth/fail", "/", "/index").permitAll();
             auth.requestMatchers("/admin/*").hasAnyAuthority(UserRole.ADMIN.getRole());
             auth.requestMatchers("/user/*").hasAnyAuthority(UserRole.USER.getRole());
             auth.anyRequest().authenticated();
 
         }).formLogin( login -> {
             login.loginPage("/auth/login");
-            login.usernameParameter("memId");
-            login.passwordParameter("password");
+            login.usernameParameter("user");
+            login.passwordParameter("pass");
             login.defaultSuccessUrl("/", true);
-
             login.failureHandler(authFailHandler);
 
         }).logout( logout -> {
@@ -65,4 +64,7 @@ public class securityConfig {
 
         return http.build();
     }
-}
+
+
+    }
+

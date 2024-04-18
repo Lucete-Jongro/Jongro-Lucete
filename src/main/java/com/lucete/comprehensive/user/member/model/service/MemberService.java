@@ -36,9 +36,9 @@ public class MemberService {
         return result;
     }
 
-    public SignInDTO findMem(String MemId) {
+    public SignInDTO findByUsername(String username) {
 
-        SignInDTO login = memberMapper.findMem(MemId);
+        SignInDTO login = memberMapper.findByUsername(username);
 
         if(!Objects.isNull(login)) {
             return login;

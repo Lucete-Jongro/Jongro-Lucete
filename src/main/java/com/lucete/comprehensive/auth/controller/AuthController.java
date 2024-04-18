@@ -15,7 +15,8 @@ public class AuthController {
     public void login() {}
 
 
-
+    @GetMapping
+    public void mypage(){}
     @GetMapping("/fail")
     public ModelAndView loginFail(ModelAndView mv, @RequestParam String message) {
         mv.addObject("message", message);
@@ -29,4 +30,6 @@ public class AuthController {
             return "signup"; // Thymeleaf 템플릿 이름을 반환합니다. 여기서는 "signup.html"이라고 가정합니다.
 
         }
+
+
 }
