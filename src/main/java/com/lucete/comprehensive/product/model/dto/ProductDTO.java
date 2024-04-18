@@ -1,6 +1,8 @@
 package com.lucete.comprehensive.product.model.dto;
 
 
+import com.lucete.comprehensive.common.file.FileDTO;
+
 public class ProductDTO {
 
     private int prodSerial;
@@ -12,9 +14,12 @@ public class ProductDTO {
     private int prodCategory;
     private int prodView;   // 조회수
 
+    private FileDTO file;
+    private ProductCategoryDTO productCategoryDTO;
+
     public ProductDTO() {}
 
-    public ProductDTO(int prodSerial, String prodName, int prodAmount, int prodPrice, String prodAccount, char prodSoldOut, int prodCategory, int prodView) {
+    public ProductDTO(int prodSerial, String prodName, int prodAmount, int prodPrice, String prodAccount, char prodSoldOut, int prodCategory, int prodView, FileDTO file, ProductCategoryDTO productCategoryDTO) {
         this.prodSerial = prodSerial;
         this.prodName = prodName;
         this.prodAmount = prodAmount;
@@ -23,6 +28,8 @@ public class ProductDTO {
         this.prodSoldOut = prodSoldOut;
         this.prodCategory = prodCategory;
         this.prodView = prodView;
+        this.file = file;
+        this.productCategoryDTO = productCategoryDTO;
     }
 
     public int getProdSerial() {
@@ -89,6 +96,21 @@ public class ProductDTO {
         this.prodView = prodView;
     }
 
+    public FileDTO getFile() {
+        return file;
+    }
+
+    public void setFile(FileDTO file) {
+        this.file = file;
+    }
+
+    public ProductCategoryDTO getProductCategoryDTO() {
+        return productCategoryDTO;
+    }
+
+    public void setProductCategoryDTO(ProductCategoryDTO productCategoryDTO) {
+        this.productCategoryDTO = productCategoryDTO;
+    }
 
     @Override
     public String toString() {
@@ -101,6 +123,8 @@ public class ProductDTO {
                 ", prodSoldOut=" + prodSoldOut +
                 ", prodCategory=" + prodCategory +
                 ", prodView=" + prodView +
+                ", file=" + file +
+                ", productCategoryDTO=" + productCategoryDTO +
                 '}';
     }
 }

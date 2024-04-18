@@ -31,17 +31,16 @@ public class ProductController {
     @Autowired
     private MessageSource messageSource;
 
-//    @PostMapping("/Insert")
-//    public String insertProduct(ProductDTO product){
-//
-//        productService.insertProduct(product);
-//
-//        return "redirect:/product/Insert";
-//    }
-//    @GetMapping("/Insert")
-//    public String getInsertPage(){
-//        return "product/Insert";
-//    }
+
+    @GetMapping("/Insert")
+    public String getInsertPage(Model model){
+
+        List<ProductCategoryDTO> categoryList = productService.getCategoryList();
+
+        model.addAttribute("categories", categoryList);
+
+        return "product/Insert";
+    }
 
     @PostMapping("/Insert")
     public String insertProductAndImage(ProductDTO product, List<MultipartFile> attachImage) {
@@ -114,24 +113,6 @@ public class ProductController {
     }
 
 
-
-    private List<ProductCategoryDTO> categoryList = new ArrayList<>();
-
-    {
-        categoryList.add(new ProductCategoryDTO(1, "쥬얼리", 1001));
-        categoryList.add(new ProductCategoryDTO(2, "DIY Kit", 1002));
-        categoryList.add(new ProductCategoryDTO(3, "DIY 자재", 1003));
-    }
-
-    @GetMapping("/Insert")
-    public String showInsertProductPage(Model model) {
-
-        model.addAttribute("categories", categoryList);
-
-        return "/product/Insert";
-
-    }
-
     @GetMapping("/select")
     public String productSelect(Model model,
                                 @RequestParam(defaultValue = "1") int page,
@@ -140,13 +121,16 @@ public class ProductController {
 
         Map<String, String> searchMap = new HashMap<>();
         searchMap.put("searchCondition", searchCondition);
+        System.out.println("searchCondition : " + searchCondition);
         searchMap.put("searchValue", searchValue);
+        System.out.println("searchValue : " + searchValue);
+        System.out.println("searchMap : " + searchMap);
 
         Map<String, Object> productSelectPaging = productService.productSelect(searchMap, page);
         model.addAttribute("paging", productSelectPaging.get("paging"));
         model.addAttribute("productList", productSelectPaging.get("productList"));
+        System.out.println("productSelectPaging = " + productSelectPaging);
 
-        model.addAttribute("categories", categoryList);
         return "product/select";
     }
 }

@@ -5,6 +5,7 @@ import com.lucete.comprehensive.common.paging.Pagenation;
 import com.lucete.comprehensive.common.paging.SelectCriteria;
 import com.lucete.comprehensive.product.controller.ProductController;
 import com.lucete.comprehensive.product.model.dao.ProductMapper;
+import com.lucete.comprehensive.product.model.dto.ProductCategoryDTO;
 import com.lucete.comprehensive.product.model.dto.ProductDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +26,15 @@ public class ProductService {
 
     public ProductService(ProductMapper productMapper) {
         this.productMapper = productMapper;
+
     }
 
+    public List<ProductCategoryDTO> getCategoryList() {
+
+        List<ProductCategoryDTO> categoryList = productMapper.findCategory();
+
+        return categoryList;
+    }
 
     public void insertProduct(ProductDTO product) {
 
@@ -48,6 +56,8 @@ public class ProductService {
         int limit = 10;
         int buttonAmount = 5;
         SelectCriteria selectCriteria = Pagenation.getSelectCriteria(page, totalCount, limit, buttonAmount);
+        selectCriteria.setSearchCondition(searchMap.get("searchCondition"));
+        selectCriteria.setSearchValue(searchMap.get("searchValue"));
         System.out.println("selectCriteria = " + selectCriteria);
 
         // 3. 페이지 검색 기준에 맞는 게시글 조회
@@ -60,4 +70,5 @@ public class ProductService {
 
         return productListAndPaging;
     }
+
 }

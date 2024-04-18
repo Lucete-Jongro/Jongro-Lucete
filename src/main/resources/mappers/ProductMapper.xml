@@ -6,12 +6,36 @@
 
     <resultMap type="com.lucete.comprehensive.product.model.dto.ProductDTO" id="generalProductResultMap">
         <id property="prodSerial" column="PROD_SERIAL"/>
-        <association property="prodCategory" resultMap="categoryResultMap"/>
+        <result property="prodName" column="PROD_NAME"/>
+        <result property="prodAmount" column="PROD_AMOUNT"/>
+        <result property="prodPrice" column="PROD_PRICE"/>
+        <result property="prodAccount" column="PROD_ACCOUNT"/>
+        <result property="prodSoldOut" column="PROD_SOLD_OUT"/>
+        <result property="prodCategory" column="PROD_CATEGORY"/>
+        <result property="prodView" column="PROD_VIEW"/>
+        <association property="productCategoryDTO" resultMap="categoryResultMap"/>
+        <association property="file" resultMap="uploadFileResultMap"></association>
     </resultMap>
 
     <resultMap type="com.lucete.comprehensive.product.model.dto.ProductCategoryDTO" id="categoryResultMap">
         <id property="prodCategory" column="PROD_CATEGORY"/>
+        <result property="categoryName" column="CATEGORY_NAME"/>
+        <result property="refCategoryCode" column="REF_CATEGORY_CODE"/>
     </resultMap>
+
+    <resultMap id="uploadFileResultMap" type="com.lucete.comprehensive.common.file.FileDTO">
+        <id property="fileNo" column="FILE_NO"/>
+        <result property="filePass" column="FILE_PASS"/>
+    </resultMap>
+
+
+    <select id="findCategory" resultMap="categoryResultMap">
+        SELECT
+            *
+        FROM
+            PRODUCT_CATEGORY
+    </select>
+
 
     <!-- ProductDTO 객체를 삽입하는 SQL 매핑 -->
     <insert id="insertProduct" parameterType="com.lucete.comprehensive.product.model.dto.ProductDTO">
@@ -33,22 +57,22 @@
                 COUNT(*)
         FROM
             product a
-<!--        JOIN-->
-<!--            product_category b ON(a.PROD_CATEGORY = b.PROD_CATEGORY)-->
-<!--        <where>-->
-<!--            <if test="searchCondition == 'jewelry'">-->
-<!--                a.PROD_CATEGORY = 1 AND a.PROD_NAME LIKE CONCAT('%', #{ searchValue }, '%')-->
-<!--            </if>-->
-<!--            <if test="searchCondition == 'DIY_KIT'">-->
-<!--                a.PROD_CATEGORY = 2 AND a.PROD_NAME LIKE CONCAT('%', #{ searchValue }, '%')-->
-<!--            </if>-->
-<!--            <if test="searchCondition == 'DIY_mater'">-->
-<!--                a.PROD_CATEGORY = 3 AND a.PROD_NAME LIKE CONCAT('%', #{ searchValue }, '%')-->
-<!--            </if>-->
-        WHERE
---             AND
+         JOIN
+             product_category b ON(a.PROD_CATEGORY = b.PROD_CATEGORY)
+        <where>
+            <if test="searchCondition == 'jewelry'">
+                a.PROD_CATEGORY = 1 AND a.PROD_NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'DIY_KIT'">
+                a.PROD_CATEGORY = 2 AND a.PROD_NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'DIY_mater'">
+                a.PROD_CATEGORY = 3 AND a.PROD_NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+             AND
                 a.PROD_AMOUNT > 0
-<!--        </where>-->
+        </where>
+
 
     </select>
 
@@ -59,11 +83,14 @@
             a.PROD_NAME,
             b.FILE_PASS,
             a.PROD_PRICE,
-            a.PROD_AMOUNT
+            a.PROD_AMOUNT,
+            a.PROD_CATEGORY
         FROM
             product a
         JOIN
             upload_file b ON (a.PROD_SERIAL = b.PROD_SERIAL)
+        JOIN
+            product_category c ON (a.PROD_CATEGORY = c.PROD_CATEGORY)
         <where>
             <if test="searchCondition == 'jewelry'">
                     a.PROD_CATEGORY = 1 AND a.PROD_NAME LIKE CONCAT('%', #{ searchValue }, '%')
@@ -79,6 +106,9 @@
             a.PROD_AMOUNT > 0
         ORDER BY
             a.PROD_SERIAL DESC
+        LIMIT
+            #{offSet}, #{limit}
     </select>
+
 
 </mapper>
