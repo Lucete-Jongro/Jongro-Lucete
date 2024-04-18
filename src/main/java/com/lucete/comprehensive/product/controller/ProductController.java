@@ -1,5 +1,6 @@
 package com.lucete.comprehensive.product.controller;
 
+import com.lucete.comprehensive.board.review.dto.CategoryDTO;
 import com.lucete.comprehensive.common.file.FileDTO;
 import com.lucete.comprehensive.product.model.dto.ProductCategoryDTO;
 import com.lucete.comprehensive.product.model.dto.ProductDTO;
@@ -91,7 +92,6 @@ public class ProductController {
                         file.setRevNo(1);
 
                         fileList.add(file);
-
                     }
                 }
             }
@@ -111,7 +111,6 @@ public class ProductController {
 
         return "redirect:/product/Insert";
     }
-
 
     @GetMapping("/select")
     public String productSelect(Model model,
@@ -133,4 +132,24 @@ public class ProductController {
 
         return "product/select";
     }
+
+    @GetMapping("/modify")
+    public String selectModify(Model model,
+                               @RequestParam(required = false) String searchCondition,
+                               @RequestParam(required = false) String searchValue) {
+
+        Map<String, String> searchMap = new HashMap<>();
+        searchMap.put("searchCondition", searchCondition);
+        System.out.println("searchCondition = " + searchCondition);
+        searchMap.put("searchValue", searchValue);
+        System.out.println("searchValue = " + searchValue);
+
+        Map<String, String> conditionSelect = productService.conditionSelect(searchMap);
+        model.addAttribute("productList", conditionSelect.get("productList"));
+
+        return "product/modify";
+    }
+
+
+
 }
