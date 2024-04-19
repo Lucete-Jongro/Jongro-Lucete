@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <script src="/js/event.js" type="text/javascript"></script>
 
     <style>
         .title-view {
@@ -79,6 +80,9 @@
         .board-table tbody th p {
             display: none;
         }
+        .board-table .th-title {
+            padding-right: 50px;
+        }
 
         * {
             list-style: none;
@@ -86,17 +90,6 @@
             padding: 0;
             margin: 0;
             box-sizing: border-box;
-        }
-
-        .clearfix:after {
-            content: '';
-            display: block;
-            clear: both;
-        }
-
-        .container2 {
-            width: 1100px;
-            margin: 0 auto;
         }
 
         .category-select-btn {
@@ -125,13 +118,13 @@
             <a href="index.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
             <ul class="navbar-list" style="list-style: none;">
 
-                <li class="navicon" id="search"><img src="assets/image/검색 아이콘.png" height="25">
+                <li class="navicon" id="search"><img src="/image/검색 아이콘.png" height="25">
 
                 </li>
-                <li class="navicon"><a href="shoppingcart.html"><img src="assets/image/장바구니 아이콘.png" height="25"></a></li>
-                <li class="navicon"><a href="mypage.html"><img src="assets/image/마이페이지 아이콘.png" height="25"></a></li>
-                <li class="navicon"><a href="login.html"><img src="assets/image/로그인 아이콘.png" height="25"></a></li>
-                <li class="navicon"><a href="index.html"><img src="assets/image/로그아웃 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href="shoppingcart.html"><img src="/image/장바구니 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href="mypage.html"><img src="/image/마이페이지 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href="login.html"><img src="/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href="index.html"><img src="/image/로그아웃 아이콘.png" height="25"></a></li>
                 <li class="searchBar">
                     <input type="search">
                     <input type="submit">
@@ -159,7 +152,9 @@
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Library</li>
 
             <li class="category"><a href="ONEDAY_CLASS_mainview .html">원데이 클래스</a></li>
-            <li class="category"><a href="inquiry/list">게시판</a></li>
+
+            <li class="category"><a href="/inquiry/list">게시판</a></li>
+
             <li class="category"><a href="NOTICE_01mainview.html">공지사항</a></li>
             <br><br><br><br><br><br><br>
         </ul>
@@ -185,14 +180,19 @@
             <!-- 카테고리 선택적 조회  -->
             <div class="category-select-btn">
 
-                <select name="category-select" id="searchCondition">
-                    <option value="allselect" th:selected="${ paging.searchCondition eq'allselect'}">전체조회</option>
-                    <option value="nomal" th:selected="${ paging.searchCondition eq 'nomal'}">일반</option>
-                    <option value="product" th:selected="${ paging.searchCondition eq 'product'}">상품</option>
-                    <option value="diykit" th:selected="${ paging.searchCondition eq 'diykit'}">DIY키트</option>
-                    <option value="onedayclass" th:selected="${ paging.searchCondition eq 'onedayclass'}">원데이 클래스</option>
+
+                <form id="searchForm" action="/inquiry/list" style="display: inline-block">
+                <select id ="category-select" name="searchCondition">
+                    <option value="allSelect" th:selected="${ paging.searchCondition eq 'allSelect'}">allSelect</option>
+                    <option value="nomal" th:selected="${ paging.searchCondition eq 'nomal'}">nomal</option>
+                    <option value="product" th:selected="${ paging.searchCondition eq 'product'}">product</option>
+                    <option value="DiyKit" th:selected="${ paging.searchCondition eq 'diyKit'}">DiyKit</option>
+                    <option value="OneDayClass" th:selected="${ paging.searchCondition eq 'onedayClass'}">OneDayClass</option>
                 </select>
-            </div>
+                    <button type="submit" id="searchValue" name="searchValue" th:value="${ paging.searchValue }">검색</button>
+
+            </form>
+        </div>
         </div>
 
 
@@ -209,13 +209,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="inquiry : ${inquiryList}">
-                        <td th:text = "${inquiry.inquiryNo}"></td>
-                        <th><a href="@{/inquiry/detail(inquiryNo=${inquiry.inquiryNo}}" th:text="${inquiry.inquiryTitle}"></a>
-                        </th>
-                        <td th:text="${inquiry.inquiryCategory}"></td>
-                        <td th:text ="${inquiry.memName}"></td>
-                        <td th:text ="${#temporals.format(inquiry.createdDate, 'yyyy.MM.dd')}"></td>
+
+                    <tr th:each="inquiry : ${ inquiryList }" th:onclick="|location.href='/inquiry/detail?inquiryNo=${inquiry.inquiryNo}'|">
+                        <td th:text = "${ inquiry.inquiryNo }"></td>
+                        <td th:text="${ inquiry.inquiryTitle }"></td>
+                        <td th:text="${ inquiry.inquiryCategory }"></td>
+                        <td th:text ="${ inquiry.memName }"></td>
+                        <td th:text ="${#temporals.format(inquiry.inquiryDate, 'yyyy.MM.dd')}"></td>
+
                     </tr>
 
                     </tbody>
@@ -224,7 +225,9 @@
         </div>
         <div class="hp_mb20"></div>
         <div>
-            <button type="button" id="inquiryRegist" class="button-write">글쓰기</button>
+
+            <button type="button" id="inquiryWrite" class="button-write">글쓰기</button>
+
         </div>
 
     </div>
@@ -277,7 +280,8 @@
             <th:block
                     th:each="page : ${ #numbers.sequence(paging.startPage, paging.endPage)}">
                 <button
-                        th:onclick="'location.href=\'/board/list?page=' + @{${page}} + '\''"
+                        th:onclick="'location.href=\'/inquiry/list?page=' + @{${page}} + '\''"
+
                         th:text="${ page }" th:disabled="${ paging.page eq page }">
                 </button>
             </th:block>
@@ -289,10 +293,12 @@
 
             <!-- 맨 끝으로 이동 -->
             <button
-                    th:onclick="'location.href=\'/board/list?page=' + @{${paging.maxPage}} + '\''">>></button>
+                    th:onclick="'location.href=\'/inquiry/list?page=' + @{${paging.maxPage}} + '\''">>></button>
         </th:block>
 
     </div>
+<br><br>
+
 
         <!-- 공백용 -->
     <div id="wrapper">
@@ -300,7 +306,7 @@
     </div>
 
     <footer class="footer">
-        <div class="containor">
+        <div class="container">
             <p>L u c e t e</p>
             <ul class="info" style="list-style: none;">
                 <li class="info-list" style="font-size: smaller;"><a href>이용약관</a></li>
