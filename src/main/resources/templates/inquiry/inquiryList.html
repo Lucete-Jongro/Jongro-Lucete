@@ -178,14 +178,15 @@
             <!-- 카테고리 선택적 조회  -->
             <div class="category-select-btn">
 
-                <form id="searchForm" action="/inquiry/list">
+                <form id="searchForm" action="/inquiry/list" style="display: inline-block">
                 <select id ="category-select" name="searchCondition">
-                    <option value="allselect" th:selected="${ paging.searchCondition eq 'allselect'}">전체조회</option>
-                    <option value="nomal" th:selected="${ paging.searchCondition eq 'nomal'}">일반</option>
-                    <option value="product" th:selected="${ paging.searchCondition eq 'product'}">상품</option>
-                    <option value="diykit" th:selected="${ paging.searchCondition eq 'diykit'}">DIY키트</option>
-                    <option value="onedayclass" th:selected="${ paging.searchCondition eq 'onedayclass'}">원데이 클래스</option>
+                    <option value="allSelect" th:selected="${ paging.searchCondition eq 'allSelect'}">allSelect</option>
+                    <option value="nomal" th:selected="${ paging.searchCondition eq 'nomal'}">nomal</option>
+                    <option value="product" th:selected="${ paging.searchCondition eq 'product'}">product</option>
+                    <option value="DiyKit" th:selected="${ paging.searchCondition eq 'diyKit'}">DiyKit</option>
+                    <option value="OneDayClass" th:selected="${ paging.searchCondition eq 'onedayClass'}">OneDayClass</option>
                 </select>
+                    <button type="submit" id="searchValue" name="searchValue" th:value="${ paging.searchValue }">검색</button>
 
             </form>
         </div>

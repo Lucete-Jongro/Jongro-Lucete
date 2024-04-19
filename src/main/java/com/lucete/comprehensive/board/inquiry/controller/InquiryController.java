@@ -1,5 +1,6 @@
 package com.lucete.comprehensive.board.inquiry.controller;
 
+import com.lucete.comprehensive.board.inquiry.dto.CommDTO;
 import com.lucete.comprehensive.board.inquiry.dto.InquiryDTO;
 import com.lucete.comprehensive.board.inquiry.service.InquiryService;
 import com.lucete.comprehensive.user.member.MemberDTO;
@@ -13,15 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
 @Controller
 @RequestMapping("/inquiry")
 public class InquiryController {
-
-   // private static final Logger logger = LoggerFactory.getLogger(InquiryController.class);
-
 
     private final InquiryService inquiryService;
 
@@ -31,7 +30,8 @@ public class InquiryController {
         this.inquiryService = inquiryService;
     }
 
-    /* 문의글 리스트 조회 */
+
+    /* 소비자 문의글 리스트 조회 */
      @GetMapping("/list")
     public String getInquiryList(@RequestParam(defaultValue = "1") int page,
                                  @RequestParam(required = false) String searchCondition,
@@ -98,7 +98,7 @@ public class InquiryController {
 
      }
 
-     /* 업데이트 페이지 반환*/
+     /* 소비자 업데이트 페이지 반환*/
     @GetMapping("/update/{inquiryNo}")
     public String inquiryEdit(@PathVariable("inquiryNo") int inquiryNo, Model model){
 
@@ -106,6 +106,7 @@ public class InquiryController {
 
         return "/inquiry/inquiryUpdate";
     }
+
 
      /* 소비자 문의글 수정 페이지 */
     @PostMapping("/update/{inquiryNo}")
@@ -125,7 +126,64 @@ public class InquiryController {
         return "redirect:/inquiry/list";
     }
 
+    /* 관리자 - 답글 등록 */
+    @PostMapping("/registComm")
+    public ResponseEntity<String> registComm(@RequestBody CommDTO registComm) {
+        //관리자만 접근 가능하도록 설정 추가 필요
 
+        //registComm.setMemNo(member);
+        log.info("registReply : {}", registComm);
+        inquiryService.registComm(registComm);
+
+        return ResponseEntity.ok("답글 등록 완료");
+    }
+
+    /* 소비자, 관리자 - 답글 보기 */
+    @GetMapping("/loadComm")
+    public ResponseEntity<List<CommDTO>>loadComm(CommDTO loadComm) {
+
+        log.info("loadComm refInquiryNo : {}", loadComm.getInquiryNo());
+
+        List<CommDTO> commList = inquiryService.loadComm(loadComm);
+
+        log.info("loadComm commList : {}", commList);
+
+        return ResponseEntity.ok(commList);
+    }
+
+    /* 관리자- 답글 삭제*/
+    @PostMapping("/removeComm")
+    public ResponseEntity<String> removeComm(@RequestBody CommDTO removeComm) {
+
+        log.info("removeComm no : {}", removeComm.getInquiryNo());
+
+        inquiryService.removeComm(removeComm);
+
+        return ResponseEntity.ok("답글 삭제 완료");
+    }
+
+
+    /*관리자페이지 문의목록 조회 페이징*/
+    @GetMapping("/adminList")
+    public String getAdminInquiryList(@RequestParam(defaultValue = "1") int page,
+                                 @RequestParam(required = false) String searchCondition,
+                                 @RequestParam(required = false) String searchValue,
+                                 Model model) {
+
+        log.info("AdminInquiryList page : {}", page);
+        log.info("AdminInquiryList searchCondition : {}", searchCondition);
+        log.info("AdminInquiryList searchValue : {}", searchValue);
+
+        Map<String,String> searchMap = new HashMap<>();
+        searchMap.put("searchCondition", searchCondition);
+        searchMap.put("searchValue", searchValue);
+
+        Map<String, Object> AdminInquiryListAndPaging = inquiryService.AdminSelectInquiryList(searchMap,page);
+        model.addAttribute("paging", AdminInquiryListAndPaging.get("paging"));
+        model.addAttribute("inquiryList", AdminInquiryListAndPaging.get("inquiryList"));
+        return "inquiry/inquiryAdminList";
+
+    }
 
 
 

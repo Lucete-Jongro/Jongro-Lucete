@@ -14,10 +14,27 @@
         <result property="inquiryUpdate" column="INQUIRY_UPDATE"/>
         <result property="inquiryDeleteStatus" column="INQUIRY_DELETE_STATUS"/>
         <association property="memNo" resultMap="memberResultMap"/>
+        <collection property="commList" resultMap="commResultMap"/>
     </resultMap>
 
     <resultMap id="memberResultMap" type="com.lucete.comprehensive.user.member.MemberDTO">
         <id property="memNo" column="MEM_NO"/>
+        <result property="memName" column="MEM_NAME"/>
+        <result property="memId" column="MEM_ID"/>
+    </resultMap>
+
+    <resultMap type="com.lucete.comprehensive.board.inquiry.dto.CommDTO" id="commResultMap">
+        <id property="commKey" column="COMM_KEY"/>
+        <result property="reDate" column="RE_DATE"/>
+        <result property="reComment" column="RE_COMMENT"/>
+        <result property="commUpdate" column="COMM_UPDATE"/>
+        <result property="commDeleteStatus" column="COMM_DELETE_STATUS"/>
+        <association property="inquiryNo" column="INQUIRY_NO" resultMap="inquiryResultMap"/>
+        <association property="memNo" javaType="com.lucete.comprehensive.user.member.MemberDTO">
+            <id property="memNo" column="MEM_NO"/>
+            <result property="memNAME" column="MEM_NAME"/>
+            <result property="memId" column="MEM_ID"/>
+        </association>
     </resultMap>
 
 
@@ -31,14 +48,20 @@
             member_info b ON (a.MEM_NO = b.MEM_NO)
         </if>
         <where>
-            <if test="searchCondition == 'memNo'">
-                b.MEM_NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            <if test="searchCondition == 'allSelect'">
+
             </if>
-            <if test="searchCondition == 'title'">
-                a.INQUIRY_TITLE LIKE CONCAT('%', #{ searchValue }, '%')
+            <if test="searchCondition == 'nomal'">
+                a.INQUIRY_CATEGORY = 'nomal'
             </if>
-            <if test="searchCondition == 'content'">
-                a.INQUIRY_CONTENT LIKE CONCAT('%', #{ searchValue }, '%')
+            <if test="searchCondition == 'product'">
+                a.INQUIRY_CATEGORY = 'product'
+            </if>
+            <if test="searchCondition == 'DiyKit'">
+                a.INQUIRY_CATEGORY = 'DiyKit'
+            </if>
+            <if test="searchCondition == 'OneDayClass'">
+                a.INQUIRY_CATEGORY = 'OneDayClass'
             </if>
         </where>
     </select>
@@ -59,17 +82,20 @@
         JOIN
             member_info b ON(a.MEM_NO = b.MEM_NO)
         <where>
-            <if test="searchCondition == 'memNo'">
-                b.MEM_NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            <if test="searchCondition == 'allSelect'">
             </if>
-            <if test="searchCondition == 'title'">
-                a.INQUIRY_TITLE LIKE CONCAT('%', #{ searchValue }, '%')
+            <if test="searchCondition == 'nomal'">
+                a.INQUIRY_CATEGORY = 'nomal'
             </if>
-            <if test="searchCondition == 'content'">
-                a.INQUIRY_CONTENT LIKE CONCAT('%', #{ searchValue }, '%')
+            <if test="searchCondition == 'product'">
+                a.INQUIRY_CATEGORY = 'product'
             </if>
-            AND
-            a.INQUIRY_DELETE_STATUS = 'N'
+            <if test="searchCondition == 'DiyKit'">
+                a.INQUIRY_CATEGORY = 'DiyKit'
+            </if>
+            <if test="searchCondition == 'OneDayClass'">
+                a.INQUIRY_CATEGORY = 'OneDayClass'
+            </if>
         </where>
         ORDER BY
             a.INQUIRY_NO DESC
@@ -129,6 +155,65 @@
         WHERE
             INQUIRY_NO = #{inquiryNo}
     </update>
+
+
+
+
+
+<!--관리자 -->
+
+
+    <select id="AdminSelectTotalCount" resultType="int" parameterType="hashmap">
+        SELECT
+        COUNT(*)
+        FROM
+        inquiry a
+        <if test="searchCondition == 'memNo'">
+            JOIN
+            member_info b ON (a.MEM_NO = b.MEM_NO)
+        </if>
+        <where>
+            <if test="searchCondition == 'user'">
+                b.memName LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'userId'">
+                b.memId LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="AdminSelectInquiryList" resultMap="inquiryResultMap">
+        SELECT
+        a.INQUIRY_NO,
+        a.INQUIRY_TITLE,
+        a.INQUIRY_CONTENT,
+        a.INQUIRY_DATE,
+        a.INQUIRY_RE_STATUS,
+        a.INQUIRY_CATEGORY,
+        a.INQUIRY_UPDATE,
+        b.MEM_NAME,
+        b.MEM_ID,
+        a.INQUIRY_DELETE_STATUS,
+        c.RE_DATE
+        FROM
+        inquiry a
+        JOIN
+        member_info b ON(a.MEM_NO = b.MEM_NO)
+        JOIN
+        comments c ON(a.INQUIRY_NO = c.INQUIRY_NO)
+
+        <where>
+            <if test="searchCondition == 'memName'">
+                b.memName LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'memId'">
+                b.memId LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+        </where>
+        ORDER BY
+        c.RE_DATE DESC
+        LIMIT #{offSet}, #{limit}
+    </select>
 
 
 </mapper>
