@@ -1,7 +1,6 @@
-package com.lucete.comprehensive.board.comment;
+package com.lucete.comprehensive.board.inquiry.dto;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class CommDTO {
 
@@ -13,11 +12,10 @@ public class CommDTO {
     private  int memNo;
     private String memName;
     private int inquiryNo;
-    private int revNo;
 
-    public CommDTO (){}
+    public CommDTO(){}
 
-    public CommDTO(int commKey, String reComment, LocalDateTime reDate, LocalDateTime commUpdate, char commDeleteStatus, int memNo, String memName, int inquiryNo, int revNo) {
+    public CommDTO(int commKey, String reComment, LocalDateTime reDate, LocalDateTime commUpdate, char commDeleteStatus, int memNo, String memName, int inquiryNo) {
         this.commKey = commKey;
         this.reComment = reComment;
         this.reDate = reDate;
@@ -26,7 +24,6 @@ public class CommDTO {
         this.memNo = memNo;
         this.memName = memName;
         this.inquiryNo = inquiryNo;
-        this.revNo = revNo;
     }
 
     public int getCommKey() {
@@ -93,14 +90,6 @@ public class CommDTO {
         this.inquiryNo = inquiryNo;
     }
 
-    public int getRevNo() {
-        return revNo;
-    }
-
-    public void setRevNo(int revNo) {
-        this.revNo = revNo;
-    }
-
     @Override
     public String toString() {
         return "CommDTO{" +
@@ -112,7 +101,6 @@ public class CommDTO {
                 ", memNo=" + memNo +
                 ", memName='" + memName + '\'' +
                 ", inquiryNo=" + inquiryNo +
-                ", revNo=" + revNo +
                 '}';
     }
 }

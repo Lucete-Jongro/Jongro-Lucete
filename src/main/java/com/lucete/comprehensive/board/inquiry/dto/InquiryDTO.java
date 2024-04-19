@@ -4,6 +4,7 @@ import com.lucete.comprehensive.user.member.MemberDTO;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 public class InquiryDTO {
@@ -18,11 +19,12 @@ public class InquiryDTO {
     private String memName;
     private LocalDateTime inquiryUpdate;
     private char inquiryDeleteStatus;
+    private List<CommDTO> commList;
 
     public InquiryDTO() {
     }
 
-    public InquiryDTO(int inquiryNo, String inquiryTitle, String inquiryContent, LocalDateTime inquiryDate, char inquiryReStatus, String inquiryCategory, int memNo, String memName, LocalDateTime inquiryUpdate, char inquiryDeleteStatus) {
+    public InquiryDTO(int inquiryNo, String inquiryTitle, String inquiryContent, LocalDateTime inquiryDate, char inquiryReStatus, String inquiryCategory, int memNo, String memName, LocalDateTime inquiryUpdate, char inquiryDeleteStatus, List<CommDTO> commList) {
         this.inquiryNo = inquiryNo;
         this.inquiryTitle = inquiryTitle;
         this.inquiryContent = inquiryContent;
@@ -33,6 +35,7 @@ public class InquiryDTO {
         this.memName = memName;
         this.inquiryUpdate = inquiryUpdate;
         this.inquiryDeleteStatus = inquiryDeleteStatus;
+        this.commList = commList;
     }
 
     public int getInquiryNo() {
@@ -115,6 +118,14 @@ public class InquiryDTO {
         this.inquiryDeleteStatus = inquiryDeleteStatus;
     }
 
+    public List<CommDTO> getCommList() {
+        return commList;
+    }
+
+    public void setCommList(List<CommDTO> commList) {
+        this.commList = commList;
+    }
+
     @Override
     public String toString() {
         return "InquiryDTO{" +
@@ -128,6 +139,7 @@ public class InquiryDTO {
                 ", memName='" + memName + '\'' +
                 ", inquiryUpdate=" + inquiryUpdate +
                 ", inquiryDeleteStatus=" + inquiryDeleteStatus +
+                ", commList=" + commList +
                 '}';
     }
 }
