@@ -35,6 +35,148 @@ a{
     float: left;
     font-family: "Gothic A1", sans-serif;
     inline-size: 200px;
+
     
    
+
+
+}
+
+.header{
+    padding-top: 20px;
+}
+.footer {
+    position:relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    transform: translateY(-100%);
+    height: 10px;
+
+    color: gray;
+    text-align: center;
+
+}
+.footer a{
+    color: gray;
+    display: inline;
+}
+
+
+.category-list  :hover{
+    background-color: rgb(223, 223, 223);
+}
+
+.info-list{
+    display: inline;
+}
+.searchBar{
+    display: none;
+}
+.inquiry-view {
+    padding:25px 20px 70px;
+    position: relative;
+    margin-left: 25%;
+    * {
+        list-style: none;
+        text-decoration: none;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+}
+
+table{
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.container {
+    width: 1100px;
+    margin: 0 auto;
+}
+
+.hp_mb10{
+    margin-bottom: 10px;
+}
+
+.hp_mb20{
+    margin-bottom: 20px;
+}
+
+.hp_mb25{
+    margin-bottom: 25px;
+}
+
+.hp_mb30{
+    margin-bottom: 30px;
+}
+.hp_mb100{
+    margin-bottom: 100px;
+}
+.button-submit {
+    background: black;
+    color: #EEEEEE;
+    float: right;
+    border: none;
+    width: 60px;
+    height: 25px;
+
+    border-radius: 5px;
+}
+.button-write {
+    background: #EEEEEE;
+    color: black;
+    float: right;
+    border: none;
+    width: 60px;
+    height: 25px;
+
+    border-radius: 5px;
+}
+.modal {
+    display: none;
+    /* 기본적으로는 안 보이도록 설정 */
+    position: fixed;
+    /* 화면을 가득 채우도록 설정 */
+    z-index: 1;
+    /* 다른 모든 요소 위에 표시되도록 설정 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    /* 스크롤이 필요한 경우 스크롤 허용 */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* 모달 외부의 배경을 어둡게 설정 */
+
+}
+
+.modal_content {
+    background-color: white;
+    margin: 20% auto;
+    /* 모달을 화면 가운데로 위치시키기 */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 15%;
+    /* 모달의 너비를 조정할 수 있습니다. */
+    text-align: center;
+    border-radius: 10px;
+
+}
+
+.modal_content button {
+    margin: 0px;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: gray;
+    border: 0px solid;
+
+}
+
+.b2 {
+    padding-right: 100px;
+    padding-bottom: 50px;
+    padding-top: 10px;
+    margin-right: 40px;
+
 }

@@ -192,16 +192,16 @@
 
 <div class="product-insert-container">
     <h4 style="font-weight: bold; font-size: 25px;">&nbsp;신규 상품 등록</h4>
-    <form action="/product/Insert" method="post">
+    <form action="/product/Insert" method="post" enctype="multipart/form-data">
         <div class="insert-table-area">
             <table class="insert-table">
                 <tr>
                     <td id="box1">카테고리 선택</td>
                     <td>
                         <select name="prodCategory" id="category-text">
-                            <option value="">쥬얼리</option>
-                            <option value="">DIY Kit</option>
-                            <option value="">DIY 자재</option>
+                            <option th:each="category : ${ categories }"
+                                    th:value="${ category.prodCategory }"
+                                    th:text="${ category.categoryName}"></option>
                         </select>
                     </td>
                 </tr>
@@ -220,7 +220,7 @@
                 <tr>
                     <td id="box4">상품 금액</td>
                     <td>
-                        <input type="number" name="prod_price" id="price-text" placeholder="상품 금액을 입력해주세요.">
+                        <input type="number" name="prodPrice" id="price-text" placeholder="상품 금액을 입력해주세요.">
                         &nbsp;원
                     </td>
                 </tr>
@@ -233,13 +233,13 @@
                 <tr>
                     <td id="box6">상품 사진 첨부</td>
                     <td>
-                        <input type="file" accept="image/*" name="FILE_NAME" id="image-text">
+                        <input type="file" accept="*/*" name="attachImage" id="image-text">
                     </td>
                 </tr>
             </table>
         </div>
         <div class="submit-button">
-            <button type="submit" class="inquiry-button" style="font-size: 17px; font-weight: bold;" onclick="openSaveModal()">상품 등록</button>
+            <button type="submit" class="inquiry-button" style="font-size: 17px; font-weight: bold;" onclick="submitProduct()">상품 등록</button>
         </div>
     </form>
 </div>
@@ -253,18 +253,60 @@
         <button id="cancel_button" onclick="closeSaveModal()">아니오</button>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 
-    fetch('/product/category').then(res => res.json()).then(data => {
-        const $prod_category = document.querySelector('#prod_category');
+    function submitProduct() {
+        var prodCategory = $('#category-text').val();
+        var prodName = $('#name-text').val();
+        var prodAmount = $('#amount-text').val();
+        var prodPrice = $('#price-text').val();
+        var prodAccount = $('#product-text').val();
 
-        data.forEach(category => {
-            const $option = document.createElement('option');
-            $option.textContent = category.category_name;
-            $option.value = category.prod_category;
-            $prod_category.appendChild($option);
-        })
-    })
+        var productData = {
+            prodCategory: prodCategory,
+            prodName: prodName,
+            prodAmount: prodAmount,
+            prodPrice: prodPrice,
+            prodAccount: prodAccount
+        };
+
+        $.ajax({
+            url: '/product/Insert',
+            type: 'POST',
+            data: JSON.stringify(productData),
+            contentType: 'application/json',
+            success: function (response) {
+                var prodSerial = response.prodSerial;
+                uploadImage(prodSerial);
+            },
+            error: function (xhr, status, error) {
+                alert("상품 등록 중 오류가 발생했습니다.");
+            }
+        });
+    }
+
+    function uploadImage(prodSerial) {
+        var formData = new FormData();
+        var imageFile = $('#image-text')[0].files[0];
+        formData.append('imageFile', imageFile);
+        formData.append('prodSerial', prodSerial);
+
+        $.ajax({
+            url: '/product/Insert',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                alert("이미지 업로드가 완료되었습니다.");
+                closeSaveModal();
+            },
+            error: function (xhr, status, error) {
+                alert("이미지 업로드 중 오류가 발생했습니다.")
+            }
+        });
+    }
 
     function openSaveModal() {
         document.getElementById("savemodal").style.display = "block";

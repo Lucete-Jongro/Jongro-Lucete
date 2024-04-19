@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AdminInquiry</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의 게시판 관리</title>
+    <link rel="stylesheet" th:href="@{ /css/style.css }">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+    <style>
+
+        .input-wrapper1 {
+            text-align: right; /* 모든 내용을 오른쪽 정렬 */
+        }
+
+        .input-wrapper2 {
+            display: inline-block; /* 인라인 블록 요소로 만들어 줌 */
+        }
+
+        /* 셀렉트 박스 스타일 */
+        select {
+            padding: 10px; /* 상하좌우 여백 */
+            border: 1px solid #ccc; /* 테두리 */
+            border-radius: 5px; /* 모서리 둥글게 */
+            background-color: #fff; /* 배경색 */
+            color: #333; /* 글자색 */
+            cursor: pointer;
+        }
+
+        select:hover {
+            border-color: #999; /* 호버 시 테두리 색상 변경 */
+        }
+
+        select:focus {
+            outline: none; /* 포커스 시 아웃라인 제거 */
+            border-color: #4caf50; /* 포커스 시 테두리 색상 변경 */
+        }
+
+        /* 삭제 및 등록 버튼 스타일 */
+        .delete_inquiry_list {
+            background-color: #4caf50; /* 버튼 배경색 */
+            color: white; /* 버튼 글자색 */
+            padding: 10px 20px; /* 상하좌우 여백 */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* 호버 효과 전환 */
+            border-radius: 5px; /* 버튼 모서리 둥글게 */
+        }
+
+        .delete_inquiry_list:hover :hover {
+            background-color: #45a049; /* 호버 시 배경색 변경 */
+        }
+
+
+        /* 버튼 스타일 */
+        button {
+            background-color: #4caf50; /* 버튼 배경색 */
+            color: white; /* 버튼 글자색 */
+            padding: 10px 20px; /* 상하좌우 여백 */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* 호버 효과 전환 */
+            border-radius: 5px; /* 버튼 모서리 둥글게 */
+        }
+
+        button:hover {
+            background-color: #45a049; /* 마우스 호버 시 배경색 */
+        }
+
+        /* 테이블 스타일 */
+        table {
+            border-collapse: collapse; /* 테이블 경계 선 제거 */
+        }
+
+        th, td {
+            padding: 10px; /* 셀 안 여백 */
+            border: 1px solid #ddd; /* 셀 테두리 */
+            text-align: center; /* 셀 안 내용 가운데 정렬 */
+        }
+
+        th {
+            background-color: #f2f2f2; /* 테이블 헤더 배경색 */
+        }
+
+        /* 답변 작성 텍스트 영역 스타일 */
+        textarea {
+            resize: vertical; /* 수직 리사이즈 */
+            padding: 10px; /* 상하좌우 여백 */
+            border: 1px solid #ccc; /* 테두리 */
+            border-radius: 5px; /* 텍스트 영역 모서리 둥글게 */
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="containor">
+        <nav class="navbar">
+            <a href="Admin-MainPage.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
+            <ul class="navbar-list" style="list-style: none;">
+                </li>
+                <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="searchBar" >
+                    <input type="search">
+                    <input type="submit">
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</header>
+
+<div class="category-banner">
+    <nav class="category-navbar">
+
+
+        <ul class="category-list" style="list-style: none;">
+            <li class="category" style= "font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
+            <li class="category"><a href="Admin-OrderCategory-Page.html">주문관리</a></li>
+            <li class="category"><a href="Admin-ProductCategory-Page.html">상품관리</a></li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Customer</li>
+
+            <li class="category"><a href="Admin-UserCategory-Page.html">회원관리</a></li>
+            <li class="category"><a href="1.문의_게시판_관리.html">게시판 관리</a></li>
+            <li class="category"><a href="2.리뷰_관리.html">리뷰 게시판 관리</a></li>
+            <li class="category"><a href="3.공지사항_관리.html">공지사항 관리</a></li>
+            <li class="category"><a href="4.쿠폰_관리.html">쿠폰 관리</a></li>
+            <li class="category"><a href="5.포인트_지급_관리.html">포인트 관리</a></li>
+            <li class="category"><a href="Admin-OneDayClass-Category-Page.html">원데이 클래스 관리</a></li>
+            <br><br><br><br><br><br><br>
+        </ul>
+    </nav>
+</div>
+
+
+<div class="inquiry_type">
+    <h2>고객문의 관리</h2>
+    <form id="SearchForm" action="/inquiry/adminList">
+        <table cellspacing="0" border="1" width="760px">
+            <colgroup>
+                <col class="search_category">
+                <col>
+            </colgroup>
+            <tbody>
+            <tr>
+                <th scope="row">검색어</th>
+                <td>
+                    <select name="searchCondition" id="searchCondition">
+                        <option value="memName" th:selected="${ paging.searchCondition eq 'memName'}">질문자명</option>
+                        <option value="memId" th:selected="${ paging.searchCondition eq 'memId'}">질문자ID</option>
+                    </select>
+                    <input type="search" name="searchValue" id="searchValue" th:value="${ paging.searchValue }">
+                    <button type="submit">검색</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <form name="inquiryListForm" id="inquiryListForm">
+        <h5></h5>
+        <div class="input-wrapper1">
+            <div class="input-wrapper2">
+                <button type="submit" value="삭제"
+                        class="delete_inquiry_list" id="delete_inquiry_list">삭제</button>
+            </div>
+        </div>
+        <div class="search_list">
+            <table border="1" cellspacing="0" width="760px" height="auto">
+
+                <thead>
+                <tr>
+                    <th scope="col">
+                        <input type="checkbox" name="check_all" value="1" onclick="check_all(this.form)">
+                    </th>
+                    <th scope="col">문의 번호</th>
+                    <th scope="col">접수일</th>
+                    <th scope="col">답변상태</th>
+                    <th scope="col">분류</th>
+                    <th scope="col">문의제목</th>
+                    <th scope="col">질문자</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="inquiry : ${inquiryList}" th:onclick="|location.href='/inquiry/adminDetail?inquiryNo=${inquiry.inquiryNo}'|">
+                    <td>
+                        <input type="checkbox" name="check_all" value="1" onclick="check_all(this.form)">
+                    </td>
+                    <td th:text="${inquiry.inquiryNo}"></td>
+                    <td th:text="${#temporals.format(inquiry.inquiryDate, 'yyyy.MM.dd')}"></td>
+                    <td th:text="${inquiry.inquiryReStatus}"></td>
+                    <td th:text="${inquiry.inquiryCategory}"></td>
+                    <td th:text="${inquiry.inquiryTitle}"></td>
+                    <td th:text="${inquiry.memName}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+
+<div>
+
+    <!-- 페이징 바 -->
+    <div id="paging" align="center" style="margin-top: 20px;">
+
+        <th:block
+                th:if="${ paging.searchCondition != null and paging.searchValue != null }">
+            <!-- 맨 앞으로 이동 -->
+            <button
+                    th:onclick="'location.href=\'/inquiry/adminList?page=1&searchCondition=' + @{${paging.searchCondition}} + '&searchValue=' + @{${paging.searchValue}} + '\''">&lt;&lt;</button>
+
+            <!-- 이전 페이지로 이동 -->
+            <button
+                    th:onclick="'location.href=\'/inquiry/adminList?page=' + @{${paging.page - 1}} + '&searchCondition=' + @{${paging.searchCondition}} + '&searchValue=' + @{${paging.searchValue}} + '\''"
+                    th:disabled="${ paging.page <= 1 }">&lt;</button>
+
+            <!-- 숫자 버튼 -->
+            <th:block
+                    th:each="page : ${ #numbers.sequence(paging.startPage, paging.endPage)}">
+                <button
+                        th:onclick="'location.href=\'/inquiry/adminList?page=' + @{${page}} + '&searchCondition=' + @{${paging.searchCondition}} + '&searchValue=' + @{${paging.searchValue}} + '\''"
+                        th:text="${ page }" th:disabled="${ paging.page eq page }">
+                </button>
+            </th:block>
+
+            <!-- 다음 페이지로 이동 -->
+            <button
+                    th:onclick="'location.href=\'/inquiry/adminList?page=' + @{${paging.page + 1}} + '&searchCondition=' + @{${paging.searchCondition}} + '&searchValue=' + @{${paging.searchValue}} + '\''"
+                    th:disabled="${ paging.page >= paging.maxPage }">></button>
+
+            <!-- 맨 끝으로 이동 -->
+            <button
+                    th:onclick="'location.href=\'/inquiry/adminList?page=' + @{${paging.maxPage}} + '&searchCondition=' + @{${paging.searchCondition}} + '&searchValue=' + @{${paging.searchValue}} + '\''">>></button>
+
+        </th:block>
+
+        <th:block
+                th:if="${ paging.searchCondition == null  || paging.searchValue == null }">
+            <!-- 맨 앞으로 이동 -->
+            <button th:onclick="'location.href=\'/inquiry/adminList?page=1\''">&lt;&lt;</button>
+
+            <!-- 이전 페이지로 이동 -->
+            <button
+                    th:onclick="'location.href=\'/inquiry/adminList?page=' + @{${paging.page - 1}} + '\''"
+                    th:disabled="${ paging.page <= 1 }">&lt;</button>
+
+            <!-- 숫자 버튼 -->
+            <th:block
+                    th:each="page : ${ #numbers.sequence(paging.startPage, paging.endPage)}">
+                <button
+                        th:onclick="'location.href=\'/inquiry/adminList?page=' + @{${page}} + '\''"
+                        th:text="${ page }" th:disabled="${ paging.page eq page }">
+                </button>
+            </th:block>
+
+            <!-- 다음 페이지로 이동 -->
+            <button
+                    th:onclick="'location.href=\'/inquiry/adminList?page=' + @{${paging.page + 1}} + '\''"
+                    th:disabled="${ paging.page >= paging.maxPage }">></button>
+
+            <!-- 맨 끝으로 이동 -->
+            <button
+                    th:onclick="'location.href=\'/inquiry/adminList?page=' + @{${paging.maxPage}} + '\''">>></button>
+        </th:block>
+
+    </div>
+</div>
+
+
+<br><br><br><br><br><br><br>
+
+<footer class="footer">
+    <div class="containor">
+        <p>L u c e t e</p>
+        <ul class="info" style="list-style: none;">
+            <li class="info-list" style="font-size: smaller;"><a href>이용약관</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="info-list" style="font-size: smaller;"><a href>개인정보 처리방침</a></li>
+            <br><br>
+            <li class ="info-list" style="font-size: small;">상호: 루세트(Lucete) | 대표: 김민희 | 전화: 070-012-3456 | 이메일: lucete@gmail.com</li>
+            <br>
+            <li class="info-list" style="font-size: small;">주소:2222-312,25, Insadong 3-gil, Jongno-gu, Seoul, Republic of Korea</li>
+            <br>
+            <li class="info-list" style="font-size: small;">사업자등록번호:888-06-12345 | 통신판매:2024-서울인사동-0123</li>
+        </ul>
+
+
+    </div>
+</footer>
+</body>
+</html>

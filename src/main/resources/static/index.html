@@ -3,49 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin ProductCategory Page</title>
+    <title>Admin MainPage</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
     <style>
-        .product-category{
-            overflow: hidden;
+
+        .chart-container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .product-category-box{
-            margin : 30px;
+        .item{
             width: 700px;
-            height: 500px;
-            border : 5px solid #969696;
-            border-radius : 10px;
-            overflow: hidden;
-
-        }
-        .category-box{
-            margin : 10px;
-            width: 680px;
-            height: 235px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-        }
-        .box{
-            margin: 10px;
-            width: 340px;
-            height: 115px;
-            background-color: gray;
-            border-radius: 30px;
-            background-color: #DEE2E6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
+            font-size: 14px;
             font-weight: bold;
-            border: #fff;
-        }
-    </style>
-</head>
 
+        }
+        .item-name{
+            width: 700px;
+            font-style: 14px;
+            font-weight: bold;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .item-bar{
+            height: 60px;
+            background-color: #6CA7ED;
+        }
+
+        .title-view {
+            padding: 25px 20px 70px;
+            position: relative;
+            margin-left: 25%;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .container {
+            width: 1100px;
+            margin: 0 auto;
+        }
+
+        .board-table {
+            font-size: 12px;
+            width: 100%;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .board-table a {
+            color: #333;
+            display: inline-block;
+            line-height: 1.4;
+            word-break: break-all;
+            vertical-align: middle;
+        }
+
+        .board-table a:hover {
+            text-decoration: underline;
+        }
+
+        .board-table th {
+            text-align: center;
+        }
+
+        .board-table .th-num {
+            width: 70px;
+            text-align: center;
+        }
+
+        .board-table .th-date {
+            width: 80px;
+        }
+
+        .board-table th,
+        .board-table td {
+            padding: 14px 0;
+        }
+
+        .board-table tbody td {
+            border-top: 1px solid #e7e7e7;
+            text-align: center;
+        }
+
+        .board-table tbody th {
+            padding-left: 28px;
+            padding-right: 14px;
+            border-top: 1px solid #e7e7e7;
+            text-align: left;
+        }
+
+        .board-table tbody th p {
+            display: none;
+        }
+
+        * {
+            list-style: none;
+            text-decoration: none;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .clearfix:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .container2 {
+            width: 1100px;
+            margin: 0 auto;
+        }
+
+        .category-select-btn {
+            float: right;
+            height: 30px;
+
+        }
+
+        .b-title {
+            margin-top: 50px;
+            width: 300px;
+            font-weight: bold
+        }
+
+        #wrapper {
+            height: auto;
+            min-height: 100%;
+            padding-bottom: 10px;
+
+        }
+
+    </style>
+    <script>
+        const data = [
+            { name: "A", score: 50 },
+            { name: "B", score: 80 },
+            { name: "C", score: 30 },
+            { name: "D", score: 70 },
+            { name: "E", score: 90 }
+        ];
+        const container = document.querySelector(".chart-container");
+        data.forEach(item => {
+            const newItem = document.createElement("div");
+            newItem.classList.add("item");
+            const name = document.createElement("div");
+            name.classList.add("item-name");
+            name.innerText = item.name;
+            const bar = document.createElement("div");
+            bar.classList.add("item-bar");
+            bar.style.width = `${item.score}%`;
+            newItem.appendChild(name);
+            newItem.appendChild(bar);
+            container.appendChild(newItem);
+        });
+    </script>
+</head>
 <body>
 <header class="header">
     <div class="containor">
@@ -64,6 +183,7 @@
     </div>
 </header>
 
+
 <div class="category-banner">
     <nav class="category-navbar">
 
@@ -78,7 +198,7 @@
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Customer</li>
 
             <li class="category"><a href="Admin-UserCategory-Page.html">회원관리</a></li>
-            <li class="category"><a href="1.문의_게시판_관리.html">게시판 관리</a></li>
+            <li class="category"><a href="inquiry/adminList">게시판 관리</a></li>
             <li class="category"><a href="2.리뷰_관리.html">리뷰 게시판 관리</a></li>
             <li class="category"><a href="3.공지사항_관리.html">공지사항 관리</a></li>
             <li class="category"><a href="4.쿠폰_관리.html">쿠폰 관리</a></li>
@@ -88,31 +208,102 @@
         </ul>
     </nav>
 </div>
-
-<div class="product-category">
-    <h4 style="font-size: 25px;">&nbsp;&nbsp;상품 관리</h4>
-    <div class="product-category-box">
-        <div class="category-box">
-            <a class="box" href="Admin-OrderInquiry-Page.html">
-                <img src="/image/주문.png" height="50px">
-                주문 상품 관리
-            </a>
-            <a class="box" href="Admin-ProductInquiry-Page.html">
-                <img src="/image/판매.png" height="50px">
-                판매 상품 조회
-            </a>
-        </div>
-        <div class="category-box">
-            <button class="box" onclick="location.href='product/Insert'">
-                <img src="/image/등록.png" height="50px">
-                신규 상품 등록
-            </button>
-            <a class="box" href="Admin-ProductModify-Page.html">
-                <img src="/image/수정.png" height="50px">
-                상품 수정
-            </a>
+<h1>&nbsp;&nbsp;배송 현황</h1>
+<div class="chart-container">
+    <div class="item">
+        <div class="item-ready">
+            <div class="item-name">배송 준비</div>
+            <div class="item-bar" style="width:50%"></div>
         </div>
     </div>
+    <div class="item">
+        <div class="item-name">배송 중</div>
+        <div class="item-bar" style="width:80%"></div>
+    </div>
+    <div class="item">
+        <div class="item-name">배송 완료</div>
+        <div class="item-bar" style="width:30%"></div>
+    </div>
+</div>
+
+
+<div class="title-view">
+    <div>
+        <table style="border-bottom: 1px solid; margin-top: 100px; margin-left: -30px;">
+            <th>
+            <td><h1>1:1 게시판</h1></td>
+
+            </th>
+        </table>
+
+    </div>
+    <br>
+    <br>
+
+    <div class="hp_mb20_1">
+
+        <div class="b-title">1:1 문의 사항</div>
+
+        <!-- 카테고리 선택적 조회  -->
+        <div class="category-select-btn">
+
+            <select name="category-select" id="cs1">
+                <option value="allselect">전체조회</option>
+                <option value="nomal">일반</option>
+                <option value="product">상품</option>
+                <option value="diykit">DIY키트</option>
+                <option value="onedayclass">원데이 클래스</option>
+                <option value="event">이벤트</option>
+            </select>
+
+        </div>
+
+    </div>
+
+    <div id="board-list">
+        <div class="containor2">
+            <table class="board-table">
+                <thead>
+                <tr>
+                    <th scope="col" class="th-num">번호</th>
+                    <th scope="col" class="th-title">제목</th>
+                    <th scope="col" class="th-category">분류</th>
+                    <th scope="col" class="th-writer">작성자</th>
+                    <th scope="col" class="th-date">작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>3</td>
+                    <th><a href="#!">목걸이 사이즈 문의 합니다. </a>
+                    </th>
+                    <td>상품</td>
+                    <td>진달래</td>
+                    <td>2024.03.29</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <th><a href="#!">배송문의</a>
+                    </th>
+                    <td>상품</td>
+                    <td>김송희</td>
+                    <td>2024.02.05</td>
+                </tr>
+
+                <tr>
+                    <td>1</td>
+                    <th><a href="#!">원데이 클래스 과정 문의 합니다. </a>
+                    </th>
+                    <td>원데이클래스</td>
+                    <td>서미래</td>
+                    <td>2024.01.17</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="hp_mb20"></div>
+
 
 </div>
 

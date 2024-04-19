@@ -9,12 +9,12 @@ public class ProductDTO {
     private int prodPrice;
     private String prodAccount;
     private char prodSoldOut;
-    private ProductCategoryDTO prodCategory;
-    private int prodView;
+    private int prodCategory;
+    private int prodView;   // 조회수
 
     public ProductDTO() {}
 
-    public ProductDTO(int prodSerial, String prodName, int prodAmount, int prodPrice, String prodAccount, char prodSoldOut, ProductCategoryDTO prodCategory, int prodView) {
+    public ProductDTO(int prodSerial, String prodName, int prodAmount, int prodPrice, String prodAccount, char prodSoldOut, int prodCategory, int prodView) {
         this.prodSerial = prodSerial;
         this.prodName = prodName;
         this.prodAmount = prodAmount;
@@ -73,11 +73,11 @@ public class ProductDTO {
         this.prodSoldOut = prodSoldOut;
     }
 
-    public ProductCategoryDTO getProdCategory() {
+    public int getProdCategory() {
         return prodCategory;
     }
 
-    public void setProdCategory(ProductCategoryDTO prodCategory) {
+    public void setProdCategory(int prodCategory) {
         this.prodCategory = prodCategory;
     }
 
@@ -88,6 +88,7 @@ public class ProductDTO {
     public void setProdView(int prodView) {
         this.prodView = prodView;
     }
+
 
     @Override
     public String toString() {
