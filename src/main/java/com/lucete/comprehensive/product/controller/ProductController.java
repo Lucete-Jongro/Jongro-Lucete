@@ -133,23 +133,17 @@ public class ProductController {
         return "product/select";
     }
 
+
     @GetMapping("/modify")
-    public String selectModify(Model model,
-                               @RequestParam(required = false) String searchCondition,
-                               @RequestParam(required = false) String searchValue) {
-
-        Map<String, String> searchMap = new HashMap<>();
-        searchMap.put("searchCondition", searchCondition);
-        System.out.println("searchCondition = " + searchCondition);
-        searchMap.put("searchValue", searchValue);
-        System.out.println("searchValue = " + searchValue);
-
-        Map<String, String> conditionSelect = productService.conditionSelect(searchMap);
-        model.addAttribute("productList", conditionSelect.get("productList"));
+    public String categorySelect() {
 
         return "product/modify";
     }
 
+    @GetMapping("/find")
+    public @ResponseBody List<ProductCategoryDTO> findCategoryList() {
 
+        return productService.findCategoryList();
+    }
 
 }

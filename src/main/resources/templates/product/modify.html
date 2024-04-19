@@ -246,33 +246,32 @@
     </nav>
 </div>
 
-<div class="product-modify-container">
-    <h4 style="font-weight: bold; font-size: 25px;">&nbsp;등록 상품 수정</h4>
-    <div class="inquiry">
-        <div class="ca-text">카테고리 선택</div>
-        <div class="ca-box">
-            <select name="PROD_CATEGORY" id="select1">
-                <option value="">전체</option>
-                <option value="">주얼리</option>
-                <option value="">DIY Kit</option>
-                <option value="">DIY 자재</option>
-                <!-- 타임리프 넣을 것 -->
-            </select>
+    <div class="product-modify-container">
+    <form>
+        <h4 style="font-weight: bold; font-size: 25px;">&nbsp;등록 상품 수정</h4>
+        <div class="inquiry">
+            <div class="ca-text">카테고리 선택</div>
+            <div class="ca-box">
+                <select name="prodCategory" id="select1">
+                    <option></option>
+                </select>
+            </div>
+            <div class="na-text">상품명 선택</div>
+            <div class="na-box">
+                <select name="selectName" id="select2">
+<!--                    <option -->
+<!--                            th:each="product : ${ products }"-->
+<!--                            th:value="${ product.prodSerial }"-->
+<!--                            th:text="${ product.prodName }"-->
+<!--                    ></option>-->
+                </select>
+            </div>
         </div>
-        <div class="na-text">상품명 선택</div>
-        <div class="na-box">
-            <select name="PROD_NAME" id="select2">
-                <option value="">가</option>
-                <option value="">나</option>
-                <option value="">다</option>
-                <option value="">라</option>
-                <!-- 타임리프 넣을 것 -->
-            </select>
+        <div class="inquiry-btn">
+            <button type="button">상품 조회</button>
         </div>
-    </div>
-    <div class="inquiry-btn">
-        <button>상품 조회</button>
-    </div>
+    </form>
+
     <div class="modify-table-area">
         <table class="modify-table">
             <tr>
@@ -317,6 +316,52 @@
     </div>
 </div>
 <script>
+
+        // const $prodCategory = document.querySelector('#select1');
+        // $prodCategory.change(function () {
+        //     const selectedCategory = $(this).val();
+        //     console.log(selectedCategory)
+        //
+        //     fetch(`/product/find?prodCategory=${selectedCategory}`)
+        //         .then(res => res.json())
+        //         .then(data => {
+        //         const $prodSelect = document.querySelector('#select2');
+        //
+        //         data.forEach(category => {
+        //             const $option = document.createElement('option');
+        //             $option.textContent = category.categoryName;
+        //             $option.value = category.prodCategory;
+        //             $prodCategory.appendChild($option);
+        //         });
+        //         console.log("1번")
+        //
+        //     })
+        //
+        // })
+
+        const $prodCategory = document.querySelector('#select1');
+
+        fetch(`/product/find?prodCategory=${selectedCategory}`)
+            .then(res => res.json())
+            .then(data => {
+                const $prodSelect = document.querySelector('#select2');
+
+                data.forEach(category => {
+                    const $option = document.createElement('option');
+                    $option.textContent = category.categoryName;
+                    $option.value = category.prodCategory;
+                    $prodCategory.appendChild($option);
+                });
+                console.log("1번")
+
+                $prodCategory.change(function () {
+                    const selectedCategory = $(this).val();
+                    console.log(selectedCategory)
+                })
+            })
+
+
+
     function openSaveModal() {
         document.getElementById("savemodal").style.display = "block";
     }

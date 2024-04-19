@@ -1,5 +1,6 @@
 package com.lucete.comprehensive.product.model.service;
 
+import com.lucete.comprehensive.board.review.dto.CategoryDTO;
 import com.lucete.comprehensive.common.file.FileDTO;
 import com.lucete.comprehensive.common.paging.Pagenation;
 import com.lucete.comprehensive.common.paging.SelectCriteria;
@@ -11,12 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -72,9 +70,10 @@ public class ProductService {
     }
 
 
-    public Map<String, String> conditionSelect(Map<String, String> searchMap) {
-
-
-
+    @Transactional
+    public List<ProductCategoryDTO> findCategoryList() {
+        return productMapper.findCategoryList();
     }
+
+
 }

@@ -28,7 +28,6 @@
         <result property="filePass" column="FILE_PASS"/>
     </resultMap>
 
-
     <select id="findCategory" resultMap="categoryResultMap">
         SELECT
             *
@@ -110,5 +109,22 @@
             #{offSet}, #{limit}
     </select>
 
+    <select id="categoryByProductSelect" resultMap="generalProductResultMap">
+        SELECT
+            *
+        FROM
+            product
+        WHERE
+            PROD_CATEGORY = #{ prodCategory };
+    </select>
+
+    <select id="findCategoryList" resultType="com.lucete.comprehensive.product.model.dto.ProductCategoryDTO">
+        SELECT
+            *
+        FROM
+            product_category
+        ORDER BY
+            PROD_CATEGORY
+    </select>
 
 </mapper>

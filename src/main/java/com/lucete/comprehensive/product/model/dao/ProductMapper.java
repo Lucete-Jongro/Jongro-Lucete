@@ -23,5 +23,6 @@ public interface ProductMapper {
 
     List<ProductCategoryDTO> findCategory();
 
-    List<String> getAllCategory();
+    List<ProductCategoryDTO> findCategoryList();
+
 }
