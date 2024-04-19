@@ -1,7 +1,7 @@
 .navicon {
     display: inline;
     padding: 10px;
-
+    
 }
 .navbar-list{
     text-align: right;
@@ -10,9 +10,10 @@
     right: 100px;
     bottom: 60px;
     position: relative;
+    
 }
 body{
-
+    
     max-width: 1000px;
     min-width: 1000px;
     margin: auto;
@@ -21,18 +22,23 @@ body{
 a{
     text-decoration: none;
     color: black;
+    font-family: "Gothic A1", sans-serif;
 }
 .category{
     padding: 10px;
-
+    
 }
 .category-list{
-
+    
     display: inline-block;
     box-shadow: 1px 0 0 lightgray;
     float: left;
     font-family: "Gothic A1", sans-serif;
     inline-size: 200px;
+
+    
+   
+
 
 }
 
@@ -172,4 +178,5 @@ table{
     padding-bottom: 50px;
     padding-top: 10px;
     margin-right: 40px;
+
 }

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUCETE</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
+    <script src="/js/event.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
+<!--    <script>-->
+<!--        const message = `[[${ message }]]`;-->
+<!--        if(message) {-->
+<!--            alert(message);-->
+<!--        }-->
+<!--    </script>-->
+</head>
+<body>
+<header class="header">
+    <div class="containor">
+        <nav class="navbar">
+            <a href="index.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
+            <ul class="navbar-list" style="list-style: none;">
+
+                <li class="navicon" id="search"><img src="/image/검색 아이콘.png" height="25">
+
+                </li>
+                <li class="navicon"><a href=""><img src="/image/장바구니 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/마이페이지 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="searchBar" >
+                    <input type="search">
+                    <input type="submit">
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+
+
+    <style>
+
+
+        h1 {
+            text-align: center;
+        }
+
+        .regist {
+            background-color: black;
+            display: block;
+            margin: 0 auto;
+        }
+
+        button {
+            background-color: gray; /* 버튼 배경색 */
+            color: white; /* 버튼 글자색 */
+            padding: 10px 20px; /* 상하좌우 여백 */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* 호버 효과 전환 */
+            border-radius: 5px; /* 버튼 모서리 둥글게 */
+        }
+
+        th, td {
+            padding: 10px; /* 셀 안 여백 */
+            border: 1px solid #ddd; /* 셀 테두리 */
+        }
+
+        hr {
+            border: none; /* 기본 테두리 제거 */
+            height: 2px; /* 선의 높이 */
+            background-color: #000; /* 선의 색상 */
+            margin: 20px 0; /* 위아래 여백 */
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"]{
+            border-radius: 5px; /* 입력 필드 모서리 둥글게 */
+            font-size: 16px;
+            border-top: none; /* 위 테두리 제거 */
+            border-left: none; /* 왼쪽 테두리 제거 */
+            border-right: none; /* 오른쪽 테두리 제거 */
+            width: 80%;
+        }
+
+        #user_id {
+            width: calc(100% - 110px); /* 전체 너비에서 버튼의 너비를 뺀 값으로 설정 */
+        }
+
+        textarea {
+            border-radius: 5px; /* 입력 필드 모서리 둥글게 */
+            font-size: 16px;
+            border-top: none; /* 위 테두리 제거 */
+            border-left: none; /* 왼쪽 테두리 제거 */
+            border-right: none; /* 오른쪽 테두리 제거 */
+            width: 80%;
+        }
+
+        hr {
+            display: none;
+        }
+
+    </style>
+</header>
+
+
+<form th:action="@{/user/signup}" method="post" onsubmit="return checkPasswordMatch();">
+    <div>
+
+        <h1>Join</h1>
+        <br>
+        <label for="regist_name" id="memName">이름 :
+        </label>
+        <input type="text" id="user_name"
+               name="memName" class="no-border" required>
+        <br><br>
+        <hr>
+        <br>
+        <label for="regist_ID" style="display: inline-block;">아이디 :
+
+
+        </label>
+        <input type="text" name="memId" id="memId" class="no-border" required>
+        <!-- 가입완료 alrt창 필요  -->
+        <input type="button" value="중복확인" id="duplicationCheck">
+
+        <br><br>
+
+        <hr>
+        <br>
+        <label for="password">비밀번호:
+        </label>
+        <input type="password" id="user_pwd"
+               name="password" class="no-border" required>
+        <br><br>
+        <hr>
+        <br>
+        <label for="password">비밀번호 확인 :
+        </label>
+        <input type="password" id="user_pwd_check"
+               name="password" class="no-border" required>
+        <br><br>
+        <hr>
+        <br>
+        <label for="phone">휴대폰 번호:
+        </label>
+        <input type="text" id="user_phone"
+               name="phone" class="no-border" required>
+        <br><br>
+        <hr>
+        <br>
+        <label for="email">이메일:
+        </label>
+        <input type="email" id="user_email"
+               name="email" class="no-border" required>
+        <br><br>
+        <hr>
+        <br>
+        <label for="address">주소:  </label>
+        <textarea id="user_address"
+                  name="address" rows="1" cols="100" class="no-border" required>
+            </textarea>
+        <br><br>
+        <hr>
+    </div>
+    <!-- 모두 동의 체크박스 js 구현 필요  -->
+    <div class="joinagree">
+        <div>
+            <br><br>
+            <input type="checkbox" name="agreement_all"
+                   id="agreement_all" required> [필수] 만 14세 이상이며 모두 동의 합니다. <br>
+            &nbsp&nbsp&nbsp
+        </div>
+        <div>
+
+            <input type="checkbox" name="agreement_terms"
+                   id="agreement_terms" required> [필수] 이용약관
+            <a href="Lucete-policy(1).html"><u>약관보기</u></a><br>
+            &nbsp&nbsp&nbsp
+        </div>
+        <div>
+
+            <input type="checkbox" name="agreement_privacy"
+                   id="agreement_privacy" required> [필수] 개인정보 수집 동의
+            <a href="Lucete-userPolish.html"><u>약관보기</u> </a><br><br>
+        </div>
+
+
+    </div>
+    <div class="hp_mb20"></div>
+
+    <div>
+        <!-- 가입완료 alrt창 필요  -->
+        <input type="submit" name="regist" id="regist" class="regist" value="가입하기" style="color: white">
+    </div>
+</form>
+
+
+
+
+<br><br><br><br><br><br><br>
+
+
+
+
+
+<br><br><br><br><br><br><br>
+
+
+<footer class="footer">
+    <div class="containor">
+        <p>L u c e t e</p>
+        <ul class="info" style="list-style: none;">
+            <li class="info-list" style="font-size: smaller;"><a href>이용약관</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="info-list" style="font-size: smaller;"><a href>개인정보 처리방침</a></li>
+            <br><br>
+            <li class ="info-list" style="font-size: small;">상호: 루세트(Lucete) | 대표: 김민희 | 전화: 070-012-3456 | 이메일: lucete@gmail.com</li>
+            <br>
+            <li class="info-list" style="font-size: small;">주소:2222-312,25, Insadong 3-gil, Jongno-gu, Seoul, Republic of Korea</li>
+            <br>
+            <li class="info-list" style="font-size: small;">사업자등록번호:888-06-12345 | 통신판매:2024-서울인사동-0123</li>
+        </ul>
+
+
+    </div>
+</footer>
+</body>
+</html>
