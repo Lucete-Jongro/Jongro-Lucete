@@ -1,6 +1,11 @@
 package com.lucete.comprehensive.user.member.model.dto;
 
+import com.lucete.comprehensive.user.userRole.UserRole;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SignInDTO implements Serializable {
     private int memNo;
@@ -8,6 +13,7 @@ public class SignInDTO implements Serializable {
     private String memName;
     private String password;
     private char adminAuthority;
+    private UserRole userRole;
 
 
 
@@ -17,6 +23,15 @@ public class SignInDTO implements Serializable {
         this.memName = memName;
         this.password = password;
         this.adminAuthority = adminAuthority;
+    }
+
+    public SignInDTO(int memNo, String memId, String memName, String password, char adminAuthority, UserRole userRole) {
+        this.memNo = memNo;
+        this.memId = memId;
+        this.memName = memName;
+        this.password = password;
+        this.adminAuthority = adminAuthority;
+        this.userRole = userRole;
     }
 
     public char getAdminAuthority() {
@@ -59,4 +74,19 @@ public class SignInDTO implements Serializable {
         this.password = password;
     }
 
+    public List<String> getRole() {
+        if(this.userRole.getRole().length() > 0) {
+            return Arrays.asList(this.userRole.getRole().split(","));
+        }
+
+        return new ArrayList<>();
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
 }

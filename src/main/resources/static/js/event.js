@@ -12,9 +12,10 @@ window.onload = function() {
 if(document.getElementById("duplicationCheck")) {
 
     const $duplication = document.getElementById("duplicationCheck");
-
+    console.log($duplication);
     $duplication.onclick = function() {
         let memberId = document.getElementById("memId").value.trim();
+
 
         fetch("/user/idDupCheck", {
             method: "POST",
@@ -27,6 +28,9 @@ if(document.getElementById("duplicationCheck")) {
             .then(result => alert(result))
             .catch((error) => error.text().then((res) => alert(res)));
 
+
     }
+}else {
+
 }
 }

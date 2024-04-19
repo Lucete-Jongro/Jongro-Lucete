@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User-Pwd-Enquriy</title>
+    <title>User-Login-Enquiry</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,7 +32,7 @@
         .search-btn{
             display:flex;
             justify-content:center;
-            margin-left:170px
+            margin-left:200px
         }
         .btn-text{
             background-color: black;
@@ -85,15 +85,15 @@
 <header class="header">
     <div class="containor">
         <nav class="navbar">
-            <a href="Admin-MainPage.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
+            <a href="Admin-MainPage.html"><img src="/image/로고%20누끼(이름만).png" height="90"></a>
             <ul class="navbar-list" style="list-style: none;">
 
-                <li class="navicon" id="search"><img src="/image/검색 아이콘.png" height="25">
+                <li class="navicon" id="search"><img src="/image/검색%20아이콘.png" height="25">
 
                 </li>
-                <li class="navicon"><a href=""><img src="/image/장바구니 아이콘.png" height="25"></a></li>
-                <li class="navicon"><a href=""><img src="/image/마이페이지 아이콘.png" height="25"></a></li>
-                <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/장바구니%20아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/마이페이지%20아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/로그인%20아이콘.png" height="25"></a></li>
                 <li class="searchBar" >
                     <input type="search">
                     <input type="submit">
@@ -105,21 +105,23 @@
 </header>
 
 <div class="search-id">
-    <div class="name-text"><h2>비밀번호 찾기</h2></div>
+    <form th:action="@{/user/findid}" method="post">
+    <div class="name-text"><h2>아이디 찾기</h2></div>
     <br><br><br>
     <div class="search-container">
         <table class="search-table">
             <tr>
-                <td><label for="name">이름</label></td>
-                <td><input type="text" name="" id=""></td>
+                <td><label for="memName">이름</label></td>
+                <td><input type="text" name="memName" id="memName"></td>
             </tr>
             <tr>
-                <td><label for="id">아이디</label></td>
-                <td><input type="text" name="" id=""></td>
+                <td><label for="email">이메일</label></td>
+                <td><input type="text" name="email" id="email"></td>
             </tr>
         </table>
-    </div>
 
+    </div>
+    </form>
     <div class="search-btn">
         <div class="btn-text" onclick="openSaveModal()">조회</div>
     </div>
@@ -127,8 +129,8 @@
 
 <div id="savemodal" class="modal" style="display: none;">
     <div class="modal_content" style="width: 200px;">
-        <p>김상이 님의 비밀번호는</p>
-        <p>lglgl**** 입니다.</p>
+        <p>김상이 님의 아이디는</p>
+        <p>tjdks**** 입니다.</p>
         <br>
         <button id="save_button" onclick="saveChanges()">확인</button>
     </div>
@@ -169,4 +171,4 @@
     </div>
 </footer>
 </body>
-</html>
+</html>html>

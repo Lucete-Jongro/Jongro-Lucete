@@ -36,9 +36,9 @@ public class MemberService {
         return result;
     }
 
-    public SignInDTO findByUsername(String username) {
+    public SignInDTO findByMemberId(String memId) {
 
-        SignInDTO login = memberMapper.findByUsername(username);
+        SignInDTO login = memberMapper.findByMemberId(memId);
 
         if(!Objects.isNull(login)) {
             return login;
@@ -48,10 +48,19 @@ public class MemberService {
 
     }
 
-    public boolean selectMemberById(String memberId) {
+    public boolean selectMemberById(String memberId) { //아아이디 중ㅂ복 찾을때
 
         String result = memberMapper.selectMemberById(memberId);
 
         return result != null;
+    }
+
+    public String findMemberIdByEmail(String email) {
+
+        return null;
+    }
+
+    public String findMemberPasswordByEmail(String email) {
+        return null;
     }
 }

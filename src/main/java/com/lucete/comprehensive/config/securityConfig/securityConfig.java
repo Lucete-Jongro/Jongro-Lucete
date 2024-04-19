@@ -39,16 +39,22 @@ public class securityConfig {
         /* 요청에 대한 권한 체크 */
         http.authorizeHttpRequests( auth -> {
             auth.requestMatchers("/auth/login", "/user/signup", "/auth/fail", "/", "/index").permitAll();
-            auth.requestMatchers("/admin/*").hasAnyAuthority(UserRole.ADMIN.getRole());
-            auth.requestMatchers("/user/*").hasAnyAuthority(UserRole.USER.getRole());
+            auth.requestMatchers("/user/findid","/user/findpwd").permitAll();
+            auth.requestMatchers("/**").permitAll(); //일단 모든 권한 주기
+//            auth.requestMatchers("/admin/*").hasAnyAuthority(UserRole.ADMIN.getRole());
+//            auth.requestMatchers("/user/*").hasAnyAuthority(UserRole.USER.getRole());
             auth.anyRequest().authenticated();
 
         }).formLogin( login -> {
             login.loginPage("/auth/login");
-            login.usernameParameter("user");
-            login.passwordParameter("pass");
+
+
+            login.permitAll();
+            login.usernameParameter("memId");
+            login.passwordParameter("password");
             login.defaultSuccessUrl("/", true);
             login.failureHandler(authFailHandler);
+
 
         }).logout( logout -> {
             logout.logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"));

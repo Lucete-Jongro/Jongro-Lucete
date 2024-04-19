@@ -20,9 +20,11 @@ public class AuthService implements UserDetailsService {
     private MemberService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String memId) throws UsernameNotFoundException {
 
-        SignInDTO login = userService.findByUsername(username);
+        SignInDTO login = userService.findByMemberId(memId);
+        System.out.println(login.getMemName()+login.getMemId());
+        //여기까진 괜찮은데....
 
         if(Objects.isNull(login)) {
             throw new UsernameNotFoundException("해당하는 회원 정보가 존재하지 않습니다.");

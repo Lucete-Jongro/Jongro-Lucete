@@ -39,7 +39,7 @@
     <br><br>
     <img src="/image/로그인메인 .png" height="400" id="login-image">
 
-    <form th:action="@{/auth/login}" th:method="post">
+    <form action="/auth/login" method="post">
         <ul class="login-list" style="list-style: none;">
             ID<br>
             <input type="text" name="memId" class="login-input"> <!-- name 속성 추가 -->
@@ -52,13 +52,13 @@
     </form>
 
     <br>
-    <a th:href="@{/user/signup.html}">
+    <a href="/user/signup">
         <button class="login2">회원가입</button>
     </a>
     <button class="login2">비회원 주문조회</button>
     <br>
-    <h class="finding" style="border-right: 1px solid rgb(172, 172, 172);"><a th:href="@{/auth/findid.html}">ID 찾기</a></h>
-    <h class="finding"><a th:href="@{/auth/findpwd.html}">PASSWORD 찾기</a></h>
+    <h class="finding" style="border-right: 1px solid rgb(172, 172, 172);"><a th:href="@{/user/findid}">ID 찾기</a></h>
+    <h class="finding"><a th:href="@{/user/findpwd}">PASSWORD 찾기</a></h>
 
 </div>
 

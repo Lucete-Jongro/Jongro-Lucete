@@ -32,12 +32,13 @@
     </insert>
 
 
-    <select id="findByUsername" resultMap="login">
+    <select id="findByMemberId" resultMap="login">
         SELECT
         MEM_NO
         ,MEM_ID
         ,MEM_NAME
-        ,PASSWORD, admin_authority
+        ,PASSWORD
+        ,admin_authority
 
         FROM  MEMBER_INFO
         WHERE  MEM_ID = #{memName}
