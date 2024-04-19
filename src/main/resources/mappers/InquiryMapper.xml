@@ -48,6 +48,7 @@
             member_info b ON (a.MEM_NO = b.MEM_NO)
         </if>
         <where>
+
             <if test="searchCondition == 'allSelect'">
 
             </if>
@@ -175,6 +176,7 @@
         <where>
             <if test="searchCondition == 'user'">
                 b.memName LIKE CONCAT('%', #{ searchValue }, '%')
+
             </if>
             <if test="searchCondition == 'userId'">
                 b.memId LIKE CONCAT('%', #{ searchValue }, '%')
@@ -214,6 +216,5 @@
         c.RE_DATE DESC
         LIMIT #{offSet}, #{limit}
     </select>
-
 
 </mapper>

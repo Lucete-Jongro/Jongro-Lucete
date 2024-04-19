@@ -3,58 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin InsertProductPage</title>
-    <link rel="stylesheet" th:href="@{ /css/style.css }">
+    <title>Admin ProductModify Page</title>
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
+
     <style>
-        .product-insert-container{
+        .product-modify-container{
             overflow: hidden;
             width: auto;
             height: auto;
         }
-        .insert-table-area{
+        .modify-table-area{
             margin-left: 30px;
-            margin-top: 50px;
+            margin-top: 60px;
             width: auto;
             height: auto;
+            /* background-color: yellowgreen; */
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        .insert-table{
+        .modify-table{
             border: 3px solid #838383;
             border-collapse: collapse;
             width: 100%;
             height: auto;
             height: 80%;
         }
-        .insert-table tr{
+        .modify-table tr{
             border: 3px solid #838383;
 
         }
-        .insert-table td{
+        .modify-table td{
             border: 3px solid #838383;
-            background-color: gainsboro;
+            background-color: #d2d2d2;
             width: 70px;
         }
-        #box1, #box2, #box3, #box4, #box5, #box6{
+        #box2, #box3, #box4, #box5{
             font-size: 18px;
             text-align: center;
             font-weight: bold;
+            width: 20px;
         }
-        #box1, #box2, #box3, #box4, #box6{
+        #box2, #box3, #box4{
             height: 50px;
         }
         #box5{
             height: 350px;
         }
-        #category-text{
-            margin-left: 15px;
-            width: 45%;
-            height: 50%;
-        }
+
         #name-text{
             margin-left: 15px;
             width: 50%;
@@ -84,7 +83,7 @@
             justify-content: end;
             overflow: hidden;
         }
-        .inquiry-button{
+        .modify-button{
             margin-right:30px;
             width: 120px;
             height: 28px;
@@ -94,7 +93,7 @@
             display: flex;
             justify-content: center;
         }
-        .inquiry-button:hover{
+        .modify-button:hover{
             margin-right:30px;
             width: 120px;
             height: 28px;
@@ -143,7 +142,64 @@
             border: 0px solid;
 
         }
-
+        .inquiry{
+            margin-top: 30px;
+            margin-left: 30px;
+            display: flex;
+            height: 70px;
+        }
+        .ca-text{
+            background-color: #D2D2D2;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            width: 25%;
+            font-weight: bold;
+            border: 3px solid #838383;
+            box-sizing: border-box;
+            font-size: 18px;
+        }
+        .ca-box{
+            background-color: #D2D2D2;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            width: 25%;
+            border: 3px solid #838383;
+            box-sizing: border-box;
+        }
+        .na-text{
+            background-color: #D2D2D2;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            width: 25%;
+            font-weight: bold;
+            border: 3px solid #838383;
+            box-sizing: border-box;
+            font-size: 18px;
+        }
+        .na-box{
+            background-color: #D2D2D2;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            width: 25%;
+            border: 3px solid #838383;
+            box-sizing: border-box;
+        }
+        #select1{
+            width: 70%;
+            height: 30px;
+        }
+        #select2{
+            width: 70%;
+            height: 30px;
+        }
+        .inquiry-btn{
+            margin-top: 10px;
+            float: right;
+        }
     </style>
 </head>
 
@@ -190,123 +246,121 @@
     </nav>
 </div>
 
-<div class="product-insert-container">
-    <h4 style="font-weight: bold; font-size: 25px;">&nbsp;신규 상품 등록</h4>
-    <form action="/product/Insert" method="post" enctype="multipart/form-data">
-        <div class="insert-table-area">
-            <table class="insert-table">
-                <tr>
-                    <td id="box1">카테고리 선택</td>
-                    <td>
-                        <select name="prodCategory" id="category-text">
-                            <option th:each="category : ${ categories }"
-                                    th:value="${ category.prodCategory }"
-                                    th:text="${ category.categoryName }"></option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td id="box2">상품명</td>
-                    <td>
-                        <input type="text" name="prodName" id="name-text" placeholder="상품명을 입력해주세요.">
-                    </td>
-                </tr>
-                <tr>
-                    <td id="box3">재고량</td>
-                    <td>
-                        <input type="number" name="prodAmount" id="amount-text" placeholder="재고 수량을 입력해주세요.">
-                    </td>
-                </tr>
-                <tr>
-                    <td id="box4">상품 금액</td>
-                    <td>
-                        <input type="number" name="prodPrice" id="price-text" placeholder="상품 금액을 입력해주세요.">
-                        &nbsp;원
-                    </td>
-                </tr>
-                <tr>
-                    <td id="box5">상세 설명</td>
-                    <td>
-                        <textarea name="prodAccount" id="product-text" cols="100" rows="20" placeholder="상품의 상세 설명을 입력해주세요."></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td id="box6">상품 사진 첨부</td>
-                    <td>
-                        <input type="file" accept="*/*" name="attachImage" id="image-text">
-                    </td>
-                </tr>
-            </table>
+    <div class="product-modify-container">
+    <form>
+        <h4 style="font-weight: bold; font-size: 25px;">&nbsp;등록 상품 수정</h4>
+        <div class="inquiry">
+            <div class="ca-text">카테고리 선택</div>
+            <div class="ca-box">
+                <select name="prodCategory" id="select1">
+                    <option></option>
+                </select>
+            </div>
+            <div class="na-text">상품명 선택</div>
+            <div class="na-box">
+                <select name="selectName" id="select2">
+<!--                    <option -->
+<!--                            th:each="product : ${ products }"-->
+<!--                            th:value="${ product.prodSerial }"-->
+<!--                            th:text="${ product.prodName }"-->
+<!--                    ></option>-->
+                </select>
+            </div>
         </div>
-        <div class="submit-button">
-            <button type="submit" class="inquiry-button" style="font-size: 17px; font-weight: bold;" onclick="submitProduct()">상품 등록</button>
+        <div class="inquiry-btn">
+            <button type="button">상품 조회</button>
         </div>
     </form>
+
+    <div class="modify-table-area">
+        <table class="modify-table">
+            <tr>
+                <td id="box2">상품명</td>
+                <td>
+                    <input type="text" name="PROD_NAME" id="name-text" placeholder="상품명을 입력해주세요.">
+                </td>
+            </tr>
+            <tr>
+                <td id="box3">재고량</td>
+                <td>
+                    <input type="text" name="PROD_AMOUNT" id="amount-text" placeholder="재고 수량을 입력해주세요.">
+                </td>
+            </tr>
+            <tr>
+                <td id="box4">상품 금액</td>
+                <td>
+                    <input type="text" name="PROD_PRICE" id="price-text" placeholder="상품 금액을 입력해주세요.">
+                    &nbsp;원
+                </td>
+            </tr>
+            <tr>
+                <td id="box5">상세 설명</td>
+                <td>
+                    <textarea name="PROD_ACCOUNT" id="product-text" cols="100" rows="20" placeholder="상품의 상세 설명을 입력해주세요."></textarea>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="submit-button">
+        <div class="modify-button" style="font-size: 17px; font-weight: bold;" onclick="openSaveModal()">상품 수정</div>
+    </div>
 </div>
 
 <div id="savemodal" class="modal" style="display: none;">
     <div class="modal_content" style="width: 200px;">
-        <p>등록 하시겠습니까?</p>
+        <p>수정 하시겠습니까?</p>
         <br>
 
         <button id="save_button" onclick="saveChanges()">네</button>
         <button id="cancel_button" onclick="closeSaveModal()">아니오</button>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 
-    function submitProduct() {
-        var prodCategory = $('#category-text').val();
-        var prodName = $('#name-text').val();
-        var prodAmount = $('#amount-text').val();
-        var prodPrice = $('#price-text').val();
-        var prodAccount = $('#product-text').val();
+        // const $prodCategory = document.querySelector('#select1');
+        // $prodCategory.change(function () {
+        //     const selectedCategory = $(this).val();
+        //     console.log(selectedCategory)
+        //
+        //     fetch(`/product/find?prodCategory=${selectedCategory}`)
+        //         .then(res => res.json())
+        //         .then(data => {
+        //         const $prodSelect = document.querySelector('#select2');
+        //
+        //         data.forEach(category => {
+        //             const $option = document.createElement('option');
+        //             $option.textContent = category.categoryName;
+        //             $option.value = category.prodCategory;
+        //             $prodCategory.appendChild($option);
+        //         });
+        //         console.log("1번")
+        //
+        //     })
+        //
+        // })
 
-        var productData = {
-            prodCategory: prodCategory,
-            prodName: prodName,
-            prodAmount: prodAmount,
-            prodPrice: prodPrice,
-            prodAccount: prodAccount
-        };
+        const $prodCategory = document.querySelector('#select1');
 
-        $.ajax({
-            url: '/product/Insert',
-            type: 'POST',
-            data: JSON.stringify(productData),
-            contentType: 'application/json',
-            success: function (response) {
-                var prodSerial = response.prodSerial;
-                uploadImage(prodSerial);
-            },
-            error: function (xhr, status, error) {
-                alert("상품 등록 중 오류가 발생했습니다.");
-            }
-        });
-    }
+        fetch(`/product/find?prodCategory=${selectedCategory}`)
+            .then(res => res.json())
+            .then(data => {
+                const $prodSelect = document.querySelector('#select2');
 
-    function uploadImage(prodSerial) {
-        var formData = new FormData();
-        var imageFile = $('#image-text')[0].files[0];
-        formData.append('imageFile', imageFile);
-        formData.append('prodSerial', prodSerial);
+                data.forEach(category => {
+                    const $option = document.createElement('option');
+                    $option.textContent = category.categoryName;
+                    $option.value = category.prodCategory;
+                    $prodCategory.appendChild($option);
+                });
+                console.log("1번")
 
-        $.ajax({
-            url: '/product/Insert',
-            type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                alert("이미지 업로드가 완료되었습니다.");
-                closeSaveModal();
-            },
-            error: function (xhr, status, error) {
-                alert("이미지 업로드 중 오류가 발생했습니다.")
-            }
-        });
-    }
+                $prodCategory.change(function () {
+                    const selectedCategory = $(this).val();
+                    console.log(selectedCategory)
+                })
+            })
+
+
 
     function openSaveModal() {
         document.getElementById("savemodal").style.display = "block";
@@ -318,7 +372,7 @@
 
     function saveChanges() {
         // 저장된 정보를 조회페이지에 반영하는 로직 추가하면됨
-        alert("상품 등록이 완료 되었습니다.")
+        alert("상품 수정이 완료 되었습니다. ")
         closeSaveModal();
     }
 </script>

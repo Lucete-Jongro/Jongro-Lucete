@@ -1,5 +1,6 @@
 package com.lucete.comprehensive.product.controller;
 
+import com.lucete.comprehensive.board.review.dto.CategoryDTO;
 import com.lucete.comprehensive.common.file.FileDTO;
 import com.lucete.comprehensive.product.model.dto.ProductCategoryDTO;
 import com.lucete.comprehensive.product.model.dto.ProductDTO;
@@ -31,17 +32,16 @@ public class ProductController {
     @Autowired
     private MessageSource messageSource;
 
-//    @PostMapping("/Insert")
-//    public String insertProduct(ProductDTO product){
-//
-//        productService.insertProduct(product);
-//
-//        return "redirect:/product/Insert";
-//    }
-//    @GetMapping("/Insert")
-//    public String getInsertPage(){
-//        return "product/Insert";
-//    }
+
+    @GetMapping("/Insert")
+    public String getInsertPage(Model model){
+
+        List<ProductCategoryDTO> categoryList = productService.getCategoryList();
+
+        model.addAttribute("categories", categoryList);
+
+        return "product/Insert";
+    }
 
     @PostMapping("/Insert")
     public String insertProductAndImage(ProductDTO product, List<MultipartFile> attachImage) {
@@ -92,7 +92,6 @@ public class ProductController {
                         file.setRevNo(1);
 
                         fileList.add(file);
-
                     }
                 }
             }
@@ -113,22 +112,38 @@ public class ProductController {
         return "redirect:/product/Insert";
     }
 
+    @GetMapping("/select")
+    public String productSelect(Model model,
+                                @RequestParam(defaultValue = "1") int page,
+                                @RequestParam(required = false) String searchCondition,
+                                @RequestParam(required = false) String searchValue) {
 
+        Map<String, String> searchMap = new HashMap<>();
+        searchMap.put("searchCondition", searchCondition);
+        System.out.println("searchCondition : " + searchCondition);
+        searchMap.put("searchValue", searchValue);
+        System.out.println("searchValue : " + searchValue);
+        System.out.println("searchMap : " + searchMap);
 
-    private List<ProductCategoryDTO> categoryList = new ArrayList<>();
+        Map<String, Object> productSelectPaging = productService.productSelect(searchMap, page);
+        model.addAttribute("paging", productSelectPaging.get("paging"));
+        model.addAttribute("productList", productSelectPaging.get("productList"));
+        System.out.println("productSelectPaging = " + productSelectPaging);
 
-    {
-        categoryList.add(new ProductCategoryDTO(1, "쥬얼리", 1001));
-        categoryList.add(new ProductCategoryDTO(2, "DIY Kit", 1002));
-        categoryList.add(new ProductCategoryDTO(3, "DIY 자재", 1003));
+        return "product/select";
     }
 
-    @GetMapping("/Insert")
-    public String showInsertProductPage(Model model) {
 
-        model.addAttribute("categories", categoryList);
+    @GetMapping("/modify")
+    public String categorySelect() {
 
-        return "/product/Insert";
-
+        return "product/modify";
     }
+
+    @GetMapping("/find")
+    public @ResponseBody List<ProductCategoryDTO> findCategoryList() {
+
+        return productService.findCategoryList();
+    }
+
 }

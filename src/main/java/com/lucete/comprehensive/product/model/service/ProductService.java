@@ -1,19 +1,20 @@
 package com.lucete.comprehensive.product.model.service;
 
+import com.lucete.comprehensive.board.review.dto.CategoryDTO;
 import com.lucete.comprehensive.common.file.FileDTO;
+import com.lucete.comprehensive.common.paging.Pagenation;
+import com.lucete.comprehensive.common.paging.SelectCriteria;
 import com.lucete.comprehensive.product.controller.ProductController;
 import com.lucete.comprehensive.product.model.dao.ProductMapper;
+import com.lucete.comprehensive.product.model.dto.ProductCategoryDTO;
 import com.lucete.comprehensive.product.model.dto.ProductDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -23,8 +24,15 @@ public class ProductService {
 
     public ProductService(ProductMapper productMapper) {
         this.productMapper = productMapper;
+
     }
 
+    public List<ProductCategoryDTO> getCategoryList() {
+
+        List<ProductCategoryDTO> categoryList = productMapper.findCategory();
+
+        return categoryList;
+    }
 
     public void insertProduct(ProductDTO product) {
 
@@ -35,5 +43,37 @@ public class ProductService {
 
         productMapper.insertImage(fileDTO);
     }
+
+    public Map<String, Object> productSelect(Map<String, String> searchMap, int page) {
+
+        // 1. 전체 게시글 수 확인
+        int totalCount = productMapper.selectTotalCount(searchMap);
+        System.out.println("totalCount = " + totalCount);
+
+        // 2. 페이징 처리 관련 계산 후 SelectCriteria 담는다.
+        int limit = 10;
+        int buttonAmount = 5;
+        SelectCriteria selectCriteria = Pagenation.getSelectCriteria(page, totalCount, limit, buttonAmount);
+        selectCriteria.setSearchCondition(searchMap.get("searchCondition"));
+        selectCriteria.setSearchValue(searchMap.get("searchValue"));
+        System.out.println("selectCriteria = " + selectCriteria);
+
+        // 3. 페이지 검색 기준에 맞는 게시글 조회
+        List<ProductDTO> productList = productMapper.selectProductList(selectCriteria);
+        System.out.println("productList = " + productList);
+
+        Map<String , Object> productListAndPaging = new HashMap<>();
+        productListAndPaging.put("paging", selectCriteria);
+        productListAndPaging.put("productList", productList);
+
+        return productListAndPaging;
+    }
+
+
+    @Transactional
+    public List<ProductCategoryDTO> findCategoryList() {
+        return productMapper.findCategoryList();
+    }
+
 
 }

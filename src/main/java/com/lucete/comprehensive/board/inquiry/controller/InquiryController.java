@@ -1,17 +1,21 @@
 package com.lucete.comprehensive.board.inquiry.controller;
 
+
 import com.lucete.comprehensive.board.inquiry.dto.CommDTO;
+
 import com.lucete.comprehensive.board.inquiry.dto.InquiryDTO;
 import com.lucete.comprehensive.board.inquiry.service.InquiryService;
 import com.lucete.comprehensive.user.member.MemberDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +53,8 @@ public class InquiryController {
          Map<String, Object> inquiryListAndPaging = inquiryService.selectInquiryList(searchMap,page);
          model.addAttribute("paging", inquiryListAndPaging.get("paging"));
          model.addAttribute("inquiryList", inquiryListAndPaging.get("inquiryList"));
+
+
          return "inquiry/inquiryList";
 
      }
@@ -57,6 +63,7 @@ public class InquiryController {
 
         return "inquiry/inquiryRegist";
      }
+
 
     /*소비자 문의글 등록 */
      @PostMapping("/regist")
@@ -114,6 +121,7 @@ public class InquiryController {
 
         /*현재의 문의글을 반환*/
         InquiryDTO inquiryTemp = inquiryService.selectInquiryDetail(inquiryNo);
+
 
         /*수정 내용 덮기*/
         inquiryTemp.setInquiryTitle(inquiry.getInquiryTitle());
@@ -184,10 +192,5 @@ public class InquiryController {
         return "inquiry/inquiryAdminList";
 
     }
-
-
-
-
-
 
 }
