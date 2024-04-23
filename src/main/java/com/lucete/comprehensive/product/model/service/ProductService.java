@@ -1,6 +1,6 @@
 package com.lucete.comprehensive.product.model.service;
 
-import com.lucete.comprehensive.board.review.dto.CategoryDTO;
+
 import com.lucete.comprehensive.common.file.FileDTO;
 import com.lucete.comprehensive.common.paging.Pagenation;
 import com.lucete.comprehensive.common.paging.SelectCriteria;

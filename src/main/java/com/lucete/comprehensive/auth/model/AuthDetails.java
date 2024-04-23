@@ -2,18 +2,24 @@ package com.lucete.comprehensive.auth.model;
 
 import com.lucete.comprehensive.user.member.model.dto.SignInDTO;
 
+import com.lucete.comprehensive.user.member.model.dto.SignUpDTO;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 public class AuthDetails implements UserDetails {
 
     private SignInDTO loginUserDTO;
 
-    public AuthDetails(){}
+    public AuthDetails(SignUpDTO signupDTO){}
 
+    public String getMemberId() {
+        System.out.println(loginUserDTO);
+        return loginUserDTO.getMemId();
+    }
     public AuthDetails(SignInDTO loginUserDTO) {
         this.loginUserDTO = loginUserDTO;
     }
@@ -29,11 +35,10 @@ public class AuthDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        loginUserDTO.getRole().forEach(role -> authorities.add(() -> role));
 
-        return authorities;
+        return Collections.singleton(new SimpleGrantedAuthority("USER"));
     }
+
 
     @Override
     public String getPassword() {

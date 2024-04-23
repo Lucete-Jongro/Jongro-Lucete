@@ -1,32 +1,47 @@
 package com.lucete.comprehensive.user.member.model.dto;
 
-import java.io.Serializable;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+
 import java.util.Date;
 
-public class SignUpDTO extends MemberDTO implements Serializable{
-    private String memId;
+public class MemberDTO {
+
+
+    private int memNo;
     private String memName;
+    private String memId;
+
     private String password;
     private String email;
     private String phone;
     private String address;
-
-
-    public SignUpDTO(String memId, String memName, String password, String email, String phone, String address) {
-        this.memId = memId;
+    private Date memDate;
+    public MemberDTO(){}
+    public MemberDTO(int memNo, String memName, String memId, String password, String email, String phone, String address, Date memDate) {
+        this.memNo = memNo;
         this.memName = memName;
+        this.memId = memId;
         this.password = password;
         this.email = email;
         this.phone = phone;
         this.address = address;
+        this.memDate = memDate;
     }
 
-    public String getMemId() {
-        return memId;
-    }
-
-    public void setMemId(String memId) {
+    public MemberDTO(int memNo, String memName, String memId, String phone, String address) {
+        this.memNo = memNo;
+        this.memName = memName;
         this.memId = memId;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    public int getMemNo() {
+        return memNo;
+    }
+
+    public void setMemNo(int memNo) {
+        this.memNo = memNo;
     }
 
     public String getMemName() {
@@ -35,6 +50,14 @@ public class SignUpDTO extends MemberDTO implements Serializable{
 
     public void setMemName(String memName) {
         this.memName = memName;
+    }
+
+    public String getMemId() {
+        return memId;
+    }
+
+    public void setMemId(String memId) {
+        this.memId = memId;
     }
 
     public String getPassword() {
@@ -67,5 +90,13 @@ public class SignUpDTO extends MemberDTO implements Serializable{
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Date getMemDate() {
+        return memDate;
+    }
+
+    public void setMemDate(Date memDate) {
+        this.memDate = memDate;
     }
 }
