@@ -6,17 +6,16 @@ spring:
 
     username: root
     password: root
-  mail:
-    host: smtp.example.com
-    port: 587
-    username: your-email@example.com
-    password: your-email-password
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
+
+    mail:
+      host: smtp.naver.com
+      port: 465
+      username: mydogduri@naver.com
+      password:
+      properties:
+        mail.smtp.auth: true
+        mail.smtp.ssl.enable: true
+
   servlet:
     multipart:
       location: C:/Users/hi/Desktop/product-jan/Lucete

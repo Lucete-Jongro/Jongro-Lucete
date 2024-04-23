@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin UserInfoInquiry</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+
+    <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+    <style>
+        .container{
+            width: 700px;
+            height: auto;
+            overflow: hidden;
+        }
+        .search-section{
+            width: 700px;
+            height: auto;
+            background-color: white;
+        }
+        .search-table{
+            margin-left: 30px;
+            width: 670px;
+            border-top: 3px solid black;
+            border-bottom: 2px solid#C2C2C2;
+            border-right: 2px solid #C2C2C2;
+            border-left: 2px solid#C2C2C2;
+            border-collapse: collapse;
+        }
+        .search-table tr{
+            border: 2px solid #c2c2c2;
+            background-color: #d9d9d9;
+            text-align: center;
+            font-weight: bold;
+        }
+        .search-table td{
+            padding: 0;
+            border: 2px solid #c2c2c2;
+        }
+        .search-table input[type="text"]{
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .search-table input[type="date"]{
+            width: 200px;
+        }
+        .submit-btn{
+            margin-top: 25px;
+            font-weight: bold;
+            border: 1px solid #286B11;
+            background-color: #A2D6A7;
+            border-radius: 10px;
+        }
+        .result-section{
+            margin-left: 30px;
+
+        }
+        .result-table{
+            width: 670px;
+            border-top: 3px solid black;
+            border-bottom: 2px solid#C2C2C2;
+            border-right: 2px solid #C2C2C2;
+            border-left: 2px solid#C2C2C2;
+            border-collapse: collapse;
+        }
+        .result-table tr{
+            border: 2px solid #c2c2c2;
+            background-color: #d9d9d9;
+            text-align: center;
+        }
+        .result-table th{
+            border: 2px solid #c2c2c2;
+            border-bottom: 2px solid black;
+        }
+        .result-table td{
+            background-color: white;
+            border: 2px solid #c2c2c2;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="containor">
+        <nav class="navbar">
+            <a href="Admin-MainPage.html"><img src="assets/image/로고 누끼(이름만).png" height="90"></a>
+            <ul class="navbar-list" style="list-style: none;">
+                </li>
+                <li class="navicon"><a href=""><img src="assets/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="searchBar" >
+                    <input type="search">
+                    <input type="submit">
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</header>
+
+
+
+<div class="category-banner">
+    <nav class="category-navbar">
+        <ul class="category-list" style="list-style: none;">
+            <li class="category" style="font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
+            <li class="category"><a href="Admin-OrderCategory-Page.html">주문관리</a></li>
+            <li class="category"><a href="Admin-ProductCategory-Page.html">상품관리</a></li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Customer</li>
+            <li class="category"><a href="Admin-UserCategory-Page.html">회원관리</a></li>
+            <li class="category"><a href="1.문의_게시판_관리.html">게시판 관리</a></li>
+            <li class="category"><a href="2.리뷰_관리.html">리뷰 게시판 관리</a></li>
+            <li class="category"><a href="3.공지사항_관리.html">공지사항 관리</a></li>
+            <li class="category"><a href="4.쿠폰_관리.html">쿠폰 관리</a></li>
+            <li class="category"><a href="5.포인트_지급_관리.html">포인트 관리</a></li>
+            <li class="category"><a href="Admin-OneDayClass-Category-Page.html">원데이 클래스 관리</a></li>
+            <br><br><br><br><br><br><br>
+        </ul>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="search-section">
+        <!-- 검색 섹션 -->
+        <h2>&nbsp;&nbsp;&nbsp;회원 정보 조회</h2>
+        <br>
+        <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;● 회원 정보 검색</h4>
+        <form th:action="@{/admin/userinfo}" method="post">
+            <table class="search-table">
+                <tr>
+                    <td><label for="memName">이름</label></td>
+                    <td><input type="text" id="memName" name="memName"></td>
+                </tr>
+                <tr>
+                    <td><label for="startDate">가입 일자</label></td>
+                    <td>
+                        <input type="date" id="startDate" name="startDate">
+                        <span>~</span>
+                        <input type="date" id="endDate" name="endDate">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="address">주소</label></td>
+                    <td><input type="text" id="address" name="address"></td>
+                </tr>
+            </table>
+            <div class="submit-container" style="text-align: right;">
+                <button type="submit" class="submit-btn">조회하기</button>
+            </div>
+        </form>
+    </div>
+    <div class="result-section">
+        <h4>● 조회 결과</h4>
+        <table class="result-table">
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>이름</th>
+                <th>아이디</th>
+                <th>가입일자</th>
+                <th>주소</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 타임리프를 이용하여 서버에서 받아온 회원 정보를 반복하여 출력 -->
+            <tr th:each="member : ${members}">
+                <td th:text="${member.memNo}">번호</td>
+                <td th:text="${member.memName}">이름</td>
+                <td th:text="${member.memId}">아이디</td>
+                <td th:text="${member.memDate}">가입일자</td>
+                <td th:text="${member.address}">주소</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</footer>
+</body>
+</html>
