@@ -124,4 +124,15 @@
         WHERE
             PROD_SERIAL = #{prodSerial}
     </select>
+
+    <update id="updateProduct" parameterType="java.util.Map">
+        UPDATE product
+        SET
+            PROD_NAME = #{prodName},
+            PROD_AMOUNT = #{prodAmount},
+            PROD_PRICE = #{prodPrice},
+            PROD_ACCOUNT = #{prodAccount}
+        WHERE
+            PROD_SERIAL = #{prodSerial}
+    </update>
 </mapper>

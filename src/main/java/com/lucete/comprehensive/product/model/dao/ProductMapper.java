@@ -26,4 +26,6 @@ public interface ProductMapper {
     List<ProductDTO> findProductList();
 
     ProductDTO selectBySerial(Integer prodSerial);
+
+    int updateProduct(String prodSerial, String prodName, int prodAmount, int prodPrice, String prodAccount);
 }

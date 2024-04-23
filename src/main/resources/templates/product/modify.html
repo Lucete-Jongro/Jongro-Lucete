@@ -300,7 +300,7 @@
         </table>
     </div>
     <div class="submit-button">
-        <button class="modify-button" style="font-size: 17px; font-weight: bold;" onclick="openSaveModal()">상품 수정</button>
+        <button class="modify-button" style="font-size: 17px; font-weight: bold;" onclick="updateProduct()">상품 수정</button>
     </div>
 </div>
 
@@ -331,6 +331,35 @@
                 $("#price-text").val(response.prodPrice);
                 $("#product-text").val(response.prodAccount);
                 console.log("상품ID " + prodSerial);
+            }
+        });
+    }
+
+    function updateProduct() {
+        // 수정 정보를 변수에 할당.
+        const prodSerial = $("#select2").val();
+        const prodName = $("#name-text").val();
+        const prodAmount = $("#amount-text").val();
+        const prodPrice = $("#price-text").val();
+        const prodAccount = $("#product-text").val();
+
+        // ajax사용
+
+        $.ajax({
+            url: "/product/update",
+            type: "POST",
+            data:{
+                prodSerial: prodSerial,
+                prodName: prodName,
+                prodAmount: prodAmount,
+                prodPrice: prodPrice,
+                prodAccount: prodAccount
+            },
+            success: function (response) {
+                alert("업데이트 완료");
+            },
+            error: function (xhr, status, error) {
+                console.error("오류 발생")
             }
         });
     }

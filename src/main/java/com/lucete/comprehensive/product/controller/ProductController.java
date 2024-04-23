@@ -166,6 +166,22 @@ public class ProductController {
         return product;
     }
 
+    @PostMapping("/update")
+    @ResponseBody
+    public String updateProduct(@RequestParam("prodSerial") String prodSerial,
+                                @RequestParam("prodName") String prodName,
+                                @RequestParam("prodAmount") int prodAmount,
+                                @RequestParam("prodPrice") int prodPrice,
+                                @RequestParam("prodAccount") String prodAccount) {
+
+        boolean isSuccess = productService.updateProduct(prodSerial, prodName, prodAmount, prodPrice, prodAccount);
+        if(isSuccess) {
+            return "상품 정보 업데이트";
+        } else {
+            return "실패";
+        }
+    }
+
 
     @GetMapping("/category")
     public String productCategory() {

@@ -77,4 +77,11 @@ public class ProductService {
 
         return productMapper.selectBySerial(prodSerial);
     }
+
+    public boolean updateProduct(String prodSerial, String prodName, int prodAmount, int prodPrice, String prodAccount) {
+
+        int rowAffected = productMapper.updateProduct(prodSerial, prodName, prodAmount, prodPrice, prodAccount);
+
+        return rowAffected > 0;
+    }
 }
