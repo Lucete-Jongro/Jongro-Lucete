@@ -17,15 +17,15 @@
 <header class="header">
     <div class="containor">
         <nav class="navbar">
-            <a href="index.html"><img src="assets/image/로고 누끼(이름만).png" height="90"></a>
+            <a href="index.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
             <ul class="navbar-list" style="list-style: none;">
 
-                <li class="navicon" id="search"><img src="assets/image/검색 아이콘.png" height="25">
+                <li class="navicon" id="search"><img src="/image/검색 아이콘.png" height="25">
 
                 </li>
-                <li class="navicon"><a href=""><img src="assets/image/장바구니 아이콘.png" height="25"></a></li>
-                <li class="navicon"><a href=""><img src="assets/image/마이페이지 아이콘.png" height="25"></a></li>
-                <li class="navicon"><a href=""><img src="assets/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/장바구니 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/마이페이지 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
                 <li class="searchBar" >
                     <input type="search">
                     <input type="submit">
@@ -63,9 +63,10 @@
 
 <div class="intro">
 
-    <p style="font-size: 30px;">홍길동</p>
+    <p th:text="${ #authentication.principal.username }"></p>
+
     <p>고객님의 마이페이지 입니다</p>
-    <img src="assets/image/마이페이지 아이콘.png" height="100px" style="position: relative;" class="mypage-img">
+    <img src="/image/마이페이지 아이콘.png" height="100px" style="position: relative;" class="mypage-img">
 
     <ul class="mypage-list" style="list-style: none;">
         <li class="mypage-button">

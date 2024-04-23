@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin ProductCategory Page</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <title>Admin UserCategory Page</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+
+    <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
@@ -50,12 +53,10 @@
 <header class="header">
     <div class="containor">
         <nav class="navbar">
-
-            <a href="Admin-MainPage.html"><img src="/image/logo.png" height="90"></a>
+            <a href="Admin-MainPage.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
             <ul class="navbar-list" style="list-style: none;">
                 </li>
-                <li class="navicon"><a href=""><img src="/image/login_icon.png" height="25"></a></li>
-
+                <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
                 <li class="searchBar" >
                     <input type="search">
                     <input type="submit">
@@ -75,7 +76,7 @@
             <br>
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
             <li class="category"><a href="Admin-OrderCategory-Page.html">주문관리</a></li>
-            <li class="category"><a href="/product/category">상품관리</a></li>
+            <li class="category"><a href="Admin-ProductCategory-Page.html">상품관리</a></li>
             <br>
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Customer</li>
 
@@ -92,30 +93,22 @@
 </div>
 
 <div class="product-category">
-    <h4 style="font-size: 25px;">&nbsp;&nbsp;상품 관리</h4>
+    <h4 style="font-size: 25px;">&nbsp;&nbsp;회원 관리</h4>
     <div class="product-category-box">
         <div class="category-box">
-            <a class="box" href="Admin-OrderInquiry-Page.html">
-
-                <img src="/image/order.png" height="50px">
-                주문 상품 관리
+            <a class="box" href="Admin-BlackListInquiry-Page.html">
+                <img src="assets/image/블랙리스트 조회.png" height="55px">
+                블랙리스트 조회
             </a>
-            <a class="box" href="/product/select">
-                <img src="/image/sale.png" height="50px">
-
-                판매 상품 조회
+            <a class="box" href="Admin-InsertBlackList-Page.html">
+                <img src="assets/image/블랙리스트 등록.png" height="45px">
+                블랙리스트 등록
             </a>
         </div>
         <div class="category-box">
-            <a class="box" href="/product/Insert">
-
-                <img src="/image/registration.png" height="50px">
-                신규 상품 등록
-            </a>
-            <a class="box" href="/product/modify">
-                <img src="/image/Modify.png" height="50px">
-
-                상품 수정
+            <a class="box" href="Admin-UserInfoInquiry-Page.html">
+                <img src="assets/image/회원정보조회.png" height="40px">
+                회원 정보 조회
             </a>
         </div>
     </div>

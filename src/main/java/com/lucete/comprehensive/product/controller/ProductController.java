@@ -1,5 +1,6 @@
 package com.lucete.comprehensive.product.controller;
 
+
 import com.lucete.comprehensive.common.file.FileDTO;
 import com.lucete.comprehensive.product.model.dto.ProductCategoryDTO;
 import com.lucete.comprehensive.product.model.dto.ProductDTO;
@@ -133,15 +134,16 @@ public class ProductController {
         return "product/select";
     }
 
-
     @GetMapping("/modify")
     public String categorySelect(Model model) {
 
         List<ProductDTO> productList = productService.findProductList();
         model.addAttribute("products", productList);
 
+
         return "product/modify";
     }
+
 
 //    @GetMapping("/information")
 //    public String selectBySerial(@RequestParam(value = "prodSerial", required = false)Integer prodSerial){
@@ -188,5 +190,6 @@ public class ProductController {
 
         return "product/category";
     }
+
 
 }

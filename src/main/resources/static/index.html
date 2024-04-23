@@ -11,6 +11,156 @@
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
 
 
+    <style>
+
+
+        }
+        .item-name{
+            width: 700px;
+            font-style: 14px;
+            font-weight: bold;
+
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .item-bar{
+            height: 60px;
+            background-color: #6CA7ED;
+        }
+
+        .title-view {
+            padding: 25px 20px 70px;
+            position: relative;
+            margin-left: 25%;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .container {
+            width: 1100px;
+            margin: 0 auto;
+        }
+
+        .board-table {
+            font-size: 12px;
+            width: 100%;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .board-table a {
+            color: #333;
+            display: inline-block;
+            line-height: 1.4;
+            word-break: break-all;
+            vertical-align: middle;
+        }
+
+        .board-table a:hover {
+            text-decoration: underline;
+        }
+
+        .board-table th {
+            text-align: center;
+        }
+
+        .board-table .th-num {
+            width: 70px;
+            text-align: center;
+        }
+
+        .board-table .th-date {
+            width: 80px;
+        }
+
+        .board-table th,
+        .board-table td {
+            padding: 14px 0;
+        }
+
+        .board-table tbody td {
+            border-top: 1px solid #e7e7e7;
+            text-align: center;
+        }
+
+        .board-table tbody th {
+            padding-left: 28px;
+            padding-right: 14px;
+            border-top: 1px solid #e7e7e7;
+            text-align: left;
+        }
+
+        .board-table tbody th p {
+            display: none;
+
+        }
+
+        * {
+            list-style: none;
+            text-decoration: none;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .clearfix:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .container2 {
+            width: 1100px;
+            margin: 0 auto;
+        }
+
+        .category-select-btn {
+            float: right;
+            height: 30px;
+
+        }
+
+        .b-title {
+            margin-top: 50px;
+            width: 300px;
+            font-weight: bold
+        }
+
+        #wrapper {
+            height: auto;
+            min-height: 100%;
+            padding-bottom: 10px;
+
+        }
+
+    </style>
+    <script>
+        const data = [
+            { name: "A", score: 50 },
+            { name: "B", score: 80 },
+            { name: "C", score: 30 },
+            { name: "D", score: 70 },
+            { name: "E", score: 90 }
+        ];
+        const container = document.querySelector(".chart-container");
+        data.forEach(item => {
+            const newItem = document.createElement("div");
+            newItem.classList.add("item");
+            const name = document.createElement("div");
+            name.classList.add("item-name");
+            name.innerText = item.name;
+            const bar = document.createElement("div");
+            bar.classList.add("item-bar");
+            bar.style.width = `${item.score}%`;
+            newItem.appendChild(name);
+            newItem.appendChild(bar);
+            container.appendChild(newItem);
+        });
+    </script>
+
 </head>
 <body>
 <header class="header">
@@ -46,9 +196,10 @@
                 style="font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
             <br>
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
-            <li class="category"><a href="PRODUCT_mainview .html">주얼리</a></li>
-            <li class="category"><a href="DIY_PRODUCT_mainview.html">DIY 자재</a></li>
-            <li class="category"><a href="DIYkit_PRODUCT_mainview.html">DIY Kit</a></li>
+
+            <li class="category"><a href="Admin-OrderCategory-Page.html">주문관리</a></li>
+            <li class="category"><a href="/product/category">상품관리</a></li>
+
             <br>
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Library</li>
 
@@ -97,11 +248,28 @@
     <a href="NOTICE_01mainview.html"><img src="/image/Notice%20Photo.jpg" height="250" class="notice-img">
         <p class="notice">Notice</p></a>
 
-    <a href="REVIEW_01mainview.html"><img src="/image/Review%20Board%20Photo.jpg" height="238" class="review-img">
-        <p class="review">Review</p></a>
+
+
+        </div>
+
 
 
 </div>
+
+                <tr>
+                    <td>1</td>
+                    <th><a href="#!">원데이 클래스 과정 문의 합니다. </a>
+                    </th>
+                    <td>원데이클래스</td>
+                    <td>서미래</td>
+                    <td>2024.01.17</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div class="hp_mb20"></div>
 
 
 

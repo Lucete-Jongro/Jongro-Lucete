@@ -1,5 +1,6 @@
 package com.lucete.comprehensive.product.model.service;
 
+
 import com.lucete.comprehensive.common.file.FileDTO;
 import com.lucete.comprehensive.common.paging.Pagenation;
 import com.lucete.comprehensive.common.paging.SelectCriteria;
@@ -69,6 +70,7 @@ public class ProductService {
     }
 
 
+
     public List<ProductDTO> findProductList() {
         return productMapper.findProductList();
     }
@@ -84,4 +86,5 @@ public class ProductService {
 
         return rowAffected > 0;
     }
+
 }

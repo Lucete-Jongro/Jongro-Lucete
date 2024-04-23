@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="/js/event.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
 
@@ -93,7 +94,7 @@
                 </li>
                 <li class="navicon"><a href=""><img src="/image/장바구니%20아이콘.png" height="25"></a></li>
                 <li class="navicon"><a href=""><img src="/image/마이페이지%20아이콘.png" height="25"></a></li>
-                <li class="navicon"><a href=""><img src="/image/로그인%20아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href="/auth/login"><img src="/image/로그인%20아이콘.png" height="25"></a></li>
                 <li class="searchBar" >
                     <input type="search">
                     <input type="submit">
@@ -115,40 +116,29 @@
                 <td><input type="text" name="memName" id="memName"></td>
             </tr>
             <tr>
-                <td><label for="email">이메일</label></td>
-                <td><input type="text" name="email" id="email"></td>
+                <td><label for="phone">전화번호</label></td>
+                <td><input type="text" name="phone" id="phone"></td>
             </tr>
         </table>
-
+        <br>
+        <input type="submit" value="제출" class="button" style="width: 100px; height: 50px; color: white; background-color: black;">
     </div>
     </form>
     <div class="search-btn">
-        <div class="btn-text" onclick="openSaveModal()">조회</div>
+        <div id="result" style="position: relative; right: 80px" >
+            <p th:text="${result}"></p>
+        </div>
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script>
+            $(document).ready(function () {
+                var result = $("#result").text();
+                alert(result); // 결과를 알림 창에 표시
+            });
+        </script>
     </div>
 </div>
 
-<div id="savemodal" class="modal" style="display: none;">
-    <div class="modal_content" style="width: 200px;">
-        <p>김상이 님의 아이디는</p>
-        <p>tjdks**** 입니다.</p>
-        <br>
-        <button id="save_button" onclick="saveChanges()">확인</button>
-    </div>
-</div>
-<script>
-    function openSaveModal() {
-        document.getElementById("savemodal").style.display = "block";
-    }
 
-    function closeSaveModal() {
-        document.getElementById("savemodal").style.display = "none";
-    }
-
-    function saveChanges() {
-        // 저장된 정보를 조회페이지에 반영하는 로직 추가하면됨
-        alert("로그인 페이지로 돌아갑니다.")
-        closeSaveModal();
-    }
 </script>
 
 <br><br><br><br><br><br><br>
@@ -171,4 +161,4 @@
     </div>
 </footer>
 </body>
-</html>html>
+</html>

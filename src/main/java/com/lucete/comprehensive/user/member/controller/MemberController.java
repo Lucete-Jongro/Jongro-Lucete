@@ -1,17 +1,27 @@
 package com.lucete.comprehensive.user.member.controller;
 
+import com.lucete.comprehensive.auth.model.AuthDetails;
 import com.lucete.comprehensive.auth.model.service.AuthService;
+import com.lucete.comprehensive.user.member.model.dto.MemberDTO;
+import com.lucete.comprehensive.user.member.model.dto.SignInDTO;
 import com.lucete.comprehensive.user.member.model.dto.SignUpDTO;
 import com.lucete.comprehensive.user.member.model.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @Slf4j
@@ -26,46 +36,24 @@ public class MemberController {
     @GetMapping("/findid")
     public void findid(){}
 
+
     @PostMapping("/findid")
-    public ModelAndView findId(ModelAndView mv, @RequestParam("email") String email) {
-        // 이메일 주소를 이용하여 아이디를 찾는 로직을 구현
-        String foundId = memberService.findMemberIdByEmail(email);
-
-        String message = "";
-        if (foundId != null) {
-            message = "회원님의 아이디는 " + foundId + " 입니다.";
-            mv.setViewName("auth/login"); // 아이디를 찾은 후 로그인 페이지로 이동
-        } else {
-            message = "입력하신 이메일로 등록된 회원이 없습니다.";
-            mv.setViewName("user/findid"); // 아이디를 찾지 못한 경우 다시 아이디 찾기 페이지로 이동
+    public String findId(@RequestParam("memName") String memName,
+                         @RequestParam("phone") String phone,
+                         Model model) {
+        String result = memberService.findId(memName, phone);
+        if (result == null) {
+            result = "해당하는 아이디가 없습니다.";
         }
-
-        mv.addObject("message", message);
-
-        return mv;
+        model.addAttribute("result", result);
+        return "user/findid"; // 타임리프 템플릿 이름 반환
     }
-    @GetMapping("/findpwd")
+    @GetMapping("findpwd")
     public void findpwd(){}
-    @PostMapping("/findpwd")
-    public ModelAndView findPassword(ModelAndView mv, @RequestParam("email") String email) {
-        // 이메일 주소를 이용하여 비밀번호를 찾는 로직을 구현
-        String foundPassword = memberService.findMemberPasswordByEmail(email);
 
-        String message = "";
-        if (foundPassword != null) {
-            message = "회원님의 비밀번호는 " + foundPassword + " 입니다.";
-            mv.setViewName("auth/login"); // 비밀번호를 찾은 후 로그인 페이지로 이동
-        } else {
-            message = "입력하신 이메일로 등록된 회원이 없습니다.";
-            mv.setViewName("user/find-password"); // 비밀번호를 찾지 못한 경우 다시 비밀번호 찾기 페이지로 이동
-        }
 
-        mv.addObject("message", message);
-
-        return mv;
-    }
     @GetMapping("/signup")
-    public void signup() {}
+    public void signup(){}
 
     @PostMapping("/signup")
     public ModelAndView signup(ModelAndView mv, @ModelAttribute SignUpDTO signupDTO) {
@@ -77,6 +65,10 @@ public class MemberController {
 
         if (result > 0) {
             message = "회원가입이 정상적으로 완료되었습니다.";
+            AuthDetails authDetails = new AuthDetails(signupDTO);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(authDetails, null, authDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
             mv.setViewName("auth/login");
         } else {
             message = "회원가입에 실패하였습니다.";
@@ -95,6 +87,7 @@ public class MemberController {
 
     @PostMapping("/idDupCheck")
     public ResponseEntity<String> checkDuplication(@RequestBody SignUpDTO member) {
+        System.out.println(Objects.isNull(member));
 
         log.info("Request Check ID : {}", member.getMemId());
 
@@ -110,14 +103,23 @@ public class MemberController {
 
     }
 
-@PostMapping
-    protected Authentication createNewAuthentication(String memberId) {
 
-    UserDetails newPrincipal = authService.loadUserByUsername(memberId);
-        UsernamePasswordAuthenticationToken newAuth
-                = new UsernamePasswordAuthenticationToken(newPrincipal, newPrincipal.getPassword(), newPrincipal.getAuthorities());
+        @PostMapping("/mypage")
+        public String myPage(Model model) {
+            // Spring Security에서 사용자 정보를 가져옵니다.
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            // 인증된 사용자 정보를 가져옵니다.
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            // 사용자의 이름을 모델에 추가합니다.
+            model.addAttribute("memName", userDetails.getUsername());
+            return "mypage"; // 마이페이지 뷰로 이동합니다.
+        }
 
-        return newAuth;
-    }
+
+
+
+
+
+
 }
 
