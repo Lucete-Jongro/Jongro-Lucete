@@ -300,7 +300,9 @@
         </table>
     </div>
     <div class="submit-button">
-        <button class="modify-button" style="font-size: 17px; font-weight: bold;" onclick="updateProduct()">상품 수정</button>
+<!--        <button class="modify-button" style="font-size: 17px; font-weight: bold;" onclick="updateProduct()">상품 수정</button>-->
+        <button class="modify-button" style="font-size: 17px; font-weight: bold;" onclick="openSaveModal()">상품 수정</button>
+
     </div>
 </div>
 
@@ -335,8 +337,49 @@
         });
     }
 
-    function updateProduct() {
-        // 수정 정보를 변수에 할당.
+    // function updateProduct() {
+    //     // 수정 정보를 변수에 할당.
+    //     const prodSerial = $("#select2").val();
+    //     const prodName = $("#name-text").val();
+    //     const prodAmount = $("#amount-text").val();
+    //     const prodPrice = $("#price-text").val();
+    //     const prodAccount = $("#product-text").val();
+    //
+    //     // ajax사용
+    //
+    //     $.ajax({
+    //         url: "/product/update",
+    //         type: "POST",
+    //         data:{
+    //             prodSerial: prodSerial,
+    //             prodName: prodName,
+    //             prodAmount: prodAmount,
+    //             prodPrice: prodPrice,
+    //             prodAccount: prodAccount
+    //         },
+    //         success: function (response) {
+    //             alert("업데이트 완료");
+    //             closeSaveModal();
+    //         },
+    //         error: function (xhr, status, error) {
+    //             console.error("오류 발생")
+    //         }
+    //     });
+    // }
+
+</script>
+<script>
+    function openSaveModal() {
+        document.getElementById("savemodal").style.display = "block";
+    }
+
+    function closeSaveModal() {
+        document.getElementById("savemodal").style.display = "none";
+    }
+
+    function saveChanges() {
+        // 저장된 정보를 조회페이지에 반영하는 로직 추가하면됨
+
         const prodSerial = $("#select2").val();
         const prodName = $("#name-text").val();
         const prodAmount = $("#amount-text").val();
@@ -356,14 +399,16 @@
                 prodAccount: prodAccount
             },
             success: function (response) {
-                alert("업데이트 완료");
+                console.log("업데이트 완료");
+                // closeSaveModal();
             },
             error: function (xhr, status, error) {
                 console.error("오류 발생")
             }
         });
+        alert("상품 수정이 완료 되었습니다. ")
+        closeSaveModal();
     }
-
 </script>
 
 
