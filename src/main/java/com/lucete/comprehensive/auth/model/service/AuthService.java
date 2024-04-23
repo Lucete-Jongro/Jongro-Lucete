@@ -23,11 +23,13 @@ public class AuthService implements UserDetailsService {
     public UserDetails loadUserByUsername(String memId) throws UsernameNotFoundException {
 
         SignInDTO login = userService.findByMemberId(memId);
-        System.out.println(login.getMemName()+login.getMemId());
+        //System.out.println(login.getMemName()+login.getMemId());
         //여기까진 괜찮은데....
 
         if(Objects.isNull(login)) {
+            System.out.println("오류");
             throw new UsernameNotFoundException("해당하는 회원 정보가 존재하지 않습니다.");
+
         }
 
         return new AuthDetails(login);

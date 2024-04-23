@@ -17,7 +17,7 @@
         <collection property="commList" resultMap="commResultMap"/>
     </resultMap>
 
-    <resultMap id="memberResultMap" type="com.lucete.comprehensive.user.member.MemberDTO">
+    <resultMap id="memberResultMap" type="com.lucete.comprehensive.user.member.model.dto.MemberDTO">
         <id property="memNo" column="MEM_NO"/>
         <result property="memName" column="MEM_NAME"/>
         <result property="memId" column="MEM_ID"/>
@@ -30,7 +30,7 @@
         <result property="commUpdate" column="COMM_UPDATE"/>
         <result property="commDeleteStatus" column="COMM_DELETE_STATUS"/>
         <association property="inquiryNo" column="INQUIRY_NO" resultMap="inquiryResultMap"/>
-        <association property="memNo" javaType="com.lucete.comprehensive.user.member.MemberDTO">
+        <association property="memNo" javaType="com.lucete.comprehensive.user.member.model.dto.MemberDTO">
             <id property="memNo" column="MEM_NO"/>
             <result property="memNAME" column="MEM_NAME"/>
             <result property="memId" column="MEM_ID"/>

@@ -1,6 +1,5 @@
 package com.lucete.comprehensive.board.inquiry.dto;
 
-import com.lucete.comprehensive.user.member.MemberDTO;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;

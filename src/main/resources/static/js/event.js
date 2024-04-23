@@ -32,8 +32,6 @@ if(document.getElementById("duplicationCheck")) {
 
 
     }
-}else {
-
 }
 
 window.onload = function() {
@@ -48,4 +46,4 @@ window.onload = function() {
     }
 
 
-}
+}}

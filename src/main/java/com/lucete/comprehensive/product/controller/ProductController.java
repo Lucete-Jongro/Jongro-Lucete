@@ -1,6 +1,6 @@
 package com.lucete.comprehensive.product.controller;
 
-import com.lucete.comprehensive.board.review.dto.CategoryDTO;
+
 import com.lucete.comprehensive.common.file.FileDTO;
 import com.lucete.comprehensive.product.model.dto.ProductCategoryDTO;
 import com.lucete.comprehensive.product.model.dto.ProductDTO;
