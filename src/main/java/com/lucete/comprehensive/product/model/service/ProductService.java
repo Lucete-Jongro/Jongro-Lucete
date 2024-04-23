@@ -70,10 +70,21 @@ public class ProductService {
     }
 
 
-    @Transactional
-    public List<ProductCategoryDTO> findCategoryList() {
-        return productMapper.findCategoryList();
+
+    public List<ProductDTO> findProductList() {
+        return productMapper.findProductList();
     }
 
+    public ProductDTO selectBySerial(Integer prodSerial) {
+
+        return productMapper.selectBySerial(prodSerial);
+    }
+
+    public boolean updateProduct(String prodSerial, String prodName, int prodAmount, int prodPrice, String prodAccount) {
+
+        int rowAffected = productMapper.updateProduct(prodSerial, prodName, prodAmount, prodPrice, prodAccount);
+
+        return rowAffected > 0;
+    }
 
 }

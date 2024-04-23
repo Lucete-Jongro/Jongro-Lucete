@@ -23,6 +23,11 @@ public interface ProductMapper {
 
     List<ProductCategoryDTO> findCategory();
 
-    List<ProductCategoryDTO> findCategoryList();
+
+    List<ProductDTO> findProductList();
+
+    ProductDTO selectBySerial(Integer prodSerial);
+
+    int updateProduct(String prodSerial, String prodName, int prodAmount, int prodPrice, String prodAccount);
 
 }

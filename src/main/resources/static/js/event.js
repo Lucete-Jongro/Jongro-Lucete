@@ -37,13 +37,15 @@ if(document.getElementById("duplicationCheck")) {
 window.onload = function() {
 
 
-    if(document.getElementById("inquiryWrite")) {
+    if (document.getElementById("inquiryWrite")) {
         const $inquiryWrite = document.getElementById("inquiryWrite");
-        $inquiryWrite.onclick = function() {
+        $inquiryWrite.onclick = function () {
             location.href = "/inquiry/regist";
 
         }
     }
 
 
+
 }}
+

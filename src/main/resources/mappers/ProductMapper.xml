@@ -109,22 +109,34 @@
             #{offSet}, #{limit}
     </select>
 
-    <select id="categoryByProductSelect" resultMap="generalProductResultMap">
+
+    <select id="findProductList" resultMap="generalProductResultMap">
+
+        SELECT
+            *
+        FROM
+            product
+
+    </select>
+
+    <select id="selectBySerial" resultMap="generalProductResultMap">
         SELECT
             *
         FROM
             product
         WHERE
-            PROD_CATEGORY = #{ prodCategory };
+            PROD_SERIAL = #{prodSerial}
     </select>
 
-    <select id="findCategoryList" resultType="com.lucete.comprehensive.product.model.dto.ProductCategoryDTO">
-        SELECT
-            *
-        FROM
-            product_category
-        ORDER BY
-            PROD_CATEGORY
-    </select>
+    <update id="updateProduct" parameterType="java.util.Map">
+        UPDATE product
+        SET
+            PROD_NAME = #{prodName},
+            PROD_AMOUNT = #{prodAmount},
+            PROD_PRICE = #{prodPrice},
+            PROD_ACCOUNT = #{prodAccount}
+        WHERE
+            PROD_SERIAL = #{prodSerial}
+    </update>
 
 </mapper>

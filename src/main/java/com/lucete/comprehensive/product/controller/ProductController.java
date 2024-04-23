@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -133,17 +134,62 @@ public class ProductController {
         return "product/select";
     }
 
-
     @GetMapping("/modify")
-    public String categorySelect() {
+    public String categorySelect(Model model) {
+
+        List<ProductDTO> productList = productService.findProductList();
+        model.addAttribute("products", productList);
+
 
         return "product/modify";
     }
 
-    @GetMapping("/find")
-    public @ResponseBody List<ProductCategoryDTO> findCategoryList() {
 
-        return productService.findCategoryList();
+//    @GetMapping("/information")
+//    public String selectBySerial(@RequestParam(value = "prodSerial", required = false)Integer prodSerial){
+//
+//        System.out.println("prodSerial = " + prodSerial);
+//
+//         String value = productService.selectBySerial(prodSerial);
+//
+//
+//         return value;
+//    }
+
+    @GetMapping("/information")
+    @ResponseBody
+    public ProductDTO selectBySerial(@RequestParam(value = "prodSerial", required = false)Integer prodSerial){
+
+        System.out.println("prodSerial = " + prodSerial);
+
+        ProductDTO product  = productService.selectBySerial(prodSerial);
+
+        System.out.println("ajax 복귀");
+        return product;
     }
+
+    @PostMapping("/update")
+    @ResponseBody
+    public String updateProduct(@RequestParam("prodSerial") String prodSerial,
+                                @RequestParam("prodName") String prodName,
+                                @RequestParam("prodAmount") int prodAmount,
+                                @RequestParam("prodPrice") int prodPrice,
+                                @RequestParam("prodAccount") String prodAccount) {
+
+        boolean isSuccess = productService.updateProduct(prodSerial, prodName, prodAmount, prodPrice, prodAccount);
+        if(isSuccess) {
+            return "상품 정보 업데이트";
+        } else {
+            return "실패";
+        }
+    }
+
+
+    @GetMapping("/category")
+    public String productCategory() {
+
+        return "product/category";
+    }
+
 
 }
