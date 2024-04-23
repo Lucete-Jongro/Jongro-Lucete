@@ -1,6 +1,5 @@
 package com.lucete.comprehensive.product.controller;
 
-import com.lucete.comprehensive.board.review.dto.CategoryDTO;
 import com.lucete.comprehensive.common.file.FileDTO;
 import com.lucete.comprehensive.product.model.dto.ProductCategoryDTO;
 import com.lucete.comprehensive.product.model.dto.ProductDTO;
@@ -10,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -135,15 +135,42 @@ public class ProductController {
 
 
     @GetMapping("/modify")
-    public String categorySelect() {
+    public String categorySelect(Model model) {
+
+        List<ProductDTO> productList = productService.findProductList();
+        model.addAttribute("products", productList);
 
         return "product/modify";
     }
 
-    @GetMapping("/find")
-    public @ResponseBody List<ProductCategoryDTO> findCategoryList() {
+//    @GetMapping("/information")
+//    public String selectBySerial(@RequestParam(value = "prodSerial", required = false)Integer prodSerial){
+//
+//        System.out.println("prodSerial = " + prodSerial);
+//
+//         String value = productService.selectBySerial(prodSerial);
+//
+//
+//         return value;
+//    }
 
-        return productService.findCategoryList();
+    @GetMapping("/information")
+    @ResponseBody
+    public ProductDTO selectBySerial(@RequestParam(value = "prodSerial", required = false)Integer prodSerial){
+
+        System.out.println("prodSerial = " + prodSerial);
+
+        ProductDTO product  = productService.selectBySerial(prodSerial);
+
+        System.out.println("ajax 복귀");
+        return product;
+    }
+
+
+    @GetMapping("/category")
+    public String productCategory() {
+
+        return "product/category";
     }
 
 }

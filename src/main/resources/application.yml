@@ -4,8 +4,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost/lucete
 
-    username: root
-    password: root
+    username: lucete
+    password: lucete
   mail:
     host: smtp.example.com
     port: 587
@@ -22,6 +22,9 @@ spring:
       location: C:/Users/hi/Desktop/product-jan/Lucete
       max-file-size: 20MB
       max-request-size: 20MB
+  web:
+    resources:
+      static-locations: /static/**
 
 #  thymeleaf:
 #    cache: false  # 개발 환경에서는 캐시를 비활성화하여 변경사항을 즉시 반영할 수 있도록 합니다.
@@ -38,4 +41,3 @@ mybatis:
 #  file:
 #    name: myapp.log
 #    path: C:/Users/hi/Desktop/product-jan/Lucete
-

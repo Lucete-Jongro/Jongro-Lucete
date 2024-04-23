@@ -23,6 +23,7 @@ public interface ProductMapper {
 
     List<ProductCategoryDTO> findCategory();
 
-    List<ProductCategoryDTO> findCategoryList();
+    List<ProductDTO> findProductList();
 
+    ProductDTO selectBySerial(Integer prodSerial);
 }
