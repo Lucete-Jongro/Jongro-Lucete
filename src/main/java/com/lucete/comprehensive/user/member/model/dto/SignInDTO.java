@@ -12,10 +12,30 @@ public class SignInDTO extends MemberDTO implements Serializable {
     private String memId;
     private String memName;
     private String password;
+    private String email;
     private char adminAuthority;
     private UserRole userRole;
+    private String phone;
 
+    @Override
+    public String getPhone() {
+        return phone;
+    }
 
+    @Override
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    @Override
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public SignInDTO(int memNo, String memId, String memName, String password, char adminAuthority) {
         this.memNo = memNo;

@@ -6,6 +6,7 @@ import com.lucete.comprehensive.user.member.model.dto.MemberDTO;
 import com.lucete.comprehensive.user.member.model.dto.SignInDTO;
 import com.lucete.comprehensive.user.member.model.dto.SignUpDTO;
 import com.lucete.comprehensive.user.member.model.service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 
 @Controller
 @Slf4j
@@ -31,10 +34,15 @@ public class MemberController {
     private MemberService memberService;
     @Autowired
     private AuthService authService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @GetMapping("/mypage")
     public void mypage(){}
+    @GetMapping("/mypage/myinfo")
+    public void myinfo(){}
     @GetMapping("/findid")
     public void findid(){}
+
 
 
     @PostMapping("/findid")
@@ -112,14 +120,12 @@ public class MemberController {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             // 사용자의 이름을 모델에 추가합니다.
             model.addAttribute("memName", userDetails.getUsername());
+
             return "mypage"; // 마이페이지 뷰로 이동합니다.
         }
 
 
-
-
-
-
+        
 
 }
 

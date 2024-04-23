@@ -9,6 +9,7 @@
         <result property="memId" column="MEM_ID"/>
         <result property="memName" column="MEM_NAME"/>
         <result property="password" column="PASSWORD"/>
+        <result property="email" column="EMAIL"/>
         <result property="adminAuthority" column="ADMIN_AUTHORITY"/>
     </resultMap>
     <resultMap id="memInfo" type="com.lucete.comprehensive.user.member.model.dto.MemberDTO">
@@ -46,6 +47,7 @@
         ,MEM_ID
         ,MEM_NAME
         ,PASSWORD
+
         ,admin_authority
 
         FROM  MEMBER_INFO

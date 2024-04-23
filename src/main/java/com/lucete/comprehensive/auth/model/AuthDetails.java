@@ -14,6 +14,7 @@ public class AuthDetails implements UserDetails {
 
     private SignInDTO loginUserDTO;
 
+
     public AuthDetails(SignUpDTO signupDTO){}
 
     public String getMemberId() {
@@ -44,6 +45,14 @@ public class AuthDetails implements UserDetails {
     public String getPassword() {
         return loginUserDTO.getPassword();
     }
+
+    public String getEmail() {
+        return loginUserDTO.getEmail();
+    }
+    public String getPhone() {
+        return loginUserDTO.getPhone();
+    }
+
 
     @Override
     public String getUsername() {

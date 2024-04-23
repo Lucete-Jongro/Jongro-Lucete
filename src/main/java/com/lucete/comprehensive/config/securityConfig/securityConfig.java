@@ -40,8 +40,9 @@ public class securityConfig {
         http.authorizeHttpRequests( auth -> {
             auth.requestMatchers("/auth/login", "/user/signup", "/auth/fail", "/", "/index").permitAll();
             auth.requestMatchers("/user/findid","/user/findpwd").permitAll();
-            auth.requestMatchers("/**").permitAll(); //일단 모든 권한 주기
-//            auth.requestMatchers("/admin/*").hasAnyAuthority(UserRole.ADMIN.getRole());
+            auth.requestMatchers("/image/**").permitAll();
+            //auth.requestMatchers("/**").permitAll(); //일단 모든 권한 주기
+           auth.requestMatchers("/user/mypage/*").hasAnyAuthority(UserRole.USER.getRole());
 //            auth.requestMatchers("/user/*").hasAnyAuthority(UserRole.USER.getRole());
             auth.anyRequest().authenticated();
 
