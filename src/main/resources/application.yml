@@ -3,9 +3,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost/lucete
-
     username: ohgiraffers
     password: ohgiraffers
+
   servlet:
     multipart:
       location: C:/Users/hi/Desktop/product-jan/Lucete

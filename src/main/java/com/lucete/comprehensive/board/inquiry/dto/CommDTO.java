@@ -1,5 +1,7 @@
 package com.lucete.comprehensive.board.inquiry.dto;
 
+import com.lucete.comprehensive.user.member.MemberDTO;
+
 import java.time.LocalDateTime;
 
 public class CommDTO {
@@ -12,10 +14,12 @@ public class CommDTO {
     private  int memNo;
     private String memName;
     private int inquiryNo;
+    private MemberDTO memberDTO;
+    private InquiryDTO inquiryDTO;
 
     public CommDTO(){}
 
-    public CommDTO(int commKey, String reComment, LocalDateTime reDate, LocalDateTime commUpdate, char commDeleteStatus, int memNo, String memName, int inquiryNo) {
+    public CommDTO(int commKey, String reComment, LocalDateTime reDate, LocalDateTime commUpdate, char commDeleteStatus, int memNo, String memName, int inquiryNo, MemberDTO memberDTO, InquiryDTO inquiryDTO) {
         this.commKey = commKey;
         this.reComment = reComment;
         this.reDate = reDate;
@@ -24,6 +28,8 @@ public class CommDTO {
         this.memNo = memNo;
         this.memName = memName;
         this.inquiryNo = inquiryNo;
+        this.memberDTO = memberDTO;
+        this.inquiryDTO = inquiryDTO;
     }
 
     public int getCommKey() {
@@ -90,6 +96,22 @@ public class CommDTO {
         this.inquiryNo = inquiryNo;
     }
 
+    public MemberDTO getMemberDTO() {
+        return memberDTO;
+    }
+
+    public void setMemberDTO(MemberDTO memberDTO) {
+        this.memberDTO = memberDTO;
+    }
+
+    public InquiryDTO getInquiryDTO() {
+        return inquiryDTO;
+    }
+
+    public void setInquiryDTO(InquiryDTO inquiryDTO) {
+        this.inquiryDTO = inquiryDTO;
+    }
+
     @Override
     public String toString() {
         return "CommDTO{" +
@@ -101,6 +123,8 @@ public class CommDTO {
                 ", memNo=" + memNo +
                 ", memName='" + memName + '\'' +
                 ", inquiryNo=" + inquiryNo +
+                ", memberDTO=" + memberDTO +
+                ", inquiryDTO=" + inquiryDTO +
                 '}';
     }
 }

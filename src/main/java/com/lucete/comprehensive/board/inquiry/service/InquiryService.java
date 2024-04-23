@@ -79,22 +79,20 @@ public class InquiryService {
         //회원 로그인 되면 회원만 수정 접근 하는 기능 넣어야함
     }
 
-    public void registComm(CommDTO registComm) {
-        /* 답글 등록 */
-        inquiryMapper.insertComm(registComm);
-    }
-
-    public List<CommDTO> loadComm(CommDTO loadComm) {
-        /* 답글 조회 */
-        return inquiryMapper.selectCommList(loadComm);
-    }
-
-    public void removeComm(CommDTO removeComm) {
-        /* 답글 삭제 */
-        inquiryMapper.deleteComm(removeComm);
-    }
-
-
+//    public void registComm(CommDTO registComm) {
+//        /* 답글 등록 */
+//        inquiryMapper.insertComm(registComm);
+//    }
+//
+//    public List<CommDTO> loadComm(CommDTO loadComm) {
+//        /* 답글 조회 */
+//        return inquiryMapper.selectCommList(loadComm);
+//    }
+//
+//    public void removeComm(CommDTO removeComm) {
+//        /* 답글 삭제 */
+//        inquiryMapper.deleteComm(removeComm);
+//    }
 
     /* 관리자 페이지 페이징처리 */
     public Map<String,Object> AdminSelectInquiryList(Map<String, String> searchMap, int page){
@@ -108,16 +106,40 @@ public class InquiryService {
 
         /* 3. 요청 페이지와 검색 기준에 맞는 게시글을 조회해온다. */
 
-        List<InquiryDTO> AdminInquiryList = inquiryMapper.AdminSelectInquiryList(selectCriteria);
+        List<InquiryDTO> inquiryList = inquiryMapper.AdminSelectInquiryList(selectCriteria);
 
-        Map<String, Object> AdminInquiryListPaging = new HashMap<>();
-        AdminInquiryListPaging.put("paging", selectCriteria);
-        AdminInquiryListPaging.put("AdminInquiryList", AdminInquiryList);
+        Map<String, Object> inquiryListPaging = new HashMap<>();
+        inquiryListPaging.put("paging", selectCriteria);
+        inquiryListPaging.put("inquiryList", inquiryList);
 
 
-        return AdminInquiryListPaging;
+        return inquiryListPaging;
+
+    }
+
+     public void deleteAdminInquiry(int inquiryNo) {
+         /* 소비자 - 문의글 삭제 */
+         inquiryMapper.deleteAdminInquiry(inquiryNo);
+     }
+
+    public InquiryDTO AdminSelectInquiryDetail(int inquiryNo){
+        /* 관리자- 문의 상세 내용 조회 */
+        return inquiryMapper.AdminSelectInquiryDetail(inquiryNo);
+    }
+
+    public CommDTO selectCommDetail(int commKey) {
+        return inquiryMapper.searchCommDetail(commKey);
+    }
+    public void commRegist(CommDTO comm) {
+
+        inquiryMapper.insertComm(comm);
+    }
+
+
+
+
 
     }
 
 
-}
+
