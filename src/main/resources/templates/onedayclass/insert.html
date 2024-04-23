@@ -48,7 +48,7 @@
             height: 40px;
             box-sizing: border-box;
         }
-        .class-table #classAccount{
+        .class-table #prodAccount{
             width: 100%;
             height: 150px;
             box-sizing: border-box;
@@ -111,7 +111,7 @@
 
 <div class="onedayclass-container">
     <div class="onedayclass-form">
-        <form action="/onedayclass/insert" method="post">
+        <form action="/onedayclass/insert" method="post" enctype="multipart/form-data">
             <h2>원데이 클래스 등록</h2>
             <br>
             <h4>● 상세 정보 등록</h4>
@@ -134,12 +134,16 @@
                     <td><input type="time" name="setTime" id="setTime"></td>
                 </tr>
                 <tr>
-                    <td class="label-color" style="height: 40px;">금액></td>
-                    <td><input type="number" name="classPrice" placeholder="금액을 입력하세요" id="classPrice"></td>
+                    <td class="label-color" style="height: 40px;">금액</td>
+                    <td><input type="number" name="prodPrice" placeholder="금액을 입력하세요" id="prodPrice"></td>
+                </tr>
+                <tr>
+                    <td class="label-color" style="height: 40px;">강사 이름</td>
+                    <td><input type="text" name="teacherName" placeholder="성함을 입력하세요" id="teacherName"></td>
                 </tr>
                 <tr>
                     <td class="label-color" style="height: 150px;">상세 설명</td>
-                    <td><textarea name="classAccount" id="classAccount"></textarea></td>
+                    <td><textarea name="prodAccount" id="prodAccount"></textarea></td>
                 </tr>
                 <tr>
                     <td class="label-color" style="height: 40px;">파일 첨부</td>
@@ -148,7 +152,7 @@
 
             </table>
             <div class="insert-btn">
-                <button type="submit" class="Btn" id="Btn">클래스 등록</button>
+                <button type="submit" class="Btn" id="Btn" onclick="insertClass()">클래스 등록</button>
             </div>
         </form>
     </div>
@@ -174,34 +178,84 @@
     </div>
 </footer>
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    function submitForm() {
-        var className = document.getElementById("className").value;
-        var startDate = document.getElementById("startDate").value;
-        var endDate = document.getElementById("endDate").value;
-        var setTime = document.getElementById("setTime").value;
-        var classPrice = document.getElementById("classPrice").value;
-        var classAccount = document.getElementById("classAccount").value;
 
-        console.log("클래스명: " + className);
-        console.log("시작 날짜: " + startDate);
-        console.log("종료 날짜: " + endDate);
-        console.log("시작 시간: " + setTime);
-        console.log("클래스 가격: " + classPrice);
-        console.log("상세 설명: " + classAccount);
-    }
-
-    // $("#Btn").click(function(){
-    //     var inputValue = document.getElementById("className").value;
-    //     alert("1번")
+    // function insertClass() {
+    //
+    //
+    //     const className = $("#className").val();
+    //     const startDate = $("#startDate").val();
+    //     const endDate =  $("#endDate").val();
+    //     const setTime = $("#setTime").val();
+    //     const prodPrice =  $("#prodPrice").val();
+    //     const teacherName = $("#teacherName").val();
+    //     const prodAccount = $("#prodAccount").val();
+    //
     //     $.ajax({
     //         type: "POST",
     //         url: "/onedayclass/insert",
-    //         data: { value: inputValue },
-    //         success: function(data){
-    //             alert("데이터 보내기 성공!");
+    //         ContentType:"application/json",
+    //         data: JSON.stringify({
+    //             className: className,
+    //             startDate: startDate,
+    //             endDate: endDate,
+    //             setTime: setTime,
+    //             prodPrice: prodPrice,
+    //             teacherName: teacherName,
+    //             prodAccount: prodAccount
+    //         }),
+    //         success: function (result) {
+    //             console.log("등록 완료");
+    //
+    //             //화면 리로드
+    //             window.location.reload();
+    //         },
+    //         error: function (e) {
+    //             console.log("클래스 등록 실패");
+    //             console.log("에러 : " + e);
     //         }
     //     });
-    // });
+    //
+    // }
+    function insertClass() {
+        const className = $("#className").val();
+        const startDate = $("#startDate").val();
+        const endDate = $("#endDate").val();
+        const setTime = $("#setTime").val();
+        const prodPrice = $("#prodPrice").val();
+        const teacherName = $("#teacherName").val();
+        const prodAccount = $("#prodAccount").val();
+        const fileName = $("#fileName").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/onedayclass/insert",
+            processData: false,
+            contentType: false, // 이 부분 수정
+            data: {
+                className: className,
+                startDate: startDate,
+                endDate: endDate,
+                setTime: setTime,
+                prodPrice: prodPrice,
+                teacherName: teacherName,
+                prodAccount: prodAccount,
+                fileName: fileName
+            },
+            success: function (result) {
+                console.log("등록 완료");
+
+                //화면 리로드
+                window.location.reload();
+            },
+            error: function (e) {
+                console.log("클래스 등록 실패");
+                console.log("에러 : " + e);
+            }
+        });
+    }
+
 </script>
 </html>

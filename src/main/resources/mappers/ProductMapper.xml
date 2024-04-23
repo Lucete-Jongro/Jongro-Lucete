@@ -135,4 +135,15 @@
         WHERE
             PROD_SERIAL = #{prodSerial}
     </update>
+
+    <insert id="insertClass" parameterType="com.lucete.comprehensive.product.model.dto.OneDayClassDTO">
+        INSERT INTO oneday_class (CLASS_NAME, START_DATE, END_DATE, SET_TIME, PROD_CATEGORY, TEACHAR_NAME)
+        VALUES (#{className} , #{startDate}, #{endDate}, #{setTime}, 4, #{teacherName})
+    </insert>
+
+    <insert id="classProduct" parameterType="com.lucete.comprehensive.product.model.dto.ProductDTO">
+        INSERT INTO product (PROD_NAME, PROD_PRICE, PROD_ACCOUNT, PROD_AMOUNT)
+        VALUES (#{className}, #{prodPrice}, #{prodAccount}, 4)
+    </insert>
+
 </mapper>

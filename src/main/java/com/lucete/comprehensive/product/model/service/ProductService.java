@@ -5,13 +5,16 @@ import com.lucete.comprehensive.common.paging.Pagenation;
 import com.lucete.comprehensive.common.paging.SelectCriteria;
 import com.lucete.comprehensive.product.controller.ProductController;
 import com.lucete.comprehensive.product.model.dao.ProductMapper;
+import com.lucete.comprehensive.product.model.dto.OneDayClassDTO;
 import com.lucete.comprehensive.product.model.dto.ProductCategoryDTO;
 import com.lucete.comprehensive.product.model.dto.ProductDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Time;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -83,5 +86,19 @@ public class ProductService {
         int rowAffected = productMapper.updateProduct(prodSerial, prodName, prodAmount, prodPrice, prodAccount);
 
         return rowAffected > 0;
+    }
+
+
+    public boolean insertClass(String className, Date startDate, Date endDate, Time setTime, int prodPrice, String teacherName, String prodAccount) {
+
+        int rowAffected = productMapper.insertClass(className, startDate, endDate, setTime, teacherName);
+        int rowAffected2 = productMapper.classProduct(prodPrice, prodAccount, className);
+
+        return rowAffected > 0 && rowAffected2 > 0;
+    }
+
+    public boolean classFile(MultipartFile file) {
+
+        return true;
     }
 }
