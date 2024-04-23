@@ -4,19 +4,18 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost/lucete
 
-    username: lucete
-    password: lucete
-  mail:
-    host: smtp.example.com
-    port: 587
-    username: your-email@example.com
-    password: your-email-password
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
+    username: root
+    password: root
+
+    mail:
+      host: smtp.naver.com
+      port: 465
+      username: mydogduri@naver.com
+      password:
+      properties:
+        mail.smtp.auth: true
+        mail.smtp.ssl.enable: true
+
   servlet:
     multipart:
       location: C:/Users/hi/Desktop/product-jan/Lucete
@@ -41,3 +40,4 @@ mybatis:
 #  file:
 #    name: myapp.log
 #    path: C:/Users/hi/Desktop/product-jan/Lucete
+

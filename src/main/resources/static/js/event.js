@@ -31,8 +31,6 @@ if(document.getElementById("duplicationCheck")) {
 
 
     }
-}else {
-
 }
 
 window.onload = function() {
@@ -42,6 +40,9 @@ window.onload = function() {
         const $inquiryWrite = document.getElementById("inquiryWrite");
         $inquiryWrite.onclick = function () {
             location.href = "/inquiry/regist";
+
         }
     }
-}
+
+
+}}

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SignInDTO implements Serializable {
+public class SignInDTO extends MemberDTO implements Serializable {
     private int memNo;
     private String memId;
     private String memName;
