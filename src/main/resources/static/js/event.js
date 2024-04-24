@@ -1,5 +1,4 @@
 
-
 function checkPasswordMatch() {
     var password = document.getElementById("user_pwd").value;
     var confirmPassword = document.getElementById("user_pwd_check").value;

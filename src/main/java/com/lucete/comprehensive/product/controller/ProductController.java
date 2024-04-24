@@ -1,6 +1,5 @@
 package com.lucete.comprehensive.product.controller;
 
-
 import com.lucete.comprehensive.common.file.FileDTO;
 import com.lucete.comprehensive.product.model.dto.ProductCategoryDTO;
 import com.lucete.comprehensive.product.model.dto.ProductDTO;
@@ -93,6 +92,7 @@ public class ProductController {
                         file.setRevNo(1);
 
                         fileList.add(file);
+
                     }
                 }
             }
@@ -139,7 +139,6 @@ public class ProductController {
 
         List<ProductDTO> productList = productService.findProductList();
         model.addAttribute("products", productList);
-
 
         return "product/modify";
     }
@@ -190,6 +189,7 @@ public class ProductController {
 
         return "product/category";
     }
+
 
 
 }

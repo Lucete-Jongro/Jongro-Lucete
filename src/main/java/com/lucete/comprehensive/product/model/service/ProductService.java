@@ -1,6 +1,5 @@
 package com.lucete.comprehensive.product.model.service;
 
-
 import com.lucete.comprehensive.common.file.FileDTO;
 import com.lucete.comprehensive.common.paging.Pagenation;
 import com.lucete.comprehensive.common.paging.SelectCriteria;
@@ -11,16 +10,19 @@ import com.lucete.comprehensive.product.model.dto.ProductDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.Time;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
     private final ProductMapper productMapper;
+
 
     public ProductService(ProductMapper productMapper) {
         this.productMapper = productMapper;
@@ -70,7 +72,6 @@ public class ProductService {
     }
 
 
-
     public List<ProductDTO> findProductList() {
         return productMapper.findProductList();
     }
@@ -85,6 +86,75 @@ public class ProductService {
         int rowAffected = productMapper.updateProduct(prodSerial, prodName, prodAmount, prodPrice, prodAccount);
 
         return rowAffected > 0;
+
     }
 
+    public boolean updateProduct(String prodSerial, String prodName, int prodAmount, int prodPrice, String prodAccount) {
+
+        int rowAffected = productMapper.updateProduct(prodSerial, prodName, prodAmount, prodPrice, prodAccount);
+
+        return rowAffected > 0;
+    }
+
+    public boolean insertClass(String className, Date startDate, Date endDate, Time setTime, int prodPrice, String teacherName, String prodAccount) {
+
+        int Affected = productMapper.insertClass(className, startDate, endDate, setTime, teacherName);
+        int Affected2 = productMapper.classProduct(prodPrice, prodAccount, className);
+
+        return Affected2 > 0 && Affected > 0 ;
+    }
+
+    public boolean classFile(MultipartFile file, ProductDTO product) {
+
+
+        //경로 지정
+        String root = "src/main/resources/static";
+
+        //경로 파일 지정
+        String uploadPath = root + "/upload";
+
+        //디렉토리 지정
+        File dir = new File(uploadPath);
+
+        if(!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        try {
+            String originalFileName = file.getOriginalFilename();
+            String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+            String savedFileName = UUID.randomUUID() + ext;
+            System.out.println("savedFileName = " + savedFileName);
+
+            String filePath = uploadPath + "/" + originalFileName;
+
+            File dest = new File(filePath);
+
+            file.transferTo(dest);
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setUploadDate(new Date());
+            fileDTO.setFileName(savedFileName);
+            fileDTO.setFilePass(uploadPath);
+            fileDTO.setFileSize((int) file.getSize());
+            fileDTO.setProdSerial(product.getProdSerial());
+
+
+            System.out.println("매퍼 들어감");
+            productMapper.classFile(fileDTO);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        System.out.println("반환");
+
+        return true;
+    }
+
+    public ProductDTO getSerial(String className) {
+        return productMapper.getSerial(className);
+    }
 }
