@@ -227,7 +227,7 @@
         const prodPrice = $("#prodPrice").val();
         const teacherName = $("#teacherName").val();
         const prodAccount = $("#prodAccount").val();
-        const fileName = $("#fileName").val();
+        const fileName = $("#fileName")[0].files[0];
 
         $.ajax({
             type: "POST",
@@ -246,7 +246,7 @@
             },
             success: function (result) {
                 console.log("등록 완료");
-
+                alert("fileName : " + fileName);
                 //화면 리로드
                 window.location.reload();
             },

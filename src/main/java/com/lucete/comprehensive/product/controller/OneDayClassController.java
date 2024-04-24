@@ -119,9 +119,17 @@ public class OneDayClassController {
 
         boolean isSuccess = productService.insertClass(className,startDate,endDate,setTime,prodPrice,teacherName,prodAccount);
 
-        if(isSuccess) {
+        if( isSuccess) {
             // return "원데이클래스 업데이트";
-            boolean isFileUpload = productService.classFile(file);
+            System.out.println("service 넘어감");
+
+            ProductDTO product = productService.getSerial(className);
+            if (product == null) {
+                System.out.println("해당상품 존재 x");
+                throw new RuntimeException("해당 상품 존재 x");
+            }
+
+            boolean isFileUpload = productService.classFile(file, product);
 
             if (isFileUpload) {
                 return "원데이 클래스 업데이트";

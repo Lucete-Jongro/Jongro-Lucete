@@ -33,4 +33,8 @@ public interface ProductMapper {
     int insertClass(String className, Date startDate, Date endDate, Time setTime, String teacherName);
 
     int classProduct(int prodPrice, String prodAccount, String className);
+
+    void classFile(FileDTO fileDTO);
+
+    ProductDTO getSerial(String className);
 }

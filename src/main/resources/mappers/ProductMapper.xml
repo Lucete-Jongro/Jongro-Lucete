@@ -142,8 +142,22 @@
     </insert>
 
     <insert id="classProduct" parameterType="com.lucete.comprehensive.product.model.dto.ProductDTO">
-        INSERT INTO product (PROD_NAME, PROD_PRICE, PROD_ACCOUNT, PROD_AMOUNT)
-        VALUES (#{className}, #{prodPrice}, #{prodAccount}, 4)
+        INSERT INTO product (PROD_NAME, PROD_PRICE, PROD_ACCOUNT, PROD_AMOUNT, PROD_CATEGORY)
+        VALUES (#{className}, #{prodPrice}, #{prodAccount}, 4, 4)
+    </insert>
+
+    <select id="getSerial" parameterType="java.lang.String" resultType="com.lucete.comprehensive.product.model.dto.ProductDTO">
+        SELECT
+            *
+        FROM
+            product
+        WHERE
+            PROD_NAME = #{prodName}
+    </select>
+
+    <insert id="classFile" parameterType="com.lucete.comprehensive.common.file.FileDTO">
+        INSERT INTO upload_file (FILE_NAME, UPLOAD_DATE, FILE_PASS, FILE_SIZE, PROD_SERIAL)
+        VALUES (#{fileName}, #{uploadDate}, #{filePass}, #{fileSize}, #{prodSerial})
     </insert>
 
 </mapper>
