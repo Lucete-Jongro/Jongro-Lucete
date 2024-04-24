@@ -1,5 +1,6 @@
 package com.lucete.comprehensive.product.controller;
 
+
 import com.lucete.comprehensive.common.file.FileDTO;
 import com.lucete.comprehensive.product.model.dto.ProductCategoryDTO;
 import com.lucete.comprehensive.product.model.dto.ProductDTO;
@@ -133,7 +134,6 @@ public class ProductController {
 
         return "product/select";
     }
-
 
     @GetMapping("/modify")
     public String categorySelect(Model model) {

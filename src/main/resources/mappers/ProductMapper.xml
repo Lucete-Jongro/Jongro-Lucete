@@ -110,10 +110,12 @@
     </select>
 
     <select id="findProductList" resultMap="generalProductResultMap">
+
         SELECT
             *
         FROM
             product
+
     </select>
 
     <select id="selectBySerial" resultMap="generalProductResultMap">
