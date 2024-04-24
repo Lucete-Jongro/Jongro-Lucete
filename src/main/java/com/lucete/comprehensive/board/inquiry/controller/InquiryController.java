@@ -132,49 +132,48 @@ public class InquiryController {
         return "redirect:/inquiry/list";
     }
 
-    /* 관리자 - 답글 등록 */
-    @PostMapping("/registComm")
-    public ResponseEntity<String> registComm(@RequestBody CommDTO registComm) {
-        //관리자만 접근 가능하도록 설정 추가 필요
-
-        //registComm.setMemNo(member);
-        log.info("registReply : {}", registComm);
-        inquiryService.registComm(registComm);
-
-        return ResponseEntity.ok("답글 등록 완료");
-    }
-
-    /* 소비자, 관리자 - 답글 보기 */
-    @GetMapping("/loadComm")
-    public ResponseEntity<List<CommDTO>>loadComm(CommDTO loadComm) {
-
-        log.info("loadComm refInquiryNo : {}", loadComm.getInquiryNo());
-
-        List<CommDTO> commList = inquiryService.loadComm(loadComm);
-
-        log.info("loadComm commList : {}", commList);
-
-        return ResponseEntity.ok(commList);
-    }
-
-    /* 관리자- 답글 삭제*/
-    @PostMapping("/removeComm")
-    public ResponseEntity<String> removeComm(@RequestBody CommDTO removeComm) {
-
-        log.info("removeComm no : {}", removeComm.getInquiryNo());
-
-        inquiryService.removeComm(removeComm);
-
-        return ResponseEntity.ok("답글 삭제 완료");
-    }
-
+//    /* 관리자 - 답글 등록 */
+//    @PostMapping("/registComm")
+//    public ResponseEntity<String> registComm(@RequestBody CommDTO registComm) {
+//        //관리자만 접근 가능하도록 설정 추가 필요
+////        MemberDTO member = MemberService.findMemberByMemNo()
+////        registComm.setMemNo(memNo);
+//        log.info("registComm : 등록 좀 해라~~~~~~~~~~~~ {}", registComm);
+//        inquiryService.registComm(registComm);
+//
+//        return ResponseEntity.ok("답글 등록 완료");
+//    }
+//
+//    /* 소비자, 관리자 - 답글 보기 */
+//    @GetMapping("/loadComm")
+//    public ResponseEntity<List<CommDTO>>loadComm(CommDTO loadComm) {
+//
+//        log.info("loadComm InquiryNo 111111111111111: {}", loadComm.getInquiryNo());
+//
+//        List<CommDTO> commList = inquiryService.loadComm(loadComm);
+//
+//        log.info("loadComm commList 11111111111111111: {}", commList);
+//
+//        return ResponseEntity.ok(commList);
+//    }
+//
+//    /* 관리자- 답글 삭제*/
+//    @PostMapping("/removeComm")
+//    public ResponseEntity<String> removeComm(@RequestBody CommDTO removeComm) {
+//
+//        log.info("removeComm no : {}", removeComm.getInquiryNo());
+//
+//        inquiryService.removeComm(removeComm);
+//
+//        return ResponseEntity.ok("답글 삭제 완료");
+//    }
 
     /*관리자페이지 문의목록 조회 페이징*/
     @GetMapping("/adminList")
     public String getAdminInquiryList(@RequestParam(defaultValue = "1") int page,
-                                 @RequestParam(required = false) String searchCondition,
-                                 @RequestParam(required = false) String searchValue,
-                                 Model model) {
+                                      @RequestParam(required = false) String searchCondition,
+                                      @RequestParam(required = false) String searchValue,
+                                      Model model) {
 
         log.info("AdminInquiryList page : {}", page);
         log.info("AdminInquiryList searchCondition : {}", searchCondition);
@@ -190,5 +189,58 @@ public class InquiryController {
         return "inquiry/inquiryAdminList";
 
     }
+
+
+    /*  문의글 삭제 */
+    @RequestMapping("/adminDelete")
+    public String inquiryAdminDelete(InquiryDTO inquiry) {
+
+        inquiryService.deleteAdminInquiry(inquiry.getInquiryNo());
+
+        return "redirect:/inquiry/adminList";
+
+    }
+
+    @GetMapping("/adminDetail")
+    public String getAdminInquiryDetail(@RequestParam int inquiryNo, Model model) {
+
+        InquiryDTO inquiryAdminDetail = inquiryService.AdminSelectInquiryDetail(inquiryNo);
+        log.info("inquiryAdminDetail : {}", inquiryAdminDetail);
+//        if (inquiryDetail == null) {
+//            // 적절한 에러 처리를 해주거나 다른 페이지로 리다이렉트
+//            return "/common/error";
+//        }
+        model.addAttribute("inquiry", inquiryAdminDetail);
+
+        return "inquiry/inquiryAdminDetail";
+    }
+
+    /* 문의 답변 리스트*/
+
+
+    @GetMapping("/commRegist")
+    public String getCommRegistPage() {
+
+        return "inquiry/inquiryAdminList";
+    }
+    @PostMapping("/commRegist")
+    public String CommRegistInquiry(CommDTO comm) {
+
+        inquiryService.commRegist(comm);
+
+        return "redirect:/inquiry/adminList";
+    }
+    @GetMapping("/commDetail")
+    public String getCommDetail(@RequestParam("commKey") int commKey, Model model) {
+
+        CommDTO commDetail = inquiryService.selectCommDetail(commKey);
+        model.addAttribute("ask", commDetail);
+
+        return "inquiry/inquiryAdminDetail";
+    }
+
+
+
+
 
 }

@@ -4,6 +4,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost/lucete
 
+
     username: root
     password: root
 
@@ -16,6 +17,7 @@ spring:
       properties:
         mail.smtp.auth: true
         mail.smtp.ssl.enable: true
+
 
   servlet:
     multipart:

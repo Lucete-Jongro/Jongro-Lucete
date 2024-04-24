@@ -3,95 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>inquiryUpdate</title>
+    <title>reviewList</title>
     <link rel="stylesheet" th:href="@{ /css/style.css }">
     <link rel="stylesheet" th:href="@{ /css/mystyle.css }">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
     <script src="/js/event.js" type="text/javascript"></script>
+    <style>
+        .title-view {
+            padding: 25px 20px 30px;
+            position: relative;
+            margin-left: 25%;
+        }
 
-        <style>
-            .title-view {
-                padding: 25px 20px 30px;
-                position: relative;
-                margin-left: 25%;
-            }
-            table {
-                border-collapse: collapse;
-                border-spacing: 0;
-            }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
 
-            .container {
-                width: 1100px;
-                margin: 0 auto;
-            }
-            * {
-                list-style: none;
-                text-decoration: none;
-                padding: 0;
-                margin: 0;
-                box-sizing: border-box;
-            }
-            #wrapper {
-                height: auto;
-                min-height: 100%;
-                padding-bottom: 100px;
-            }
-            .b2 {
-                padding-right: 100px;
-                padding-bottom: 50px;
-                padding-top: 10px;
+        .container {
+            width: 1100px;
+            margin: 0 auto;
+        }
 
-            }
-            #updateBtn {
-                background: #EEEEEE;
-                color: black;
-                float: right;
-                border: none;
-                width: 60px;
-                height: 25px;
+        * {
+            list-style: none;
+            text-decoration: none;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        #wrapper {
+            height: auto;
+            min-height: 100%;
+            padding-bottom: 100px;
+        }
+        .b2 {
+            padding-right: 100px;
+            padding-bottom: 50px;
+            padding-top: 10px;
+            margin-right: 40px;
+        }
+        #updateBtn {
+            background: #EEEEEE;
+            color: black;
+            float: right;
+            border: none;
+            width: 60px;
+            height: 25px;
 
-                border-radius: 5px;
-            }
+            border-radius: 5px;
+            margin-right: 30px;
 
-            .cell {
-                height: 100px;
-                width: 600px;
-                text-align: left;
+        }
 
-            }
-            .cell2 {
-                width: 600px
-            }
+        #button-submit2 {
+            background: #EEEEEE;
+            color: black;
+            float: right;
+            border: none;
+            width: 60px;
+            height: 25px;
 
-            .article-body {
-                height: 300px;
-                text-align: left;
-                vertical-align: top;
-            }
-            .article-body2 {
-                width: 500px;
-                height: 100px;
-                text-align: left;
-                vertical-align: top;
-            }
-            #updateConfirmBtn{
-                background: #EEEEEE;
-                color: black;
-                float: right;
-                border: none;
-                width: 60px;
-                height: 25px;
+            border-radius: 5px;
+            margin-right: 40px;
+        }
+        #button-submit3 {
+            background: #EEEEEE;
+            color: black;
+            float: right;
+            border: none;
+            width: 60px;
+            height: 25px;
 
-                border-radius: 5px;
+            border-radius: 5px;
+            margin-right: 130px;
+            margin-bottom: 20px;
+        }
 
-            }
-        </style>
-    </head>
+        .cell {
+            width: 600px;
+            text-align: left;
 
+        }
+
+        .cell2 {
+            width: 600px
+        }
+
+        .article-body {
+
+            height: 300px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .article-body2 {
+            width: 500px;
+            height: 100px;
+            text-align: left;
+            vertical-align: top;
+        }
+    </style>
+</head>
 <body>
-
 <header class="header">
     <div class="containor">
         <nav class="navbar">
@@ -145,50 +161,65 @@
     <div>
         <table style="border-bottom: 1px solid;">
             <th>
-            <td>1:1 문의</td>
+            <td>리뷰</td>
             </th>
         </table>
 
     </div>
     <br>
     <br>
+    <div align="center">
+        <button type="button" id="button-submit3" th:onclick="'location.href=\'/review/list\''">
+            목록으로</button>
+    </div>
 
     <div class="hp_mb20_1"></div>
+
     <div class="hp_mb20_1"></div>
 
-    <form th:action="|/inquiry/update/${inquiry.inquiryNo}|" method="POST">
     <table class="cell" border="1">
         <colgroup>
             <col width="100px">
         </colgroup>
         <tbody>
-        <tr class="" style="height: 40px;">
+        <tr class="article-title">
             <th>제목</th>
-            <td colspan="3" class="inquiry-title" >
-                <input type="text" name="inquiryTitle" style="width: 500px; height: 40px;" th:value="${ inquiry.inquiryTitle }"/></td>
-
+            <td colspan="3" class="review-title" th:text="${ review.revTitle }"> </td>
         </tr>
         <tr class="article-info">
             <th>글쓴이</th>
-        <!--<td th:text="${ memName }"></td>-->
+<!--            <td th:text="${ memName }"></td>&ndash;&gt;-->
             <th>날짜</th>
-            <td th:text ="${#temporals.format(inquiry.inquiryUpdate, 'yyyy.MM.dd')}"></td>
+            <td th:text ="${#temporals.format(review.revDate, 'yyyy.MM.dd')}"></td>
         </tr>
         <tr class="article-body">
-            <td colspan="4">
-                <textarea style="width: 550px; height:310px;" name="inquiryContent" th:text="${ inquiry.inquiryContent}"></textarea></td>
+            <td colspan="4" th:text="${ review.revContent}"></td>
         </tr>
         </tbody>
     </table>
 
     <br>
 
-        <input type="hidden" name="inquiryNo" th:value="${inquiry.inquiryNo}">
-        <div class="b2">
-            <button type="submit" id="updateConfirmBtn" class="updateConfirmBtn">등록</button>
+    <!-- 회원 본인이 쓴 글을 눌렀을 떄만 수정/삭제 버튼 보이게 수정필요  -->
+    <div class="b2">
+        <form action="/review/delete" method="GET" onsubmit="return delete_event()">
+            <input type="hidden" name="revNo" th:value="${review.revNo}"/>
+            <button type="submit" id="button-submit2">삭제</button>
+        </form>
+        <div>
+            <button type="button" id="updateBtn" th:onclick="'location.href=\'/review/update/' + ${review.revNo} + '\''">수정</button>
         </div>
-    </form>
+    </div>
+    <script type="text/javascript">
+        function delete_event() {
+            if(confirm("정말 삭제하시겠습니까?") == true) {
+                return true;
+            }else {
+                return false;
+            }
+        }
 
+    </script>
     <br>
 
     <table>
@@ -198,16 +229,18 @@
     </table>
 
     <br>
-    <table class="cell2" border="1" name="INQUIRY_TITLE">
+    <table class="cell2" border="1"  name="REV_TITLE">
         <tr class="article-body2">
             <td colspan="4">안녕하세요.<br>
-                간단한 이니셜 각인까지는 가능합니다. </td>
+                소중한 후기 감사합니다~ <br>
+                남자친구분과 좋은 시간이 되셨기를 바라며 이후에도 다른 좋은 클래스로 고객님께 만족 드리는 루세트가 되겠습니다.~ </td>
         </tr>
 
     </table>
 </div>
 
 
+</div>
 
 <!-- 공백용 -->
 <div id="wrapper">

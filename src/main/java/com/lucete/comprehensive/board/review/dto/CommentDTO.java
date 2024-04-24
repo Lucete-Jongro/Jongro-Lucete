@@ -1,10 +1,8 @@
-package com.lucete.comprehensive.board.inquiry.dto;
-
-import com.lucete.comprehensive.user.member.MemberDTO;
+package com.lucete.comprehensive.board.review.dto;
 
 import java.time.LocalDateTime;
 
-public class CommDTO {
+public class CommentDTO {
 
     private int commKey;
     private String reComment;
@@ -13,13 +11,11 @@ public class CommDTO {
     private char commDeleteStatus;
     private  int memNo;
     private String memName;
-    private int inquiryNo;
-    private MemberDTO memberDTO;
-    private InquiryDTO inquiryDTO;
+    private int revNo;
 
-    public CommDTO(){}
+    public CommentDTO(){}
 
-    public CommDTO(int commKey, String reComment, LocalDateTime reDate, LocalDateTime commUpdate, char commDeleteStatus, int memNo, String memName, int inquiryNo, MemberDTO memberDTO, InquiryDTO inquiryDTO) {
+    public CommentDTO(int commKey, String reComment, LocalDateTime reDate, LocalDateTime commUpdate, char commDeleteStatus, int memNo, String memName, int revNo) {
         this.commKey = commKey;
         this.reComment = reComment;
         this.reDate = reDate;
@@ -27,9 +23,7 @@ public class CommDTO {
         this.commDeleteStatus = commDeleteStatus;
         this.memNo = memNo;
         this.memName = memName;
-        this.inquiryNo = inquiryNo;
-        this.memberDTO = memberDTO;
-        this.inquiryDTO = inquiryDTO;
+        this.revNo = revNo;
     }
 
     public int getCommKey() {
@@ -88,28 +82,12 @@ public class CommDTO {
         this.memName = memName;
     }
 
-    public int getInquiryNo() {
-        return inquiryNo;
+    public int getRevNo() {
+        return revNo;
     }
 
-    public void setInquiryNo(int inquiryNo) {
-        this.inquiryNo = inquiryNo;
-    }
-
-    public MemberDTO getMemberDTO() {
-        return memberDTO;
-    }
-
-    public void setMemberDTO(MemberDTO memberDTO) {
-        this.memberDTO = memberDTO;
-    }
-
-    public InquiryDTO getInquiryDTO() {
-        return inquiryDTO;
-    }
-
-    public void setInquiryDTO(InquiryDTO inquiryDTO) {
-        this.inquiryDTO = inquiryDTO;
+    public void setRevNo(int revNo) {
+        this.revNo = revNo;
     }
 
     @Override
@@ -122,9 +100,7 @@ public class CommDTO {
                 ", commDeleteStatus=" + commDeleteStatus +
                 ", memNo=" + memNo +
                 ", memName='" + memName + '\'' +
-                ", inquiryNo=" + inquiryNo +
-                ", memberDTO=" + memberDTO +
-                ", inquiryDTO=" + inquiryDTO +
+                ", revNo=" + revNo +
                 '}';
     }
 }
