@@ -4,8 +4,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost/lucete
 
-    username: lucete
-    password: lucete
+    username: root
+    password: root
+
 
     mail:
       host: smtp.naver.com
@@ -40,4 +41,3 @@ mybatis:
 #  file:
 #    name: myapp.log
 #    path: C:/Users/hi/Desktop/product-jan/Lucete
-
