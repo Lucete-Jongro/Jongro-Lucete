@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdminInquiryDetail</title>
+    <link rel="stylesheet" th:href="@{ /css/style.css }">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* 삭제 및 등록 버튼 스타일 */
+        .answer_submit {
+            background-color: #4caf50; /* 버튼 배경색 */
+            color: white; /* 버튼 글자색 */
+            padding: 10px 20px; /* 상하좌우 여백 */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* 호버 효과 전환 */
+            border-radius: 5px; /* 버튼 모서리 둥글게 */
+        }
+
+        .answer_submit:hover {
+            background-color: #45a049; /* 호버 시 배경색 변경 */
+        }
+        /* 버튼 스타일 */
+        button {
+            background-color: #4caf50; /* 버튼 배경색 */
+            color: white; /* 버튼 글자색 */
+            padding: 10px 20px; /* 상하좌우 여백 */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* 호버 효과 전환 */
+            border-radius: 5px; /* 버튼 모서리 둥글게 */
+        }
+        button:hover {
+            background-color: #45a049; /* 마우스 호버 시 배경색 */
+        }
+        /* 테이블 스타일 */
+        table {
+            border-collapse: collapse; /* 테이블 경계 선 제거 */
+        }
+        th, td {
+            padding: 10px; /* 셀 안 여백 */
+            border: 1px solid #ddd; /* 셀 테두리 */
+            text-align: center; /* 셀 안 내용 가운데 정렬 */
+        }
+
+        th {
+            background-color: #f2f2f2; /* 테이블 헤더 배경색 */
+        }
+        /* 답변 작성 텍스트 영역 스타일 */
+        textarea {
+            resize: vertical; /* 수직 리사이즈 */
+            padding: 20px; /* 상하좌우 여백 */
+            border: 1px solid #ccc; /* 테두리 */
+            border-radius: 5px; /* 텍스트 영역 모서리 둥글게 */
+            margin-right: 20px;
+        }
+        /* 답변 등록 버튼 위치 조정 */
+        .answer_submit {
+            margin-top: 10px; /* 버튼 위 여백 */
+        }
+        .table-category {
+            width: 30%;  /* 원하는 너비로 설정 */
+        }
+        .table-content {
+            width: 70%;  /* 전체 너비에서 분류 열을 제외한 나머지 너비 */
+        }
+        .b2 {
+            padding-left: 600px;
+            padding-bottom: 50px;
+            padding-top: 10px;
+            margin-right: 40px;
+        }
+        .ask-upload{
+            padding-right: 500px;
+        }
+
+    </style>
+</head>
+
+<body>
+<header class="header">
+    <div class="containor">
+        <nav class="navbar">
+            <a href="Admin-MainPage.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
+            <ul class="navbar-list" style="list-style: none;">
+                <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="searchBar">
+                    <input type="search">
+                    <input type="submit">
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="category-banner">
+    <nav class="category-navbar">
+
+
+        <ul class="category-list" style="list-style: none;">
+            <li class="category" style= "font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
+            <li class="category"><a href="Admin-OrderCategory-Page.html">주문관리</a></li>
+            <li class="category"><a href="Admin-ProductCategory-Page.html">상품관리</a></li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Customer</li>
+
+            <li class="category"><a href="Admin-UserCategory-Page.html">회원관리</a></li>
+            <li class="category"><a href="/inquiry/adminList">게시판 관리</a></li>
+            <li class="category"><a href="2.리뷰_관리.html">리뷰 게시판 관리</a></li>
+            <li class="category"><a href="3.공지사항_관리.html">공지사항 관리</a></li>
+            <li class="category"><a href="4.쿠폰_관리.html">쿠폰 관리</a></li>
+            <li class="category"><a href="5.포인트_지급_관리.html">포인트 관리</a></li>
+            <li class="category"><a href="Admin-OneDayClass-Category-Page.html">원데이 클래스 관리</a></li>
+            <br><br><br><br><br><br><br>
+        </ul>
+    </nav>
+</div>
+
+        <div>
+            <h4>판매자 답변 처리</h4>
+            <table border="1" cellspacing="0" width="760px" height="auto">
+                <tr height="auto">
+                    <th class="table-category">분류</th>
+                    <th class="table-content">내용</th>
+                </tr>
+                <tr height="auto">
+                    <td>제목</td>
+                    <td th:text="${ inquiry.inquiryTitle }"></td>
+                </tr>
+                <tr height="auto">
+                    <td>내용</td>
+                    <td th:text="${ inquiry.inquiryContent}"></td>
+                </tr>
+                <tr height="auto">
+                    <td>답변</td>
+                    <td>
+                        <div th:if="${ comm != null }">
+                            <span th:text="${ comm.reComment }"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr height="auto">
+                    <td>등록일</td>
+                    <td th:text="${ comm.reDate }"></td>
+                </tr>
+                    <th scope="row">작성</th>
+                    <td style="width:90%; height:90%;">
+                        <textarea cols="30" rows="5" style="width:600px; height:100px;"></textarea>
+                    </td>
+            </table>
+            <div class="ask-upload">
+            <form action="/inquiry/askRegist" method="post">
+
+                <button type="submit" class="answer_submit" style="float: right">등록</button>
+                <input type="hidden" id="commKey" th:value="${comm.commKey}"/>
+            </form>
+            </div>
+        </div>
+
+
+    <div class="b2">
+    <form action="/inquiry/adminDelete" method="GET" onsubmit="return delete_event()">
+        <input type="hidden" name="inquiryNo" th:value="${inquiry.inquiryNo}"/>
+        <button type="submit" class="answer_submit">게시글 삭제</button>
+    </form>
+
+    </div>
+    <script type="text/javascript">
+        function delete_event() {
+            if(confirm("정말 삭제하시겠습니까?") == true) {
+            return true;
+            }else {
+              return false;
+            }
+        }
+    </script>
+
+<br><br><br><br><br><br><br>
+<footer class="footer">
+    <div class="containor">
+        <p>L u c e t e</p>
+        <ul class="info" style="list-style: none;">
+            <li class="info-list" style="font-size: smaller;"><a href="#">이용약관</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="info-list" style="font-size: smaller;"><a href="#">개인정보 처리방침</a></li>
+            <br><br>
+            <li class ="info-list" style="font-size: small;">상호: 루세트(Lucete) | 대표: 김민희 | 전화: 070-012-3456 | 이메일: lucete@gmail.com</li>
+            <br>
+            <li class="info-list" style="font-size: small;">주소:2222-312,25, Insadong 3-gil, Jongno-gu, Seoul, Republic of Korea</li>
+            <br>
+            <li class="info-list" style="font-size: small;">사업자등록번호:888-06-12345 | 통신판매:2024-서울인사동-0123</li>
+        </ul>
+    </div>
+</footer>
+
+</body>
+
+</html>
