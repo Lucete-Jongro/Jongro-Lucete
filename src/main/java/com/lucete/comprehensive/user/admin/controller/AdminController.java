@@ -1,5 +1,7 @@
 package com.lucete.comprehensive.user.admin.controller;
 
+import com.lucete.comprehensive.user.blacklist.model.dto.BlacklistDTO;
+import com.lucete.comprehensive.user.blacklist.model.service.BlacklistService;
 import com.lucete.comprehensive.user.member.model.dto.MemberDTO;
 import com.lucete.comprehensive.user.member.model.dto.SignInDTO;
 import com.lucete.comprehensive.user.member.model.service.MemberService;
@@ -7,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +24,15 @@ import java.util.List;
 public class AdminController {
     @Autowired
     private MemberService memberService;
-
+    @Autowired
+    private BlacklistService blacklistService;
     @GetMapping("/userCategory")
     public void userCategory() {}
+    @GetMapping("/updateBlacklist")
+    public void updateBlacklist(){}
+
+    @GetMapping("/blacklist")
+    public void blacklist(){}
 
     @GetMapping("/userInfo")
     public void userInfo() {}
@@ -35,5 +44,11 @@ public class AdminController {
                                     @RequestParam("address") String address) {
         List<MemberDTO> memberDTO = memberService.selectMembers(memName, address, startDate, endDate);
         return memberDTO;
+    }
+    @GetMapping("/blacklist")
+    public String showBlacklist(Model model) {
+        List<BlacklistDTO> blacklist = blacklistService.getAllBlacklistedMembers();
+        model.addAttribute("blacklist", blacklist);
+        return "blacklist";
     }
 }

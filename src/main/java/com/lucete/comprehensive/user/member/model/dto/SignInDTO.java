@@ -17,6 +17,16 @@ public class SignInDTO extends MemberDTO implements Serializable {
     private UserRole userRole;
     private String phone;
 
+    public SignInDTO(int memNo, String memId, String memName, String password, String email, char adminAuthority, String phone) {
+        this.memNo = memNo;
+        this.memId = memId;
+        this.memName = memName;
+        this.password = password;
+        this.email = email;
+        this.adminAuthority = adminAuthority;
+        this.phone = phone;
+    }
+
     @Override
     public String getPhone() {
         return phone;
@@ -44,6 +54,7 @@ public class SignInDTO extends MemberDTO implements Serializable {
         this.password = password;
         this.adminAuthority = adminAuthority;
     }
+
 
     public SignInDTO(int memNo, String memId, String memName, String password, char adminAuthority, UserRole userRole) {
         this.memNo = memNo;

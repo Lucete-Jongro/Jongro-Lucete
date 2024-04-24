@@ -7,6 +7,7 @@ import com.lucete.comprehensive.user.member.model.dto.SignInDTO;
 import com.lucete.comprehensive.user.member.model.dto.SignUpDTO;
 import com.lucete.comprehensive.user.member.model.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,7 +44,20 @@ public class MemberController {
     @GetMapping("/findid")
     public void findid(){}
 
+    @GetMapping("/mypage/changepwd")
+    public void changepwd(){}
 
+    @GetMapping("/mypage/updateEmail")
+    public void updateEmail(){}
+    @PostMapping("/mypage/updateEmail")
+    public void updateEmail(@RequestParam("email") String email, HttpSession session){
+        // 세션에서 현재 사용자의 회원 번호 가져오기
+        int memNo = (int) session.getAttribute("memNo");
+
+
+        // 이메일 업데이트 메서드 호출
+        memberService.updateEmail(memNo, email);
+    }
 
     @PostMapping("/findid")
     public String findId(@RequestParam("memName") String memName,
@@ -117,9 +131,10 @@ public class MemberController {
             // Spring Security에서 사용자 정보를 가져옵니다.
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             // 인증된 사용자 정보를 가져옵니다.
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
             // 사용자의 이름을 모델에 추가합니다.
             model.addAttribute("memName", userDetails.getUsername());
+            model.addAttribute("email",userDetails.getEmail());
 
             return "mypage"; // 마이페이지 뷰로 이동합니다.
         }

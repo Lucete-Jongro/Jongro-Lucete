@@ -76,6 +76,10 @@ public class MemberService {
         List<MemberDTO> result = memberMapper.selectMembers(memName,address,startDate,endDate);
         return result;
     }
+    public void updateEmail(int memNo,String email){
+        memberMapper.updateEmail(memNo, email);
+
+    }
 
 
 }

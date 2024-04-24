@@ -3,52 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin UserCategory Page</title>
+    <title>Admin MainPage</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 
     <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
 
     <style>
-        .product-category{
+        .inquiry-container{
             overflow: hidden;
+            width: auto;
+            height: auto;
         }
-        .product-category-box{
-            margin : 30px;
+        .inquiry-text{
+            font-weight: bolder;
+            font-size: 25px;
+        }
+        .all-inquiry-text{
+            margin-bottom: -50px;
+            margin-top: 100px;
+            margin-left: 35px;
+            font-size: 15px;
+        }
+        .table-box{
             width: 700px;
             height: 500px;
-            border : 5px solid #969696;
-            border-radius : 10px;
-            overflow: hidden;
-
-        }
-        .category-box{
-            margin : 10px;
-            width: 680px;
-            height: 235px;
-            overflow: hidden;
             display: flex;
-            align-items: center;
-        }
-        .box{
-            margin: 10px;
-            width: 340px;
-            height: 115px;
-            background-color: gray;
-            border-radius: 30px;
-            background-color: #DEE2E6;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 22px;
-            font-weight: bold;
+            align-items: center;
         }
+        .blacklist-table{
+            margin-top: -150px;
+            border-collapse: collapse;
+            border: 3px solid #c2c2c2;
+            width: auto;
+            height: auto;
+        }
+        th{
+            border: 3px solid #c2c2c2;
+            background-color: #d2d2d2;
+            height: 40px;
+        }
+        td{
+            border: 3px solid #c2c2c2;
+            background-color: #fafafa;
+            text-align: center;
+            height: 60px;
+        }
+        .list-check{
+            width: 30px;
+        }
+        .list-email{
+            width: 150px;
+        }
+        .list-reason{
+            width: 200px;
+        }
+        .list-date{
+            width: 200px;
+        }
+        .delete-button{
+            margin-top: -180px;
+            margin-left: 520px;
+            background-color: #e8c2c2;
+            border: 2px solid #743838;
+            width: 130px;
+            height: 30px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
     </style>
 </head>
-
 <body>
 <header class="header">
     <div class="containor">
@@ -92,27 +124,35 @@
     </nav>
 </div>
 
-<div class="product-category">
-    <h4 style="font-size: 25px;">&nbsp;&nbsp;회원 관리</h4>
-    <div class="product-category-box">
-        <div class="category-box">
-            <a class="box" href="Admin-BlackListInquiry-Page.html">
-                <img src="/image/블랙리스트 조회.png" height="55px">
-                블랙리스트 조회
-            </a>
-            <a class="box" href="Admin-InsertBlackList-Page.html">
-                <img src="/image/블랙리스트 등록.png" height="45px">
-                블랙리스트 등록
-            </a>
+<div class="inquiry-container">
+    <div class="inquiry-text"><h4>&nbsp;&nbsp;블랙리스트 조회</h4></div>
+    <div class="all-inquiry-text"><h4>&nbsp;&nbsp;● 블랙리스트 전체 조회</h4></div>
+    <div class="button-container">
+        <div class="table-box">
+            <br>
+            <form action="">
+                <table class="blacklist-table">
+                    <thead>
+                    <tr>
+                        <th><input type="checkbox"></th>
+                        <th>회원 이메일</th>
+                        <th>등록 사유</th>
+                        <th>블랙리스트 기간</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="member : ${blacklist}">
+                        <td><input type="checkbox"></td>
+                        <td th:text="${member.email}">회원 이메일</td>
+                        <td th:text="${member.reason}">등록 사유</td>
+                        <td th:text="${member.blacklistPeriod}">블랙리스트 기간</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
         </div>
-        <div class="category-box">
-            <a class="box" href="Admin-UserInfoInquiry-Page.html">
-                <img src="assets/image/회원정보조회.png" height="40px">
-                회원 정보 조회
-            </a>
-        </div>
+        <div class="delete-button" onclick="location.href=''">블랙리스트 삭제</div>
     </div>
-
 </div>
 
 <br><br><br><br><br><br><br>
