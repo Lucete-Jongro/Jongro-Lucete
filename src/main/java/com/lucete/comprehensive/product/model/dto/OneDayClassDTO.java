@@ -1,6 +1,6 @@
 package com.lucete.comprehensive.product.model.dto;
 
-import java.sql.Timestamp;
+import java.sql.Time;
 import java.util.Date;
 
 public class OneDayClassDTO {
@@ -11,11 +11,11 @@ public class OneDayClassDTO {
     private Date endDate;
     private String teacherName;
     private ProductCategoryDTO prodCategory;
-    private Timestamp setTime;
+    private Time setTime;
 
     public OneDayClassDTO() {}
 
-    public OneDayClassDTO(int classNo, String className, Date startDate, Date endDate, String teacherName, ProductCategoryDTO prodCategory, Timestamp setTime) {
+    public OneDayClassDTO(int classNo, String className, Date startDate, Date endDate, String teacherName, ProductCategoryDTO prodCategory, Time setTime) {
         this.classNo = classNo;
         this.className = className;
         this.startDate = startDate;
@@ -73,13 +73,14 @@ public class OneDayClassDTO {
         this.prodCategory = prodCategory;
     }
 
-    public Timestamp getSetTime() {
+    public Time getSetTime() {
         return setTime;
     }
 
-    public void setSetTime(Timestamp setTime) {
+    public void setSetTime(Time setTime) {
         this.setTime = setTime;
     }
+
 
     @Override
     public String toString() {

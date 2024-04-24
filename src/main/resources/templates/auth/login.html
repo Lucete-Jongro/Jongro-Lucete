@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+    <div class="containor">
+        <nav class="navbar">
+            <a href="index.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
+            <ul class="navbar-list" style="list-style: none;">
+
+                <li class="navicon" id="search"><img src="/image/검색 아이콘.png" height="25">
+
+                </li>
+                <li class="navicon"><a href=""><img src="/image/장바구니 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/마이페이지 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="searchBar" >
+                    <input type="search">
+                    <input type="submit">
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</header>
+
+<div containor>
+
+    <h1 class="login-title">Login</h1>
+    <br><br>
+    <img src="/image/로그인메인 .png" height="400" id="login-image">
+
+    <form action="/auth/login" method="post">
+        <ul class="login-list" style="list-style: none;">
+            ID<br>
+            <input type="text" name="memId" class="login-input"> <!-- name 속성 추가 -->
+        </ul>
+        <ul class="login-list" style="list-style: none;">
+            PASSWORD<br>
+            <input type="password" name="password" class="login-input"> <!-- name 속성 추가 -->
+        </ul>
+        <input type="submit" value="로그인하기" class="login" style="color: white">
+    </form>
+
+    <br>
+    <a href="/user/signup">
+        <button class="login2">회원가입</button>
+    </a>
+    <button class="login2">비회원 주문조회</button>
+    <br>
+    <h class="finding" style="border-right: 1px solid rgb(172, 172, 172);"><a href="/user/findid">ID 찾기</a></h>
+    <h class="finding"><a href="/user/findpwd">PASSWORD 찾기</a></h>
+
+</div>
+
+
+</body>
+</html>
+
+<style>
+    .login-title{
+        font-family: "Gothic A1", sans-serif;
+        text-align: left;
+
+        position: relative;
+        left:90px;
+    }
+    .login-list{
+        position: relative;
+        left: 50px;
+    }
+    .login-input{
+        width: 330px;
+        height: 30px;
+
+        border-radius: 10px;
+        border-color: lightgray;
+    }
+    #login-image{
+        float: right;
+        position: relative;
+        right:100px;
+        top: -100px;
+
+    }
+    .login{
+        border: none;
+        color: white;
+        background-color: rgb(0, 0, 0);
+        border-radius: 5px;
+        width: 330px;
+        position: relative;
+        height: 40px;
+        font-family: "Gothic A1", sans-serif;
+        left: 80px;
+        margin: 10px;
+
+
+    }
+    .login2{
+        border: none;
+        color: white;
+        background-color: rgb(0, 0, 0);
+        border-radius: 5px;
+        width: 150px;
+        position: relative;
+        height: 40px;
+        font-family: "Gothic A1", sans-serif;
+        left: 80px;
+        margin: 11px;
+        bottom: 20px;
+
+
+    }
+    .finding{
+        padding: 10px;
+        position: relative;
+        left: 80px;
+        font-size: small;
+
+
+
+
+    }
+</style>

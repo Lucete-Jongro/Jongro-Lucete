@@ -151,8 +151,13 @@
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Library</li>
 
             <li class="category"><a href="ONEDAY_CLASS_mainview .html">원데이 클래스</a></li>
+
             <li class="category"><a href="/inquiry/list">게시판</a></li>
+
             <li class="category"><a href="/review/list">리뷰</a></li>
+
+
+
             <li class="category"><a href="NOTICE_01mainview.html">공지사항</a></li>
             <br><br><br><br><br><br><br>
         </ul>
@@ -177,6 +182,7 @@
 
             <!-- 카테고리 선택적 조회  -->
             <div class="category-select-btn">
+
 
                 <form id="searchForm" action="/inquiry/list" style="display: inline-block">
                 <select id ="category-select" name="searchCondition">
@@ -206,12 +212,14 @@
                     </tr>
                     </thead>
                     <tbody>
+
                     <tr th:each="inquiry : ${ inquiryList }" th:onclick="|location.href='/inquiry/detail?inquiryNo=${inquiry.inquiryNo}'|">
                         <td th:text = "${ inquiry.inquiryNo }"></td>
                         <td th:text="${ inquiry.inquiryTitle }"></td>
                         <td th:text="${ inquiry.inquiryCategory }"></td>
                         <td th:text ="${ inquiry.memName }"></td>
                         <td th:text ="${#temporals.format(inquiry.inquiryDate, 'yyyy.MM.dd')}"></td>
+
                     </tr>
 
                     </tbody>
@@ -220,7 +228,9 @@
         </div>
         <div class="hp_mb20"></div>
         <div>
+
             <button type="button" id="inquiryWrite" class="button-write">글쓰기</button>
+
         </div>
 
     </div>
@@ -274,6 +284,7 @@
                     th:each="page : ${ #numbers.sequence(paging.startPage, paging.endPage)}">
                 <button
                         th:onclick="'location.href=\'/inquiry/list?page=' + @{${page}} + '\''"
+
                         th:text="${ page }" th:disabled="${ paging.page eq page }">
                 </button>
             </th:block>
@@ -290,6 +301,7 @@
 
     </div>
 <br><br>
+
 
         <!-- 공백용 -->
     <div id="wrapper">

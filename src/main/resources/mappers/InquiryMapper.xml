@@ -17,9 +17,10 @@
         <association property="commList" resultMap="commResultMap"/>
     </resultMap>
 
-    <resultMap id="memberResultMap" type="com.lucete.comprehensive.user.member.MemberDTO">
+    <resultMap id="memberResultMap" type="com.lucete.comprehensive.user.member.model.dto.MemberDTO">
         <id property="memNo" column="MEM_NO"/>
     </resultMap>
+
 
         <resultMap type="com.lucete.comprehensive.board.inquiry.dto.CommDTO" id="commResultMap">
             <id property="commKey" column="COMM_KEY"/>
@@ -34,6 +35,9 @@
 
         </resultMap>
 
+   
+
+
 
     <select id="selectTotalCount" resultType="int" parameterType="hashmap">
         SELECT
@@ -45,6 +49,7 @@
             member_info b ON (a.MEM_NO = b.MEM_NO)
         </if>
         <where>
+
             <if test="searchCondition == 'allSelect'">
 
             </if>
@@ -205,7 +210,9 @@
         </if>
         <where>
             <if test="searchCondition == 'user'">
+
                 b.MEM_NAME LIKE CONCAT('%', #{ searchValue }, '%')
+
             </if>
             <if test="searchCondition == 'userId'">
                 b.MEM_ID LIKE CONCAT('%', #{ searchValue }, '%')
@@ -250,6 +257,7 @@
         a.INQUIRY_DATE DESC
         LIMIT #{offSet}, #{limit}
     </select>
+
 
     <select id="AdminSelectInquiryDetail" resultMap="inquiryResultMap">
         SELECT
@@ -311,4 +319,5 @@
 
 
 
-</mapper>
+
+

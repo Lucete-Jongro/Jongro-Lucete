@@ -1,3 +1,4 @@
+
 .main-img{
     position: relative;
     padding: 0px;
@@ -28,7 +29,7 @@
     left: 710px;
     top: -450px;
     font-size:25px;
-    font-weight: bolder;
+    font-weight: bolder; 
     color :tan;
 }
 
@@ -45,7 +46,7 @@
     left: 710px;
     top: -510px;
     font-size:25px;
-    font-weight: bolder;
+    font-weight: bolder; 
     color :tan;
 }
 
@@ -56,12 +57,12 @@
     position: relative;
     left: 0;
     bottom: 0;
-    width: 100%;
-
+    width: 100%;   
     color: gray;
     text-align: center;
+    
+  }
 
-}
 .footer a{
     color: gray;
     display: inline;
@@ -102,8 +103,6 @@
     position: relative;
     left: 50px;
     top: 60px;
-
-
 }
 .button {
     border: none;
@@ -115,16 +114,17 @@
 .coupon-table{
     position: relative;
     border: 1px solid rgb(181, 181, 181);
-
+    
     border-collapse: collapse;
     float: inline-start;
     margin-bottom: 50px;
-
-
-
+    
+    
+    
 }
 .table-data{
     padding: 10px;
+    
 
     border-bottom: 1px gray;
     border-bottom-style: inset;
@@ -132,17 +132,12 @@
     width: 5%;
     max-width: 1%;
     border-collapse: collapse;
-
-
-
 }
 
 .coupon-table caption{
     font-family: "Gothic A1", sans-serif;
     text-align: left;
     font-weight: bold;
-
-
 }
 .coupon{
     display: inline-block;
@@ -152,10 +147,6 @@
     left: 50px;
     top:50px;
     float: inline-end;
-
-
-
-
 }
 .point{
     caption-side: bottom;
@@ -396,7 +387,6 @@ textarea{
     text-decoration: none;
     border-radius: 10px;
 
-
     position: relative;
     float:right;
     width: 120px;
@@ -444,9 +434,10 @@ textarea{
 }
 .search-button{
 
+    
     position: relative;
     text-align: center;
-
+    
     border: none;
     text-decoration: none;
 

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<header class="header">
+    <div class="containor">
+        <nav class="navbar">
+            <a href="index.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
+            <ul class="navbar-list" style="list-style: none;">
+
+                <li class="navicon" id="search"><img src="/image/검색 아이콘.png" height="25">
+
+                </li>
+                <li class="navicon"><a href=""><img src="/image/장바구니 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/마이페이지 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="searchBar" >
+                    <input type="search">
+                    <input type="submit">
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</header>
+
+
+<div class="category-banner">
+    <nav class="category-navbar">
+
+
+        <ul class="category-list" style="list-style: none;">
+            <li class="category"
+                style="font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
+            <li class="category"><a href="PRODUCT_mainview .html">주얼리</a></li>
+            <li class="category"><a href="DIY_PRODUCT_mainview.html">DIY 자재</a></li>
+            <li class="category"><a href="DIYkit_PRODUCT_mainview.html">DIY Kit</a></li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Library</li>
+
+            <li class="category"><a href="ONEDAY_CLASS_mainview .html">원데이 클래스</a></li>
+            <li class="category"><a href="BOARD_mainview .html">게시판</a></li>
+            <li class="category"><a href="NOTICE_01mainview.html">공지사항</a></li>
+            <br><br><br><br><br><br><br>
+        </ul>
+    </nav>
+</div>
+
+
+<div class="intro">
+
+    <p th:text="${ #authentication.principal.username }"></p>
+
+    <p>고객님의 마이페이지 입니다</p>
+    <img src="/image/마이페이지 아이콘.png" height="100px" style="position: relative;" class="mypage-img">
+
+    <ul class="mypage-list" style="list-style: none;">
+        <li class="mypage-button">
+            <button class="button"><a href="myinfo.html">내 정보 관리</a></button>
+        </li>
+        <li class="mypage-button">
+            <button class="button"><a href="orderlist.html">주문 목록</a></button>
+        </li>
+        <li class="mypage-button">
+            <button class="button"><a href="my_boardList.html">내 게시물 관리</a></button>
+        </li>
+    </ul>
+    <ul class="mypage-list" style="list-style: none;">
+        <li class="mypage-button">
+            <button class="button"><a href="refund-list.html">취소 / 교환 목록</a></button>
+        </li>
+        <li class="mypage-button">
+            <button class="button"><a href="coupon.html">쿠폰 / 적립금</a></button>
+        </li>
+
+    </ul>
+</div>
+
+</body>
+</html>
