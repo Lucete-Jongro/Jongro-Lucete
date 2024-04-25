@@ -3,49 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin OneDayClass Category Page</title>
+    <title>Admin OneDayClass Inquiry Page</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
-
     <style>
-        .product-category{
-            overflow: hidden;
+        .fix-img{
+            width: 100px;
         }
-        .product-category-box{
-            margin : 30px;
+        .onedayclass-section{
             width: 700px;
-            height: 500px;
-            border : 5px solid #969696;
-            border-radius : 10px;
+            height: auto;
             overflow: hidden;
-
         }
-        .category-box{
-            margin : 10px;
-            width: 680px;
-            height: 235px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
+        .table-section{
+            margin-left: 30px;
         }
-        .box{
-            margin: 10px;
-            width: 310px;
-            height: 115px;
-            background-color: gray;
-            border-radius: 30px;
-            background-color: #DEE2E6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            font-weight: bold;
+        .onedayclass-table{
+            width: 670px;
+            border-top: 3px solid black;
+            border-bottom: 2px solid#C2C2C2;
+            border-right: 2px solid #C2C2C2;
+            border-left: 2px solid#C2C2C2;
+            border-collapse: collapse;
+        }
+        .onedayclass-table th{
+            border: 2px solid #C2C2C2;
+            background-color: #d9d9d9;
+        }
+        .onedayclass-table td{
+            padding: 0;
+            text-align: center;
+            border: 2px solid #C2C2C2;
         }
     </style>
 </head>
-
 <body>
 <header class="header">
     <div class="containor">
@@ -73,7 +66,7 @@
             <br>
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
             <li class="category"><a href="Admin-OrderCategory-Page.html">주문관리</a></li>
-            <li class="category"><a href="product/category">상품관리</a></li>
+            <li class="category"><a href="/product/category">상품관리</a></li>
             <br>
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Customer</li>
 
@@ -89,28 +82,32 @@
     </nav>
 </div>
 
-<div class="product-category">
-    <h4 style="font-size: 25px;">&nbsp;&nbsp;원데이 클래스 관리</h4>
-    <div class="product-category-box">
-        <div class="category-box">
-            <a class="box" href="/onedayclass/insert">
-                <img src="/image/One-day%20Class%20Registration.png" height="45px">
-                원데이 클래스 등록
-            </a>
-            <a class="box" href="/onedayclass/modify">
-                <img src="/image/One-day%20Class%20Modification.png" height="40px">
-                원데이 클래스 수정
-            </a>
-        </div>
-        <div class="category-box">
-            <a class="box" href="/onedayclass/list">
-                <img src="/image/One-day%20Class%20Inquiry.png" height="55px">
-                원데이 클래스 조회
-            </a>
-        </div>
+<div class="onedayclass-section">
+    <div class="table-section">
+        <h2>원데이 클래스 조회</h2>
+        <br>
+        <h4>● 진행중인 원데이 클래스</h4>
+        <table class="onedayclass-table">
+            <thead>
+            <tr>
+                <th>클래스 사진</th>
+                <th>클래스명</th>
+                <th>가격</th>
+                <th>일정</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="prod : ${products}">
+                <td><img th:if="${prod.file != null}" th:src="@{|/upload/${prod.file.fileName}|}" style="width: 100px; height: 100px; margin-top: 5px;"/></td>
+                <td th:text="${prod.prodName}"></td>
+                <td th:text="${prod.prodPrice}"></td>
+                <td><button type="button" onclick="location.href='Admin-OneDayClass-Date-Page.html'">일정 확인하기</button></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-
 </div>
+
 
 <br><br><br><br><br><br><br>
 

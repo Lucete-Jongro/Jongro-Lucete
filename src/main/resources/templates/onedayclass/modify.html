@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin OneDayClass Modify Page</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+    <style>
+        .inquiry-category{
+            width: 670px;
+            border-top: 3px solid black;
+            border-bottom: 2px solid#C2C2C2;
+            border-right: 2px solid #C2C2C2;
+            border-left: 2px solid#C2C2C2;
+            border-collapse: collapse;
+        }
+        .inquiry-category td{
+            border: 2px solid #C2C2C2;
+            padding: 0;
+        }
+        .select-category{
+            width: 100%;
+            box-sizing: border-box;
+            height: 30px;
+        }
+        .onedayclass-container{
+            width: 700px;
+            height: auto;
+            overflow: hidden;
+        }
+        .onedayclass-form{
+            margin-left: 30px;
+        }
+        .class-table{
+            width: 670px;
+            border-top: 3px solid black;
+            border-bottom: 2px solid#C2C2C2;
+            border-right: 2px solid #C2C2C2;
+            border-left: 2px solid#C2C2C2;
+            border-collapse: collapse;
+        }
+        .label-color{
+            background-color: #d2d2d2;
+            text-align: center;
+            font-weight: bold;
+        }
+        .class-table td{
+            border: 2px solid #838383;
+            padding: 0;
+        }
+        .class-table input[type="text"]{
+            width: 100%;
+            height: 50px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+        }
+        .class-table input[type="date"],
+        .class-table input[type="time"],
+        .class-table input[type="number"]{
+            width: 200px;
+            height: 40px;
+            box-sizing: border-box;
+        }
+        .class-table #prodAccount{
+            width: 100%;
+            height: 150px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+        }
+        .insert-btn{
+            text-align: right;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .submit-btn{
+            border: 1px solid #828282;
+            background-color: #d2d2d2;
+            border-radius: 5px;
+        }
+        .inquiry-btn{
+            margin-top: 15px;
+            margin-bottom: -30px;
+            display: flex;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="containor">
+        <nav class="navbar">
+            <a href="Admin-MainPage.html"><img src="/image/logo.png" height="90"></a>
+            <ul class="navbar-list" style="list-style: none;">
+                </li>
+                <li class="navicon"><a href=""><img src="/image/login_icon.png" height="25"></a></li>
+                <li class="searchBar" >
+                    <input type="search">
+                    <input type="submit">
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</header>
+
+<div class="category-banner">
+    <nav class="category-navbar">
+
+
+        <ul class="category-list" style="list-style: none;">
+            <li class="category" style= "font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
+            <li class="category"><a href="Admin-OrderCategory-Page.html">주문관리</a></li>
+            <li class="category"><a href="/product/category">상품관리</a></li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Customer</li>
+
+            <li class="category"><a href="Admin-UserCategory-Page.html">회원관리</a></li>
+            <li class="category"><a href="1.문의_게시판_관리.html">게시판 관리</a></li>
+            <li class="category"><a href="2.리뷰_관리.html">리뷰 게시판 관리</a></li>
+            <li class="category"><a href="3.공지사항_관리.html">공지사항 관리</a></li>
+            <li class="category"><a href="4.쿠폰_관리.html">쿠폰 관리</a></li>
+            <li class="category"><a href="5.포인트_지급_관리.html">포인트 관리</a></li>
+            <li class="category"><a href="/onedayclass/category">원데이 클래스 관리</a></li>
+            <br><br><br><br><br><br><br>
+        </ul>
+    </nav>
+</div>
+
+<div class="onedayclass-container">
+    <div class="onedayclass-form">
+        <h2>원데이 클래스 수정</h2>
+        <form action="/onedayclass/modify" method="post">
+            <table class="inquiry-category">
+                <tr>
+                    <td class="label-color">클래스 선택</td>
+                    <td>
+                        <select class="select-category" name="classNo" id="classNo">
+                            <option th:each="class : ${classList}"
+                                    th:value="${class.classNo}"
+                                    th:text="${class.className}"></option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div class="inquiry-btn">
+                <button type="button" onclick="fetchClassInfo()">클래스 조회</button>
+            </div>
+        </form>
+        <br>
+        <h4>● 상세 정보 수정</h4>
+        <form>
+            <table class="class-table">
+                <tr>
+                    <td class="label-color" style="height: 50px;">클래스명</td>
+                    <td><input type="text" name="className" id="className"></td>
+                </tr>
+                <tr>
+                    <td class="label-color" style="height: 40px;">날짜</td>
+                    <td>
+                        <input type="date" name="startDate" id="startDate" placeholder="시작">
+                        <span style="font-weight: bold;">~</span>
+                        <input type="date" name="endDate" id="endDate" placeholder="끝">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label-color" style="height: 40px;">시간</td>
+                    <td><input type="time" id="timeSet" name="setTime"></td>
+                </tr>
+                <tr>
+                    <td class="label-color" style="height: 40px;">금액</td>
+                    <td><input type="number" name="prodPrice" id="prodPrice" placeholder="금액을 입력하세요"></td>
+                </tr>
+                <tr>
+                    <td class="label-color" style="height: 150px;">상세 설명</td>
+                    <td><textarea name="prodAccount" id="prodAccount"></textarea></td>
+                </tr>
+                <!-- <tr>
+                    <td class="label-color" style="height: 40px;"><label for="FILE_NAME">파일 첨부</label></td>
+                    <td><input type="file" name="FILE_NAME"></td>
+                </tr> -->
+            </table>
+            <div class="insert-btn">
+                <button type="submit" class="submit-btn" onclick="updateClass()">클래스 수정</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<br><br><br><br><br><br><br>
+
+<footer class="footer">
+    <div class="containor">
+        <p>L u c e t e</p>
+        <ul class="info" style="list-style: none;">
+            <li class="info-list" style="font-size: smaller;"><a href>이용약관</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="info-list" style="font-size: smaller;"><a href>개인정보 처리방침</a></li>
+            <br><br>
+            <li class ="info-list" style="font-size: small;">상호: 루세트(Lucete) | 대표: 김민희 | 전화: 070-012-3456 | 이메일: lucete@gmail.com</li>
+            <br>
+            <li class="info-list" style="font-size: small;">주소:2222-312,25, Insadong 3-gil, Jongno-gu, Seoul, Republic of Korea</li>
+            <br>
+            <li class="info-list" style="font-size: small;">사업자등록번호:888-06-12345 | 통신판매:2024-서울인사동-0123</li>
+        </ul>
+
+
+    </div>
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+    function fetchClassInfo(){
+        const classNo = $("#classNo").val();
+        console.log("classNo.val()" + classNo)
+
+        $.ajax({
+            url: "/onedayclass/information?classNo=" + classNo,
+            type: "GET",
+            success: function (response) {
+                console.log("응답 받음")
+                $("#className").val(response.className);
+                $("#startDate").val(response.startDate);
+                $("#endDate").val(response.endDate);
+                $("#timeSet").val(response.timeSet);
+                $("#prodPrice").val(response.prodPrice);
+                $("#prodAccount").val(response.prodAccount);
+                console.log("클래스 NO " + classNo);
+            }
+        });
+    }
+
+    function updateClass() {
+
+        const classNo = $("#classNo").val();
+        const className = $("#className").val();
+        const startDate = $("#startDate").val();
+        const endDate = $("#endDate").val();
+        const timeSet = $("#timeSet").val();
+        const prodPrice = $("#prodPrice").val();
+        const prodAccount = $("#prodAccount").val();
+
+        $.ajax({
+            url: "/onedayclass/update",
+            type: "POST",
+            data:{
+                classNo: classNo,
+                className: className,
+                startDate: startDate,
+                endDate: endDate,
+                timeSet: timeSet,
+                prodPrice: prodPrice,
+                prodAccount: prodAccount
+            },
+            success: function (response) {
+                console.log("업데이트 완료");
+            },
+            error: function (xhr, status, error) {
+                console.log("오류 발생");
+            }
+        });
+        alert("상품 수정 완료!");
+    }
+
+
+</script>
+</body>
+</html>
