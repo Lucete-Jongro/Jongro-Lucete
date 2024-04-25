@@ -25,8 +25,24 @@
 
     <resultMap id="uploadFileResultMap" type="com.lucete.comprehensive.common.file.FileDTO">
         <id property="fileNo" column="FILE_NO"/>
+        <result property="fileName" column="FILE_NAME"/>
         <result property="filePass" column="FILE_PASS"/>
+        <result property="prodSerial" column="PROD_SERIAL"/>
     </resultMap>
+
+    <resultMap id="onedayclassResultMap" type="com.lucete.comprehensive.product.model.dto.OneDayClassDTO">
+        <id property="classNo" column="CLASS_NO"/>
+        <result property="className" column="CLASS_NAME"/>
+        <result property="startDate" column="START_DATE"/>
+        <result property="endDate" column="END_DATE"/>
+        <result property="setTime" column="SET_TIME"/>
+        <result property="teacherName" column="TEACHER_NAME"/>
+        <association property="prodCategory" resultMap="categoryResultMap"/>
+        <association property="productDTO" resultMap="generalProductResultMap"/>
+    </resultMap>
+
+
+
 
     <select id="findCategory" resultMap="categoryResultMap">
         SELECT
@@ -111,10 +127,12 @@
 
 
     <select id="findProductList" resultMap="generalProductResultMap">
+
         SELECT
             *
         FROM
             product
+
     </select>
 
     <select id="selectBySerial" resultMap="generalProductResultMap">
@@ -158,12 +176,85 @@
         WHERE
 
             PROD_NAME = #{prodName}
+        LIMIT 1
     </select>
 
     <insert id="classFile" parameterType="com.lucete.comprehensive.common.file.FileDTO">
         INSERT INTO upload_file (FILE_NAME, UPLOAD_DATE, FILE_PASS, FILE_SIZE, PROD_SERIAL)
         VALUES (#{fileName}, #{uploadDate}, #{filePass}, #{fileSize}, #{prodSerial})
     </insert>
+
+
+    <select id="getList" resultMap="generalProductResultMap">
+        SELECT
+            p.*,
+            up.*
+        FROM
+            product p
+        LEFT JOIN
+            upload_file up ON p.PROD_SERIAL = up.PROD_SERIAL
+        WHERE
+            p.PROD_CATEGORY = 4
+        ORDER BY
+            p.PROD_SERIAL DESC
+    </select>
+
+    <select id="findClass" resultType="com.lucete.comprehensive.product.model.dto.OneDayClassDTO">
+        SELECT
+            *
+        FROM
+            oneday_class
+    </select>
+
+    <select id="selectByClassNo" resultMap="onedayclassResultMap">
+        SELECT
+            oc.CLASS_NAME,
+            oc.START_DATE,
+            oc.END_DATE,
+            oc.SET_TIME,
+            p.PROD_PRICE,
+            p.PROD_ACCOUNT
+        FROM
+            oneday_class oc
+        JOIN
+            product_category pc ON oc.PROD_CATEGORY = pc.PROD_CATEGORY
+        JOIN
+            product p ON p.PROD_CATEGORY = pc.PROD_CATEGORY
+        WHERE
+            CLASS_NO = #{classNo}
+        AND
+            oc.CLASS_NAME = p.PROD_NAME
+    </select>
+
+    <select id="prodByClass" resultType="com.lucete.comprehensive.product.model.dto.ProductDTO">
+        SELECT
+            *
+        FROM
+            product
+        WHERE
+            PROD_NAME = #{className}
+    </select>
+
+    <update id="updateClass" parameterType="java.util.Map">
+        UPDATE oneday_class
+        SET
+            CLASS_NAME = #{className},
+            START_DATE = #{startDate},
+            END_DATE = #{endDate},
+            SET_TIME = #{setTime}
+        WHERE
+            CLASS_NO = #{classNo}
+    </update>
+
+    <update id="updateProdByClass" parameterType="java.util.Map">
+        UPDATE product
+        SET
+            PROD_NAME = #{className},
+            PROD_PRICE = #{prodPrice},
+            PROD_ACCOUNT = #{prodAccount}
+        WHERE
+            PROD_NAME = #{className}
+    </update>
 
 
 </mapper>

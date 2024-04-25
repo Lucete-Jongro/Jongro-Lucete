@@ -12,10 +12,11 @@ public class OneDayClassDTO {
     private String teacherName;
     private ProductCategoryDTO prodCategory;
     private Time setTime;
+    private ProductDTO productDTO;
 
     public OneDayClassDTO() {}
 
-    public OneDayClassDTO(int classNo, String className, Date startDate, Date endDate, String teacherName, ProductCategoryDTO prodCategory, Time setTime) {
+    public OneDayClassDTO(int classNo, String className, Date startDate, Date endDate, String teacherName, ProductCategoryDTO prodCategory, Time setTime, ProductDTO productDTO) {
         this.classNo = classNo;
         this.className = className;
         this.startDate = startDate;
@@ -23,6 +24,7 @@ public class OneDayClassDTO {
         this.teacherName = teacherName;
         this.prodCategory = prodCategory;
         this.setTime = setTime;
+        this.productDTO = productDTO;
     }
 
     public int getClassNo() {
@@ -81,6 +83,13 @@ public class OneDayClassDTO {
         this.setTime = setTime;
     }
 
+    public ProductDTO getProductDTO() {
+        return productDTO;
+    }
+
+    public void setProductDTO(ProductDTO productDTO) {
+        this.productDTO = productDTO;
+    }
 
     @Override
     public String toString() {
@@ -92,6 +101,7 @@ public class OneDayClassDTO {
                 ", teacherName='" + teacherName + '\'' +
                 ", prodCategory=" + prodCategory +
                 ", setTime=" + setTime +
+                ", productDTO=" + productDTO +
                 '}';
     }
 }

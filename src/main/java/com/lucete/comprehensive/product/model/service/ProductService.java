@@ -5,10 +5,12 @@ import com.lucete.comprehensive.common.paging.Pagenation;
 import com.lucete.comprehensive.common.paging.SelectCriteria;
 import com.lucete.comprehensive.product.controller.ProductController;
 import com.lucete.comprehensive.product.model.dao.ProductMapper;
+import com.lucete.comprehensive.product.model.dto.OneDayClassDTO;
 import com.lucete.comprehensive.product.model.dto.ProductCategoryDTO;
 import com.lucete.comprehensive.product.model.dto.ProductDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +22,8 @@ import java.util.*;
 @Service
 public class ProductService {
 
+    @Value("${image.image-dir}")
+    private String IMAGE_DIR;
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
     private final ProductMapper productMapper;
 
@@ -107,13 +111,17 @@ public class ProductService {
     public boolean classFile(MultipartFile file, ProductDTO product) {
 
 
-        //경로 지정
-        String root = "src/main/resources/static";
+//        //경로 지정
+//        String root = "src/main/resources/static";
+//
+//        //경로 파일 지정
+//        String uploadPath = root + "/upload";
+//
+//        //디렉토리 지정
+//        File dir = new File(uploadPath);
 
-        //경로 파일 지정
-        String uploadPath = root + "/upload";
+        String uploadPath = IMAGE_DIR;
 
-        //디렉토리 지정
         File dir = new File(uploadPath);
 
         if(!dir.exists()) {
@@ -126,19 +134,21 @@ public class ProductService {
             String savedFileName = UUID.randomUUID() + ext;
             System.out.println("savedFileName = " + savedFileName);
 
-            String filePath = uploadPath + "/" + originalFileName;
+            String filePath = uploadPath + "/" + savedFileName;
 
-            File dest = new File(filePath);
+            System.out.println("filePath 경로 : " + filePath);
 
-            file.transferTo(dest);
+            file.transferTo(new File(filePath));
+
 
             FileDTO fileDTO = new FileDTO();
             fileDTO.setUploadDate(new Date());
             fileDTO.setFileName(savedFileName);
-            fileDTO.setFilePass(uploadPath);
+            fileDTO.setFilePass(filePath);
             fileDTO.setFileSize((int) file.getSize());
             fileDTO.setProdSerial(product.getProdSerial());
 
+            System.out.println(" file PATH !!!!!!!!!!!!!!!!!! "+fileDTO.getFilePass());
 
             System.out.println("매퍼 들어감");
             productMapper.classFile(fileDTO);
@@ -156,5 +166,40 @@ public class ProductService {
 
     public ProductDTO getSerial(String className) {
         return productMapper.getSerial(className);
+    }
+
+    public List<ProductDTO> getList() {
+
+        return productMapper.getList();
+    }
+
+
+    public List<OneDayClassDTO> findClass() {
+
+        return productMapper.findClass();
+    }
+
+    public OneDayClassDTO selectByClassNo(Integer classNo) {
+
+        return productMapper.selectByClassNo(classNo);
+    }
+
+    public ProductDTO prodByClass(OneDayClassDTO oneDayClass) {
+
+        return productMapper.prodByClass(oneDayClass);
+    }
+
+    public boolean updateClass(String classNo, String className, Date startDate, Date endDate, Time setTime) {
+
+        int Affected = productMapper.updateClass(classNo, className, startDate, endDate, setTime);
+
+        return Affected > 0;
+    }
+
+    public boolean updateProdByClass(String className, int prodPrice, String prodAccount) {
+
+        int Affected = productMapper.updateProdByClass(className, prodPrice, prodAccount);
+
+        return Affected > 0;
     }
 }

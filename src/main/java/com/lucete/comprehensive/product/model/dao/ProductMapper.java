@@ -2,6 +2,7 @@ package com.lucete.comprehensive.product.model.dao;
 
 import com.lucete.comprehensive.common.file.FileDTO;
 import com.lucete.comprehensive.common.paging.SelectCriteria;
+import com.lucete.comprehensive.product.model.dto.OneDayClassDTO;
 import com.lucete.comprehensive.product.model.dto.ProductCategoryDTO;
 import com.lucete.comprehensive.product.model.dto.ProductDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -39,4 +40,16 @@ public interface ProductMapper {
     void classFile(FileDTO fileDTO);
 
     ProductDTO getSerial(String className);
+
+    List<ProductDTO> getList();
+
+    List<OneDayClassDTO> findClass();
+
+    OneDayClassDTO selectByClassNo(Integer classNo);
+
+    ProductDTO prodByClass(OneDayClassDTO oneDayClass);
+
+    int updateClass(String classNo, String className, Date startDate, Date endDate, Time setTime);
+
+    int updateProdByClass(String className, int prodPrice, String prodAccount);
 }

@@ -21,7 +21,7 @@ spring:
 
   servlet:
     multipart:
-      location: C:/Users/hi/Desktop/product-jan/Lucete
+      location: C:/practice
       max-file-size: 20MB
       max-request-size: 20MB
   web:
@@ -33,6 +33,7 @@ spring:
 #    prefix: classpath:/templates/  # 뷰 템플릿 파일의 디렉토리 경로
 #    suffix: .html  # 뷰 템플릿 파일의 확장자
 
+
 #mybats config
 mybatis:
   mapper-locations: mappers/**/*.xml
@@ -43,3 +44,9 @@ mybatis:
 #  file:
 #    name: myapp.log
 #    path: C:/Users/hi/Desktop/product-jan/Lucete
+
+
+#image upload dir
+image:
+    image-dir: C:/practice
+

@@ -1,4 +1,5 @@
 
+
 function checkPasswordMatch() {
     var password = document.getElementById("user_pwd").value;
     var confirmPassword = document.getElementById("user_pwd_check").value;
@@ -49,6 +50,7 @@ window.onload = function() {
     }
 
 
+
     // 리뷰 리스트에서 글쓰기 누르면 리뷰등록 페이지로 이동
     if (document.getElementById("reviewWrite")) {
         const $reviewWrite = document.getElementById("reviewWrite");
@@ -61,5 +63,6 @@ window.onload = function() {
 
 
 }}
+
 
 

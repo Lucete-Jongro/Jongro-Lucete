@@ -6,12 +6,15 @@ public class ProductCategoryDTO {
     private String categoryName;
     private int refCategoryCode;
 
+    private ProductDTO productDTO;
+
     public ProductCategoryDTO() {}
 
-    public ProductCategoryDTO(int prodCategory, String categoryName, int refCategoryCode) {
+    public ProductCategoryDTO(int prodCategory, String categoryName, int refCategoryCode, ProductDTO productDTO) {
         this.prodCategory = prodCategory;
         this.categoryName = categoryName;
         this.refCategoryCode = refCategoryCode;
+        this.productDTO = productDTO;
     }
 
     public int getProdCategory() {
@@ -38,12 +41,21 @@ public class ProductCategoryDTO {
         this.refCategoryCode = refCategoryCode;
     }
 
+    public ProductDTO getProductDTO() {
+        return productDTO;
+    }
+
+    public void setProductDTO(ProductDTO productDTO) {
+        this.productDTO = productDTO;
+    }
+
     @Override
     public String toString() {
         return "ProductCategoryDTO{" +
                 "prodCategory=" + prodCategory +
                 ", categoryName='" + categoryName + '\'' +
                 ", refCategoryCode=" + refCategoryCode +
+                ", productDTO=" + productDTO +
                 '}';
     }
 }
