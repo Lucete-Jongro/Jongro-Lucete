@@ -24,7 +24,9 @@ public interface ProductMapper {
 
     List<ProductCategoryDTO> findCategory();
 
+
     List<ProductDTO> findProductList();
+
 
     ProductDTO selectBySerial(Integer prodSerial);
 

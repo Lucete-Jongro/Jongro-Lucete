@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lucete.comprehensive.board.review.dao.ReviewMapper">
+
+    <resultMap id="reviewResultMap" type="com.lucete.comprehensive.board.review.dto.ReviewDTO">
+        <id property="revNo" column="REV_NO"/>
+        <result property="revTitle" column="REV_TITLE"/>
+        <result property="revContent" column="REV_CONTENT"/>
+        <result property="revDate" column="REV_DATE"/>
+        <result property="revReStatus" column="REV_RE_STATUS"/>
+        <result property="revCategory" column="REV_CATEGORY"/>
+        <result property="revUpdate" column="REV_UPDATE"/>
+        <result property="revDeleteStatus" column="REV_DELETE_STATUS"/>
+        <result property="revView" column="REV_VIEW"/>
+        <association property="memNo" resultMap="memberResultMap"/>
+<!--        <collection property="commList" resultMap="commResultMap"/>-->
+    </resultMap>
+
+    <resultMap id="memberResultMap" type="com.lucete.comprehensive.user.member.MemberDTO">
+        <id property="memNo" column="MEM_NO"/>
+    </resultMap>
+
+<!--        <resultMap type="com.lucete.comprehensive.board.review.dto.CommentDTO" id="commentResultMap">-->
+<!--            <id property="commKey" column="COMM_KEY"/>-->
+<!--            <result property="reDate" column="RE_DATE"/>-->
+<!--            <result property="reComment" column="RE_COMMENT"/>-->
+<!--            <result property="commDeleteStatus" column="COMM_DELETE_STATUS"/>-->
+<!--            <association property="revNo" javaType="java.lang.Integer">-->
+<!--                <id property="revNo" column="REVIEW_NO"/>-->
+<!--            </association>-->
+<!--            <association property="memNo" javaType="com.lucete.comprehensive.user.member.MemberDTO">-->
+<!--            <id property="memNo" column="MEM_NO"/>-->
+<!--            </association>-->
+<!--        </resultMap>-->
+
+
+    <select id="selectTotalCount" resultType="int" parameterType="hashmap">
+        SELECT
+            COUNT(*)
+        FROM
+            review a
+        <if test="searchCondition == 'memNo'">
+        JOIN
+            member_info b ON (a.MEM_NO = b.MEM_NO)
+        </if>
+        <where>
+            <if test="searchCondition == 'allSelect'">
+
+            </if>
+            <if test="searchCondition == 'nomal'">
+                a.REV_CATEGORY = 'nomal'
+            </if>
+            <if test="searchCondition == 'product'">
+                a.REV_CATEGORY = 'product'
+            </if>
+            <if test="searchCondition == 'DiyKit'">
+                a.REV_CATEGORY = 'DiyKit'
+            </if>
+            <if test="searchCondition == 'OneDayClass'">
+                a.REV_CATEGORY = 'OneDayClass'
+            </if>
+        </where>
+    </select>
+
+    <select id="selectReviewList" resultMap="reviewResultMap">
+        SELECT
+            a.REV_NO,
+            a.REV_TITLE,
+            a.REV_CONTENT,
+            a.REV_DATE,
+            a.REV_RE_STATUS,
+            a.REV_CATEGORY,
+            a.REV_UPDATE,
+            b.MEM_NAME,
+            a.REV_DELETE_STATUS,
+            a.REV_VIEW
+        FROM
+            review a
+        JOIN
+            member_info b ON(a.MEM_NO = b.MEM_NO)
+        <where>
+            <if test="searchCondition == 'allSelect'">
+            </if>
+            <if test="searchCondition == 'views'">
+                a.REV_VIEW = 'views'
+            </if>
+            <if test="searchCondition == 'nomal'">
+                a.REV_CATEGORY = 'nomal'
+            </if>
+            <if test="searchCondition == 'product'">
+                a.REV_CATEGORY = 'product'
+            </if>
+            <if test="searchCondition == 'DiyKit'">
+                a.REV_CATEGORY = 'DiyKit'
+            </if>
+            <if test="searchCondition == 'OneDayClass'">
+                a.REV_CATEGORY = 'OneDayClass'
+            </if>
+        </where>
+        ORDER BY
+          a.REV_NO DESC
+        LIMIT #{offSet}, #{limit}
+    </select>
+
+    <update id="incrementReviewCount">
+        UPDATE
+            review
+        SET
+            REV_VIEW = REV_VIEW + 1
+        WHERE
+            REV_NO = #{ revNo }
+    </update>
+
+    <insert id="insertReview" parameterType="com.lucete.comprehensive.board.review.dto.ReviewDTO">
+        INSERT INTO
+            review
+                (REV_TITLE, REV_CONTENT,REV_CATEGORY, REV_DATE, MEM_NO)
+        values
+                (#{ revTitle },
+                #{ revContent },
+                #{ revCategory },
+                NOW(),
+                (SELECT
+                    MEM_NO
+                from
+                    member_info
+                where
+                    EMAIL = 'janesmith@example.com'))
+    </insert>
+
+    <select id="selectReviewDetail" resultMap="reviewResultMap">
+    SELECT
+        a.REV_NO,
+        a.REV_TITLE,
+        a.REV_CONTENT,
+        a.REV_DATE,
+        a.REV_RE_STATUS,
+        a.REV_CATEGORY,
+        a.REV_UPDATE,
+        b.MEM_NAME,
+        a.REV_DELETE_STATUS,
+        a.REV_VIEW
+    FROM
+        review a
+    JOIN
+        member_info b ON (a.MEM_NO = b.MEM_NO)
+    WHERE
+        a.REV_NO = #{ revNo }
+    AND
+       a.REV_DELETE_STATUS = 'N'
+    </select>
+
+    <delete id="deleteReview">
+<!-- status 부분만 변경해서 update 하여 데이터는 남기려 했으나 안되서
+     delete로 데이터까지 삭제 되는 방향으로 진행  -->
+    DELETE FROM review
+    WHERE REV_NO = #{ revNo }
+    </delete>
+
+    <update id="updateReview">
+        UPDATE review
+        SET REV_TITLE = #{ revTitle },
+            REV_CONTENT = #{ revContent },
+            REV_UPDATE = NOW()
+        WHERE
+            REV_NO = #{revNo}
+    </update>
+
+<!--    <insert id="insertComment">-->
+<!--        INSERT-->
+<!--        INTO comments-->
+<!--            (REV_NO, RE_COMMENT, RE_DATE, MEM_NO)-->
+<!--        VALUES-->
+<!--            (#{ revNo }, #{ reComment }, NOW()), #{ memNo }-->
+<!--    </insert>-->
+
+<!--    <select id="selectCommentList" resultMap="commentResultMap">-->
+<!--        SELECT-->
+<!--            a.COMM_KEY,-->
+<!--            a.RE_COMMENT,-->
+<!--            b.REV_NO,-->
+<!--            a.RE_DATE,-->
+<!--            c.MEM_NO-->
+<!--        FROM-->
+<!--            comments a-->
+<!--                JOIN-->
+<!--            review b ON(a.REV_NO = b.REV_NO)-->
+<!--                JOIN-->
+<!--            member_info c ON(a.MEM_NO = b.MEM_NO)-->
+<!--          AND-->
+<!--            a.COMM_DELETE_STATUS = 'N'-->
+<!--        ORDER BY-->
+<!--            a.COMM_KEY-->
+<!--    </select>-->
+
+<!--    <update id="deleteComment">-->
+<!--        UPDATE-->
+<!--            comments-->
+<!--        SET-->
+<!--            COMM_DELETE_STATUS = 'Y'-->
+<!--        WHERE-->
+<!--            COMM_KEY = #{ commKey }-->
+<!--    </update>-->
+
+
+
+
+    <!--관리자 -->
+
+    <select id="AdminSelectTotalCount" resultType="int" parameterType="hashmap">
+        SELECT
+        COUNT(*)
+        FROM
+        review a
+        <if test="searchCondition == 'user' || searchCondition == 'userId'">
+            INNER JOIN
+            member_info b ON (a.MEM_NO = b.MEM_NO)
+        </if>
+        <where>
+            <if test="searchCondition == 'user'">
+                b.MEM_NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'userId'">
+                b.MEM_ID LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == null or searchCondition == ''">
+                1=1 <!-- 모든 결과 반환 -->
+            </if>
+        </where>
+    </select>
+
+    <!--관리자 문의글 조회 -->
+    <select id="AdminSelectReviewList" resultMap="reviewResultMap">
+        SELECT
+        a.REV_NO,
+        a.REV_TITLE,
+        a.REV_CONTENT,
+        a.REV_DATE,
+        a.REV_RE_STATUS,
+        a.REV_CATEGORY,
+        a.REV_UPDATE,
+        b.MEM_NAME,
+        a.REV_DELETE_STATUS,
+        a.REV_VIEW
+        FROM
+        review a
+        JOIN
+        member_info b ON(a.MEM_NO = b.MEM_NO)
+        <where>
+            <if test="searchCondition == 'user'">
+                b.MEM_NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == 'userId'">
+                b.MEM_ID LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchCondition == null or searchCondition == ''">
+                1=1 <!-- 모든 결과 반환 -->
+            </if>
+            AND
+            a.REV_RE_STATUS = 'N'
+        </where>
+        ORDER BY
+        a.REV_DATE DESC
+        LIMIT #{offSet}, #{limit}
+    </select>
+
+    <select id="AdminSelectReviewDetail" resultMap="reviewResultMap">
+        SELECT
+            a.REV_NO,
+            a.REV_TITLE,
+            a.REV_CONTENT,
+            a.REV_DATE,
+            a.REV_RE_STATUS,
+            a.REV_CATEGORY,
+            a.REV_UPDATE,
+            b.MEM_NAME,
+            a.REV_DELETE_STATUS,
+            c.COMM_KEY,
+            c.RE_DATE,
+            c.RE_COMMENT
+        FROM
+            review a
+        LEFT JOIN
+            member_info b ON (a.MEM_NO = b.MEM_NO)
+        LEFT JOIN
+            comments c ON (a.REV_NO = c.REV_NO)
+        WHERE
+            a.REV_NO = #{ revNo }
+          AND
+            a.REV_DELETE_STATUS = 'N'
+        ORDER BY
+            c.COMM_KEY
+    </select>
+
+
+
+
+</mapper>

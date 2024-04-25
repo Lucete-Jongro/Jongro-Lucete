@@ -6,184 +6,19 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="/css/mystyle.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
 
 
-    <style>
 
-        .chart-container{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .item{
-            width: 700px;
-            font-size: 14px;
-            font-weight: bold;
-
-        }
-        .item-name{
-            width: 700px;
-            font-style: 14px;
-            font-weight: bold;
-
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-        .item-bar{
-            height: 60px;
-            background-color: #6CA7ED;
-        }
-
-        .title-view {
-            padding: 25px 20px 70px;
-            position: relative;
-            margin-left: 25%;
-        }
-
-        table {
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
-
-        .container {
-            width: 1100px;
-            margin: 0 auto;
-        }
-
-        .board-table {
-            font-size: 12px;
-            width: 100%;
-            border-top: 1px solid #ccc;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .board-table a {
-            color: #333;
-            display: inline-block;
-            line-height: 1.4;
-            word-break: break-all;
-            vertical-align: middle;
-        }
-
-        .board-table a:hover {
-            text-decoration: underline;
-        }
-
-        .board-table th {
-            text-align: center;
-        }
-
-        .board-table .th-num {
-            width: 70px;
-            text-align: center;
-        }
-
-        .board-table .th-date {
-            width: 80px;
-        }
-
-        .board-table th,
-        .board-table td {
-            padding: 14px 0;
-        }
-
-        .board-table tbody td {
-            border-top: 1px solid #e7e7e7;
-            text-align: center;
-        }
-
-        .board-table tbody th {
-            padding-left: 28px;
-            padding-right: 14px;
-            border-top: 1px solid #e7e7e7;
-            text-align: left;
-        }
-
-        .board-table tbody th p {
-            display: none;
-
-        }
-
-        * {
-            list-style: none;
-            text-decoration: none;
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-
-        .clearfix:after {
-            content: '';
-            display: block;
-            clear: both;
-        }
-
-        .container2 {
-            width: 1100px;
-            margin: 0 auto;
-        }
-
-        .category-select-btn {
-            float: right;
-            height: 30px;
-
-        }
-
-        .b-title {
-            margin-top: 50px;
-            width: 300px;
-            font-weight: bold
-        }
-
-        #wrapper {
-            height: auto;
-            min-height: 100%;
-            padding-bottom: 10px;
-
-        }
-
-    </style>
-    <script>
-        const data = [
-            { name: "A", score: 50 },
-            { name: "B", score: 80 },
-            { name: "C", score: 30 },
-            { name: "D", score: 70 },
-            { name: "E", score: 90 }
-        ];
-        const container = document.querySelector(".chart-container");
-        data.forEach(item => {
-            const newItem = document.createElement("div");
-            newItem.classList.add("item");
-            const name = document.createElement("div");
-            name.classList.add("item-name");
-            name.innerText = item.name;
-            const bar = document.createElement("div");
-            bar.classList.add("item-bar");
-            bar.style.width = `${item.score}%`;
-            newItem.appendChild(name);
-            newItem.appendChild(bar);
-            container.appendChild(newItem);
-        });
-    </script>
 
 </head>
 <body>
 <header class="header">
     <div class="containor">
         <nav class="navbar">
-            <a href="index.html"><img src="/image/logo.png" height="90"></a>
-            <ul class="navbar-list" style="list-style: none;">
 
-                <li class="navicon" id="search"><img src="/image/search_icon.png" height="25">
-
-                </li>
-                <li class="navicon"><a href="shoppingcart.html"><img src="/image/shopping_cart_icon.png" height="25"></a></li>
-                <li class="navicon"><a href="mypage.html"><img src="/image/mypage_icon.png" height="25"></a></li>
-                <li class="navicon"><a href="login.html"><img src="/image/login_icon.png" height="25"></a></li>
-                <li class="navicon"><a href="index.html"><img src="/image/logout_icon.png" height="25"></a></li>
                 <li class="searchBar" >
                     <input type="search">
                     <input type="submit">
@@ -205,19 +40,76 @@
             <br>
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
 
+
+            <li class="category"><a href="PRODUCT_mainview .html">주얼리</a></li>
+            <li class="category"><a href="DIY_PRODUCT_mainview.html">DIY 자재</a></li>
+            <li class="category"><a href="DIYkit_PRODUCT_mainview.html">DIY Kit</a></li>
+
+
             <li class="category"><a href="Admin-OrderCategory-Page.html">주문관리</a></li>
             <li class="category"><a href="/product/category">상품관리</a></li>
+
+
 
             <br>
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Library</li>
 
             <li class="category"><a href="ONEDAY_CLASS_mainview .html">원데이 클래스</a></li>
+
+
+            <li class="category"><a href="/inquiry/list">게시판</a></li>
+            <li class="category"><a href="/review/list">리뷰</a></li>
+
             <li class="category"><a href="inquiry/list">게시판</a></li>
+
+
             <li class="category"><a href="NOTICE_01mainview.html">공지사항</a></li>
             <br><br><br><br><br><br><br>
         </ul>
     </nav>
 </div>
+
+
+
+
+<div class="banner-img">
+    <img src="/image/메인사진.jpg" height="480" class="main-img">
+</div>
+
+<br><br><br><br><br><br><br>
+
+
+<div class="new-banner">
+    <p style="font-size:larger; font-weight: bolder;">NEW</p>
+    <ul class="image-list">
+        <li class="banner-imgs"><a href=""><img src="/image/반지 2 .png" class="img"></a>
+            <p>silver layering set</p>
+            <p>26,000원</p></li>
+        <li class="banner-imgs"><a href="PRODUCT_datailview.html"><img src="/image/목걸이.jfif" class="img"></a>
+            <p>Dolphin necklace</p>
+            <p>36,000원</p></li><li class="banner-imgs"><a href=""><img src="/image/반지4.jfif" class="img"></a>
+        <p>silver cubic ring</p>
+        <p>21,000원</p></li>
+        <li class="banner-imgs"><a href=""><img src="/image/반지5.jfif" class="img"></a>
+            <p>Blackgold Ring set</p>
+            <p>27,000원</p></li>
+        <li class="banner-imgs"><a href=""><img src="/image/반지6.jfif" class="img"></a>
+            <p>single Silver Ring</p>
+            <p>18,000원</p></li>
+        <li class="banner-imgs"><a href=""><img src="/image/팔찌.jfif" class="img"></a>
+            <p>rosegold bracelet</p>
+            <p>28,000원</p></li>
+    </ul>
+</div>
+
+
+<div class="main-banner2">
+    <p style="font-size:larger; font-weight: bolder;">ONE-DAY CLASS</p>
+    <a href="ONEDAY_CLASS_mainview .html"><img src="/image/원데이클래스 메인.jfif" height="500" class="oneday-class-img"></a>
+    <a href="NOTICE_01mainview.html"><img src="/image/공지사항 사진1.jpg" height="250" class="notice-img">
+        <p class="notice">Notice</p></a>
+
+
 
 
 <div class="banner-img">
@@ -258,26 +150,11 @@
 
 
 
-        </div>
+
+    <a href="REVIEW_01mainview.html"><img src="/image/리뷰게시판 사진.jpg" height="238" class="review-img">
+        <p class="review">Review</p></a>
 
 
-
-</div>
-
-                <tr>
-                    <td>1</td>
-                    <th><a href="#!">원데이 클래스 과정 문의 합니다. </a>
-                    </th>
-                    <td>원데이클래스</td>
-                    <td>서미래</td>
-                    <td>2024.01.17</td>
-                </tr>
-                </tbody>
-            </table>
-
-        </div>
-    </div>
-    <div class="hp_mb20"></div>
 
 
 
