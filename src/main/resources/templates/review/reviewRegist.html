@@ -4,16 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>inquiryRegist</title>
+    <title>reviewRegist</title>
     <link rel="stylesheet" th:href="@{ /css/style.css }">
     <link rel="stylesheet" th:href="@{ /css/mystyle.css }">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
-
     <script src="/js/event.js" type="text/javascript"></script>
-
-
     <style>
         .title-view {
             padding: 25px 20px 30px;
@@ -31,6 +28,12 @@
             margin: 0 auto;
         }
 
+        .board-table {
+            font-size: 12px;
+            width: 100%;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
 
         .board-table a {
             color: #333;
@@ -78,7 +81,6 @@
             box-sizing: border-box;
         }
 
-
         #wrapper {
             height: auto;
             min-height: 100%;
@@ -90,12 +92,20 @@
             line-height: 23px;
         }
 
-
         .a4 {
             font-size: 13px;
             padding-top: 20px;
         }
+        .a5 {
+            padding-left: 100px;
+        }
 
+        .b2 {
+            position: relative;
+            padding-right: 100px;
+            padding-bottom:100px;
+
+        }
         #button-submit2 {
             background: black;
             color: #EEEEEE;
@@ -106,23 +116,15 @@
 
             border-radius: 5px;
         }
-        .b2 {
-
-            position: relative;
-            padding-right: 100px;
-            padding-bottom:100px;
-
+        .file-button {
+            margin-left: 270px;
         }
         .grow-wrap {
             padding-bottom: 200px;
             margin-bottom: 100px;
         }
-
-
     </style>
-
 </head>
-
 <body>
 <header class="header">
     <div class="containor">
@@ -147,6 +149,7 @@
     </div>
 </header>
 
+
 <div class="category-banner">
     <nav class="category-navbar">
 
@@ -163,10 +166,8 @@
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Library</li>
 
             <li class="category"><a href="ONEDAY_CLASS_mainview .html">원데이 클래스</a></li>
-
             <li class="category"><a href="inquiry/list">게시판</a></li>
             <li class="category"><a href="review/list">리뷰</a></li>
-
             <li class="category"><a href="NOTICE_01mainview.html">공지사항</a></li>
             <br><br><br><br><br><br><br>
         </ul>
@@ -178,7 +179,7 @@
     <div>
         <table style="border-bottom: 1px solid;">
             <th>
-            <td>1:1 문의 작성</td>
+            <td>리뷰 작성</td>
             </th>
         </table>
 
@@ -188,61 +189,63 @@
 
     <div class="hp_mb20_1"></div>
 
-
-    <form action="/inquiry/regist" method="post" id="inquiryRegistForm">
-    <div class="a1">제목
-            <div>
-                <input type="text" style="width: 350px; height: 24px;" placeholder="제목을 입력하세요." name="inquiryTitle">
-            </div>
+        <form action="/review/regist" method="post" id="reviewRegistForm">
+            <div class="a1">제목
+                <div>
+                    <input type="text" style="width: 350px; height: 24px;" placeholder="제목을 입력하세요." name="revTitle">
+                </div>
             <br>
             <span class="a3">분류</span>
+            <span class="a5">상품명</span>
             <br>
-            <!-- 작성자 회원 번호 -->
-            <div>
-<!--                <input type="hidden" style="width: 220px; height: 24px;" th:text="">-->
+                <!-- 작성자 회원 번호 -->
+                <div>
+ <!--                <input type="hidden" style="width: 220px; height: 24px;" th:text="">-->
 
 
-                <select name="inquiryCategory" style="width: 125px; height: 24px;" id="cs1">
-                    <option value="nomal">nomal</option>
-                    <option value="product">product</option>
-                    <option value="DiyKit">DiyKit</option>
-                    <option value="OneDayClass">OneDayClass</option>
+                    <select name="revCategory" style="width: 125px; height: 24px;" id="cs1">
+                        <option value="nomal">nomal</option>
+                        <option value="product">product</option>
+                        <option value="DiyKit">DiyKit</option>
+                        <option value="OneDayClass">OneDayClass</option>
+
+                    </select>
+                <!-- 리뷰 카테고리 선택창 -->
+                <select name="REV_CATEGORY" style="width: 125px; height: 24px;" id="cs2">
+                    <option value=""></option>
+                    <option value=""></option>
 
                 </select>
                 <br>
+
                 <div class="a4">글 작성</div>
 
+                <!-- 리뷰 글 작성 -->
                 <div class="grow-wrap">
-
-                    <textarea style="width: 550px; height:270px;" name="inquiryContent"></textarea>
-
+                    <textarea style="width: 550px; height:270px;" name="revContent"></textarea>
                 </div>
+
             </div>
-    </div>
-    <br>
-    <div class="b2">
-            <button type="submit" id="button-submit2">등록</button>
-    </div>
-    </form>
+            <br>
+            <div class="b2">
+                <button type="submit" id="button-submit2">등록</button>
+            </div>
+        </div>
+        </form>
+
 </div>
 
+<!-- 이미지 파일 첨부 -->
+<div class="file-button">
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="button">
+            <label for="chooseFile">
 
-
-
-
-<!-- 등록버튼 -->
-<!--<div class="b2">-->
-<!--    <button onclick="openSaveModal()" id="button-submit2">등록</button>-->
-<!--</div>-->
-<!--<div id="savemodal" class="modal" style="display: none;">-->
-<!--    <div class="modal_content" style="width: 200px;">-->
-<!--        <p>등록 하시겠습니까?</p>-->
-<!--        <br>-->
-
-<!--        <button type="submit" id="save_button" onclick="saveChanges()">네</button>-->
-<!--        <button id="cancel_button" onclick="closeSaveModal()">아니오</button>-->
-<!--    </div>-->
-<!--</div>-->
+            </label>
+        </div>
+        <input type="file" id="chooseFile" name="FILE_NAME" accept="image/*" onchange="loadFile(this)">
+    </form>
+</div>
 
 
 
@@ -273,7 +276,6 @@
     </div>
 
 </footer>
-
 
 </body>
 </html>

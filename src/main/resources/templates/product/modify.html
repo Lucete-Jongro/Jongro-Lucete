@@ -247,6 +247,7 @@
 </div>
 
     <div class="product-modify-container">
+
     <form action="/product/modify" method="post" id="">
         <h4 style="font-weight: bold; font-size: 25px;">&nbsp;등록 상품 수정</h4>
         <div class="inquiry">
@@ -262,6 +263,7 @@
                     <option th:each="product : ${products}"
                             th:value="${product.prodSerial}"
                             th:text="${product.prodName}"></option>
+
                 </select>
             </div>
         </div>
@@ -366,6 +368,7 @@
     //         }
     //     });
     // }
+
 
 </script>
 <script>
