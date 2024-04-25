@@ -79,15 +79,20 @@
         address
         FROM MEMBER_INFO
         WHERE mem_name = #{memName}
-        AND address like #{address}
+        AND address LIKE CONCAT('%', #{address}, '%')
         AND mem_date BETWEEN #{startDate} AND #{endDate}
         AND mem_YN = 'Y';
-
     </select>
 
     <update id="updateEmail">
         UPDATE member_info
         SET email = #{email}
         WHERE mem_No = #{memNo}
+    </update>
+
+    <update id="changePassword">
+        update member_info
+        set password = #{password}
+        where mem_name =#{memId}
     </update>
 </mapper>

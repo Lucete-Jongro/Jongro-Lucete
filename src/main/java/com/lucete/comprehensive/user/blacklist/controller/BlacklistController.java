@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @Slf4j
-//@RequestMapping("/user")
+//@RequestMapping("/blacklist")
 public class BlacklistController {
 
 }

@@ -4,7 +4,9 @@ import com.lucete.comprehensive.user.member.model.dao.MemberMapper;
 import com.lucete.comprehensive.user.member.model.dto.MemberDTO;
 import com.lucete.comprehensive.user.member.model.dto.SignInDTO;
 import com.lucete.comprehensive.user.member.model.dto.SignUpDTO;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -74,11 +76,21 @@ public class MemberService {
     }
     public List<MemberDTO> selectMembers(String memName, String address, Date startDate, Date endDate){
         List<MemberDTO> result = memberMapper.selectMembers(memName,address,startDate,endDate);
+        System.out.println("불러오긴 했냐");
         return result;
     }
     public void updateEmail(int memNo,String email){
         memberMapper.updateEmail(memNo, email);
 
+    }
+
+
+    public MemberService(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public void changePassword(String memId, String newPassword) {
+        memberMapper.changePassword(memId, newPassword);
     }
 
 

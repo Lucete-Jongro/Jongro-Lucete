@@ -130,7 +130,7 @@
     <div class="button-container">
         <div class="table-box">
             <br>
-            <form action="">
+
                 <table class="blacklist-table">
                     <thead>
                     <tr>
@@ -144,12 +144,12 @@
                     <tr th:each="member : ${blacklist}">
                         <td><input type="checkbox"></td>
                         <td th:text="${member.email}">회원 이메일</td>
-                        <td th:text="${member.reason}">등록 사유</td>
-                        <td th:text="${member.blacklistPeriod}">블랙리스트 기간</td>
+                        <td th:text="${member.blacklistReason}">등록 사유</td>
+                        <td th:text="${member.blacklistEndDate}">블랙리스트 기간</td>
                     </tr>
                     </tbody>
                 </table>
-            </form>
+
         </div>
         <div class="delete-button" onclick="location.href=''">블랙리스트 삭제</div>
     </div>

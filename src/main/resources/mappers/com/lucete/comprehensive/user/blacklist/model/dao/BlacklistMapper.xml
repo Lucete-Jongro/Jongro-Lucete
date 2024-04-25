@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lucete.comprehensive.user.blacklist.model.dao.BlacklistMapper">
+
+
+
+
+        <!-- 모든 블랙리스트된 회원 목록을 조회하는 쿼리 -->
+        <select id="getAllBlacklistedMembers" resultType="com.lucete.comprehensive.user.blacklist.model.dto.BlacklistDTO">
+            SELECT member_info.mem_no, email, blacklist_reason, blacklist_start_date, blacklist_end_date
+            FROM member_info
+                     JOIN blacklist ON member_info.mem_no = blacklist.mem_no
+        </select>
+
+
+
+
+
+
+    <update id="newBlacklistMember">
+        UPDATE blacklist
+        SET blacklist_status = 'Y'
+        Set blacklist_reason = #{blacklistReason}
+        set blacklist_start_date = #{blacklistStartDate}
+        set blacklist_end_date = #{blacklistEndDate}
+        WHERE mem_id = #{memId}
+    </update>
+
+
+
+</mapper>

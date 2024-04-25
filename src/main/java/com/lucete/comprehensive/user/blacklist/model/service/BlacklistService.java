@@ -6,6 +6,7 @@ import com.lucete.comprehensive.user.member.model.dao.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 @Service
 public class BlacklistService {
@@ -15,4 +16,10 @@ public class BlacklistService {
         List<BlacklistDTO> blacklistDTOS =blacklistMapper.getAllBlacklistedMembers();
         return blacklistDTOS;
     }
+
+    public void newBlacklistMember(String memId , String blacklistReason, Date blacklistStartDate,Date blacklistSEndDate){
+        blacklistMapper.newBlacklistMember(memId,blacklistReason,blacklistStartDate,blacklistSEndDate);
+
+    }
+
 }

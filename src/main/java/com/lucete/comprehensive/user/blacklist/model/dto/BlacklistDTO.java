@@ -9,15 +9,25 @@ public class BlacklistDTO implements Serializable {
     private String blacklistReason;
     private Date blacklistStartDate;
     private int memNo;
+    private String email;
+
     private Date blacklistEndDate;
 
-    public BlacklistDTO(int blacklistNo, char blacklistStatus, String blacklistReason, Date blacklistStartDate, int memNo, Date blacklistEndDate) {
-        this.blacklistNo = blacklistNo;
-        this.blacklistStatus = blacklistStatus;
+    public BlacklistDTO(int memNo, String email, String blacklistReason, Date blacklistStartDate,   Date blacklistEndDate) {
+
         this.blacklistReason = blacklistReason;
         this.blacklistStartDate = blacklistStartDate;
         this.memNo = memNo;
         this.blacklistEndDate = blacklistEndDate;
+        this.email=email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getBlacklistNo() {

@@ -9,11 +9,13 @@ import com.lucete.comprehensive.user.member.model.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,6 +39,10 @@ public class MemberController {
     private AuthService authService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @GetMapping("/mypage/orderlist")
+    public void orderlist(){
+
+    }
     @GetMapping("/mypage")
     public void mypage(){}
     @GetMapping("/mypage/myinfo")
@@ -140,7 +146,30 @@ public class MemberController {
         }
 
 
-        
+    @GetMapping("/changePassword")
+    public String showChangePasswordForm() {
+        return "changePasswordForm";
+    }
+
+
+
+    @PostMapping("/changePassword")
+    public String changePassword(@RequestParam("currentPassword") String currentPassword,
+                                 @RequestParam("newPassword") String newPassword,
+                                 @AuthenticationPrincipal UserDetails userDetails,
+                                 Model model) {
+        String memId = userDetails.getUsername(); // 사용자 아이디 가져오기
+
+        if (!passwordEncoder.matches(currentPassword, userDetails.getPassword())) {
+            model.addAttribute("error", "Current password is incorrect");
+            return "changePasswordForm";
+        }
+
+        memberService.changePassword(memId, newPassword); // 사용자 아이디와 새로운 비밀번호 전달
+
+        return "redirect:/profile";
+    }
+
 
 }
 

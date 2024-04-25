@@ -30,12 +30,16 @@ public class AdminController {
     public void userCategory() {}
     @GetMapping("/updateBlacklist")
     public void updateBlacklist(){}
+//    @PostMapping("/updateBlacklist")
+//    public void updateBlacklist(){}
 
-    @GetMapping("/blacklist")
-    public void blacklist(){}
+//    @GetMapping("/blacklist")
+//    public void blacklist(){}
 
     @GetMapping("/userInfo")
-    public void userInfo() {}
+    public String userInfo() {
+        return "admin/userInfo";
+    }
 
     @PostMapping("/userinfo")
     public List<MemberDTO> userInfo(@RequestParam("memName") String memName,
@@ -43,12 +47,15 @@ public class AdminController {
                                     @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
                                     @RequestParam("address") String address) {
         List<MemberDTO> memberDTO = memberService.selectMembers(memName, address, startDate, endDate);
+
         return memberDTO;
     }
     @GetMapping("/blacklist")
     public String showBlacklist(Model model) {
         List<BlacklistDTO> blacklist = blacklistService.getAllBlacklistedMembers();
         model.addAttribute("blacklist", blacklist);
-        return "blacklist";
+        return "admin/blacklist";
     }
+
+
 }
