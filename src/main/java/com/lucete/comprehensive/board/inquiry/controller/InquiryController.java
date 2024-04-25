@@ -73,9 +73,9 @@ public class InquiryController {
          MemberDTO memberDTO = new MemberDTO();
 
          inquiry.setMemNo(memberDTO.getMemNo());
-         System.out.println("되니!!!!!!!!!!!!!!!!!!!" + inquiry.getMemNo());
+
          inquiry.setMemName(memberDTO.getMemName());
-         System.out.println("되니!@@@@@@@@@@@@@@" + inquiry.getMemName());
+
 
         inquiryService.registInquiry(inquiry);
 

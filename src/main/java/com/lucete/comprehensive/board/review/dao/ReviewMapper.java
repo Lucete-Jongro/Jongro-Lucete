@@ -2,6 +2,7 @@ package com.lucete.comprehensive.board.review.dao;
 
 import com.lucete.comprehensive.board.review.dto.CommentDTO;
 import com.lucete.comprehensive.board.review.dto.ReviewDTO;
+import com.lucete.comprehensive.common.file.FileDTO;
 import com.lucete.comprehensive.common.paging.SelectCriteria;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,6 +24,10 @@ public interface ReviewMapper {
     void deleteReview(int revNo);
 
     void updateReview(ReviewDTO revNo);
+    void reviewFile(FileDTO fileDTO);
+    ReviewDTO getRevNo(int revNo);
+
+
 
 
 
@@ -33,6 +38,10 @@ public interface ReviewMapper {
     List<ReviewDTO> AdminSelectReviewList(SelectCriteria selectCriteria);
 
     ReviewDTO AdminSelectReviewDetail(int revNo);
+
+    ReviewDTO searchLastReview();
+
+    boolean registReview(String revTitle, String revCategory, String revContent);
 
 
 

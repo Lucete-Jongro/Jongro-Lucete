@@ -195,6 +195,12 @@
         <tr class="article-body">
             <td colspan="4" th:text="${ review.revContent}"></td>
         </tr>
+        <tr>
+            <td colspan="4">
+                <!-- 이미지 표시 -->
+                <img th:if="${review.file}" th:src="@{'/upload/' + ${review.file.fileName}}" alt="Image"/>
+            </td>
+        </tr>
         </tbody>
     </table>
 

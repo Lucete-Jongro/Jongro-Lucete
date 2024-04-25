@@ -1,24 +1,31 @@
 package com.lucete.comprehensive.board.review.dto;
 
+import com.lucete.comprehensive.common.file.FileDTO;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class ReviewDTO {
     private int revNo;
     private String revTitle;
     private String revContent;
-    private LocalDateTime revDate;
+    private Date revDate;
     private char revReStatus;
     private String revCategory;
     private int memNo;
     private String memName;
-    private LocalDateTime revUpdate;
+    private Date revUpdate;
     private char revDeleteStatus;
     private int prodSerial;
     private int revView;
+    private FileDTO file;
+
+
 
     public ReviewDTO(){}
 
-    public ReviewDTO(int revNo, String revTitle, String revContent, LocalDateTime revDate, char revReStatus, String revCategory, int memNo, String memName, LocalDateTime revUpdate, char revDeleteStatus, int prodSerial, int revView) {
+    public ReviewDTO(int revNo, String revTitle, String revContent, Date revDate, char revReStatus, String revCategory, int memNo, String memName, Date revUpdate, char revDeleteStatus, int prodSerial, int revView, FileDTO file) {
         this.revNo = revNo;
         this.revTitle = revTitle;
         this.revContent = revContent;
@@ -31,6 +38,7 @@ public class ReviewDTO {
         this.revDeleteStatus = revDeleteStatus;
         this.prodSerial = prodSerial;
         this.revView = revView;
+        this.file = file;
     }
 
     public int getRevNo() {
@@ -57,11 +65,11 @@ public class ReviewDTO {
         this.revContent = revContent;
     }
 
-    public LocalDateTime getRevDate() {
+    public Date getRevDate() {
         return revDate;
     }
 
-    public void setRevDate(LocalDateTime revDate) {
+    public void setRevDate(Date revDate) {
         this.revDate = revDate;
     }
 
@@ -97,11 +105,11 @@ public class ReviewDTO {
         this.memName = memName;
     }
 
-    public LocalDateTime getRevUpdate() {
+    public Date getRevUpdate() {
         return revUpdate;
     }
 
-    public void setRevUpdate(LocalDateTime revUpdate) {
+    public void setRevUpdate(Date revUpdate) {
         this.revUpdate = revUpdate;
     }
 
@@ -129,6 +137,14 @@ public class ReviewDTO {
         this.revView = revView;
     }
 
+    public FileDTO getFile() {
+        return file;
+    }
+
+    public void setFile(FileDTO file) {
+        this.file = file;
+    }
+
     @Override
     public String toString() {
         return "ReviewDTO{" +
@@ -144,6 +160,7 @@ public class ReviewDTO {
                 ", revDeleteStatus=" + revDeleteStatus +
                 ", prodSerial=" + prodSerial +
                 ", revView=" + revView +
+                ", file=" + file +
                 '}';
     }
 }

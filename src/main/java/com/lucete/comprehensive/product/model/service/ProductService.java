@@ -89,13 +89,6 @@ public class ProductService {
 
     }
 
-    public boolean updateProduct(String prodSerial, String prodName, int prodAmount, int prodPrice, String prodAccount) {
-
-        int rowAffected = productMapper.updateProduct(prodSerial, prodName, prodAmount, prodPrice, prodAccount);
-
-        return rowAffected > 0;
-    }
-
     public boolean insertClass(String className, Date startDate, Date endDate, Time setTime, int prodPrice, String teacherName, String prodAccount) {
 
         int Affected = productMapper.insertClass(className, startDate, endDate, setTime, teacherName);

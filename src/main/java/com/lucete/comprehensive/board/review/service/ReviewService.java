@@ -3,20 +3,27 @@ package com.lucete.comprehensive.board.review.service;
 import com.lucete.comprehensive.board.review.dao.ReviewMapper;
 import com.lucete.comprehensive.board.review.dto.CommentDTO;
 import com.lucete.comprehensive.board.review.dto.ReviewDTO;
+import com.lucete.comprehensive.common.file.FileDTO;
 import com.lucete.comprehensive.common.paging.Pagenation;
 import com.lucete.comprehensive.common.paging.SelectCriteria;
+import com.lucete.comprehensive.product.model.dto.ProductDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 @Slf4j
 @Service
 @Transactional
+
 public class ReviewService {
+    @Value("${image.image-dir}")
+    private String IMAGE_DIR;
 
     private final ReviewMapper reviewMapper;
 
@@ -50,11 +57,7 @@ public class ReviewService {
 
     }
 
-    public void registReview(ReviewDTO review) {
-        /* 소비자- 리뷰글 등록 */
-        reviewMapper.insertReview(review);
 
-    }
 
     public ReviewDTO selectReviewDetail(int revNo) {
 
@@ -81,6 +84,8 @@ public class ReviewService {
 
         //회원 로그인 되면 회원만 수정 접근 하는 기능 넣어야함
     }
+
+
 
 //    public void registComment(CommentDTO registComment) {
 //        /* 답글 등록 */
@@ -131,5 +136,55 @@ public class ReviewService {
     public ReviewDTO AdminSelectReviewDetail(int revNo) {
         /* 관리자- 리뷰 상세 내용 조회 */
         return reviewMapper.AdminSelectReviewDetail(revNo);
+    }
+
+    public boolean reviewFile(MultipartFile file, ReviewDTO review) {
+        String uploadPath = IMAGE_DIR;
+
+        File dir = new File(uploadPath);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        try {
+
+        String originalFileName = file.getOriginalFilename();
+        String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+        String savedFileName = UUID.randomUUID() + ext;
+        String filePath = uploadPath +"/" + savedFileName;
+
+        file.transferTo(new File(filePath));
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setUploadDate(new Date());
+            fileDTO.setFileName(savedFileName);
+            fileDTO.setFilePass(filePath);
+            fileDTO.setFileSize((int) file.getSize());
+            fileDTO.setRevNo(review.getRevNo());
+
+            reviewMapper.reviewFile(fileDTO);
+
+        } catch (IOException e) {
+            // 로그 라이브러리가 있다면 로그를 남깁니다.
+            System.err.println("Error during file upload: " + e.getMessage());
+            e.printStackTrace();
+
+        }
+
+        return true;
+    }
+
+    public ReviewDTO getRevNo(int revNo) {
+        return reviewMapper.getRevNo(revNo);
+}
+
+
+    public ReviewDTO searchLastReview() {
+
+        return reviewMapper.searchLastReview();
+    }
+
+    public boolean registReview(String revTitle, String revContent, String revCategory) {
+
+        return reviewMapper.registReview(revTitle,revCategory,revContent);
     }
 }

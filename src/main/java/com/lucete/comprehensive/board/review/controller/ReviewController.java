@@ -1,18 +1,21 @@
 package com.lucete.comprehensive.board.review.controller;
 
 import com.lucete.comprehensive.board.inquiry.dto.CommDTO;
-import com.lucete.comprehensive.board.inquiry.dto.InquiryDTO;
 import com.lucete.comprehensive.board.review.dto.CommentDTO;
 import com.lucete.comprehensive.board.review.dto.ReviewDTO;
 import com.lucete.comprehensive.board.review.service.ReviewService;
-import com.lucete.comprehensive.user.member.MemberDTO;
+import com.lucete.comprehensive.common.file.FileDTO;
+import com.lucete.comprehensive.user.member.model.dto.MemberDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,23 +63,8 @@ public class ReviewController {
         return "review/reviewRegist";
     }
 
-    /*소비자 리뷰글 등록 */
-    @PostMapping("/regist")
-    public String registReview(ReviewDTO review) {
+    /* 소비자 리뷰글 등록 */
 
-        //review.setMemNo(member);
-        log.info("registReview review : {}", review);
-
-        MemberDTO memberDTO = new MemberDTO();
-
-        review.setMemNo(memberDTO.getMemNo());
-        review.setMemName(memberDTO.getMemName());
-
-
-        reviewService.registReview(review);
-
-        return "redirect:/review/list";
-    }
 
     /*소비자 리뷰글 상세 보기 */
     @GetMapping("/detail")
@@ -106,6 +94,49 @@ public class ReviewController {
         model.addAttribute("review", reviewService.selectReviewDetail(revNo));
 
         return "/review/reviewUpdate";
+    }
+    @PostMapping("/regist")
+    public String registReview(@RequestParam("file") MultipartFile file,
+                               @RequestParam("revTitle") String revTitle,
+                               @RequestParam("revContent") String revContent,
+                               @RequestParam("revCategory") String revCategory) {
+
+
+
+        boolean review = reviewService.registReview(revTitle,revContent,revCategory);
+
+
+        if (review) {
+
+            ReviewDTO lastReview = reviewService.searchLastReview();
+
+            ReviewDTO reviewNo = reviewService.getRevNo(lastReview.getRevNo());
+
+
+            if (reviewNo != null) {
+
+                boolean isFileUpload = reviewService.reviewFile(file,reviewNo);
+
+                if (isFileUpload) {
+                    log.info("파일 업로드 성공");
+
+                    return "파일 업로드 성공!";
+
+                }else {
+                    log.error("파일 업로드 실패");
+
+                    return "실패";
+                }
+
+            } else {
+
+                return "실패";
+
+            }
+
+        }
+
+        return "실패";
     }
 
 

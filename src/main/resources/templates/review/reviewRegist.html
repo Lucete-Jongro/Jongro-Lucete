@@ -103,7 +103,6 @@
         .b2 {
             position: relative;
             padding-right: 100px;
-            padding-bottom:100px;
 
         }
         #button-submit2 {
@@ -115,9 +114,6 @@
             height: 25px;
 
             border-radius: 5px;
-        }
-        .file-button {
-            margin-left: 270px;
         }
         .grow-wrap {
             padding-bottom: 200px;
@@ -189,10 +185,10 @@
 
     <div class="hp_mb20_1"></div>
 
-        <form action="/review/regist" method="post" id="reviewRegistForm">
+        <form action="/review/regist" method="post" id="reviewRegistForm" enctype="multipart/form-data">
             <div class="a1">제목
                 <div>
-                    <input type="text" style="width: 350px; height: 24px;" placeholder="제목을 입력하세요." name="revTitle">
+                    <input type="text" style="width: 350px; height: 24px;" placeholder="제목을 입력하세요." name="revTitle" id="revTitle">
                 </div>
             <br>
             <span class="a3">분류</span>
@@ -203,49 +199,40 @@
  <!--                <input type="hidden" style="width: 220px; height: 24px;" th:text="">-->
 
 
-                    <select name="revCategory" style="width: 125px; height: 24px;" id="cs1">
+                    <select name="revCategory" style="width: 125px; height: 24px;" id="revCategory">
                         <option value="nomal">nomal</option>
                         <option value="product">product</option>
                         <option value="DiyKit">DiyKit</option>
                         <option value="OneDayClass">OneDayClass</option>
 
                     </select>
-                <!-- 리뷰 카테고리 선택창 -->
-                <select name="REV_CATEGORY" style="width: 125px; height: 24px;" id="cs2">
-                    <option value=""></option>
-                    <option value=""></option>
+<!--                &lt;!&ndash; 리뷰 카테고리 선택창 &ndash;&gt;-->
+<!--                <select name="REV_CATEGORY" style="width: 125px; height: 24px;" id="revCategory2">-->
+<!--                    <option value=""></option>-->
+<!--                    <option value=""></option>-->
 
-                </select>
+<!--                </select>-->
                 <br>
 
                 <div class="a4">글 작성</div>
 
                 <!-- 리뷰 글 작성 -->
                 <div class="grow-wrap">
-                    <textarea style="width: 550px; height:270px;" name="revContent"></textarea>
+                    <textarea style="width: 550px; height:270px;" name="revContent" id="revContent"></textarea>
                 </div>
 
             </div>
             <br>
+            <div class="button">
+                <label for="file"></label>
+            <input type="file" id="file" name="file" accept="image/*">
+            </div>
             <div class="b2">
-                <button type="submit" id="button-submit2">등록</button>
+                <button type="submit" id="button-submit2" onclick="return reviewRegist()">등록</button>
             </div>
         </div>
         </form>
-
-</div>
-
-<!-- 이미지 파일 첨부 -->
-<div class="file-button">
-    <form action="" method="post" enctype="multipart/form-data">
-        <div class="button">
-            <label for="chooseFile">
-
-            </label>
-        </div>
-        <input type="file" id="chooseFile" name="FILE_NAME" accept="image/*" onchange="loadFile(this)">
-    </form>
-</div>
+    </div>
 
 
 
@@ -278,4 +265,46 @@
 </footer>
 
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    function reviewRegist() {
+        // 폼 데이터를 FormData 객체로 생성
+        const revTitle = $("#revTitle").val();
+        const revContent = $("#revContent").val();
+        const revCategory = $("#revCategory").val();
+        const file = $("#file")[0].files[0];
+
+
+        $.ajax({
+            url: '/review/regist',  // 데이터를 전송할 URL
+            type: 'POST',  // HTTP 메소드
+            processData: false,  // FormData를 사용할 때는 processData와 contentType을 false로 설정
+            contentType: false,
+            data: {
+                revTitle: revTitle,
+                revContent: revContent,
+                revCategory: revCategory,
+                file: file
+
+            },  // 전송할 데이터
+
+            success: function(response) {
+                console.log('Server response:', response);
+                alert('리뷰가 성공적으로 등록되었습니다.');
+                window.location.href = '/review/list';  // 성공 시 페이지 리다이렉트
+            },
+            error: function(xhr) {
+                console.error('Error:', xhr.statusText);
+                alert('리뷰 등록에 실패했습니다. 오류 메시지: ' + xhr.responseText);
+
+            },
+            complete: function() {
+                // 요청 처리 완료 후 로딩 메시지를 숨김
+                $('#loading').hide();
+            }
+        });
+
+        return false;  // 폼 기본 제출 방지
+    }
+</script>
 </html>

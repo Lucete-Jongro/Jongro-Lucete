@@ -5,8 +5,8 @@ spring:
     url: jdbc:mysql://localhost/lucete
 
 
-    username: root
-    password: root
+    username: ohgiraffers
+    password: ohgiraffers
 
 
     mail:
@@ -28,18 +28,12 @@ spring:
     resources:
       static-locations: /static/**
 
-#  thymeleaf:
-#    cache: false  # 개발 환경에서는 캐시를 비활성화하여 변경사항을 즉시 반영할 수 있도록 합니다.
-#    prefix: classpath:/templates/  # 뷰 템플릿 파일의 디렉토리 경로
-#    suffix: .html  # 뷰 템플릿 파일의 확장자
-
 #mybats config
 mybatis:
   mapper-locations: mappers/**/*.xml
   configuration:
     map-underscore-to-camel-case: true
 
-#logging:
-#  file:
-#    name: myapp.log
-#    path: C:/Users/hi/Desktop/product-jan/Lucete
+# image upload dir
+image:
+  image-dir: C:/practice

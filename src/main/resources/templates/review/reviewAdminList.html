@@ -2,9 +2,130 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>reviewAdminList</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+
 </head>
 <body>
 
+<header class="header">
+    <div class="containor">
+        <nav class="navbar">
+            <a href="index.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
+            <ul class="navbar-list" style="list-style: none;">
+
+                <li class="navicon" id="search"><img src="/image/검색 아이콘.png" height="25">
+
+                </li>
+                <li class="navicon"><a href=""><img src="/image/장바구니 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a th:href="@{/user/mypage}"><img src="/image/마이페이지 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/로그아웃 아이콘.png" height="25"></a></li>
+                <li class="searchBar" >
+                    <input type="search">
+                    <input type="submit">
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</header>
+
+
+<div class="category-banner">
+    <nav class="category-navbar">
+
+
+        <ul class="category-list" style="list-style: none;">
+            <li class="category"
+                style="font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
+            <li class="category"><a href="">주얼리</a></li>
+            <li class="category"><a href="">DIY 자재</a></li>
+            <li class="category"><a href="">DIY Kit</a></li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Library</li>
+
+            <li class="category"><a href="/inquiry/list">게시판</a></li>
+            <li class="category"><a href="/review/list">리뷰</a></li>
+            <li class="category"><a href="">공지사항</a></li>
+            <br><br><br><br><br><br><br>
+        </ul>
+    </nav>
+</div>
+
+
+<div class="banner-img">
+    <img src="/image/메인사진.jpg" height="480" class="main-img">
+</div>
+
+<br><br><br><br><br><br><br>
+
+
+<div class="new-banner">
+    <p style="font-size:larger; font-weight: bolder;">NEW</p>
+    <ul class="image-list">
+        <li class="banner-imgs"><a href=""><img src="/image/반지 2 .png" class="img"></a>
+            <p>silver layering set</p>
+            <p>26,000원</p></li>
+        <li class="banner-imgs"><a href="PRODUCT_datailview.html"><img src="/image/목걸이.png" class="img"></a>
+            <p>Dolphin necklace</p>
+            <p>36,000원</p></li><li class="banner-imgs"><a href=""><img src="/image/반지4.png" class="img"></a>
+        <p>silver cubic ring</p>
+        <p>21,000원</p></li>
+        <li class="banner-imgs"><a href=""><img src="/image/반지5.png" class="img"></a>
+            <p>Blackgold Ring set</p>
+            <p>27,000원</p></li>
+        <li class="banner-imgs"><a href=""><img src="/image/반지6.png" class="img"></a>
+            <p>single Silver Ring</p>
+            <p>18,000원</p></li>
+        <li class="banner-imgs"><a href=""><img src="/image/팔찌.png" class="img"></a>
+            <p>rosegold bracelet</p>
+            <p>28,000원</p></li>
+    </ul>
+</div>
+
+<div class="main-banner2">
+    <p style="font-size:larger; font-weight: bolder;">ONE-DAY CLASS</p>
+    <a href="ONEDAY_CLASS_mainview .html"><img src="/image/원데이클래스 메인.png" height="500" class="oneday-class-img"></a>
+    <a href="NOTICE_01mainview.html"><img src="/image/공지사항 사진1.jpg" height="250" class="notice-img">
+        <p class="notice">Notice</p></a>
+
+    <a href="REVIEW_01mainview.html"><img src="/image/리뷰게시판 사진.jpg" height="238" class="review-img">
+        <p class="review">Review</p></a>
+
+
+</div>
+
+
+
+
+<br><br><br><br><br><br><br>
+
+
+<footer class="footer">
+    <div class="containor">
+        <p>L u c e t e</p>
+        <ul class="info" style="list-style: none;">
+            <li class="info-list" style="font-size: smaller;"><a href>이용약관</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="info-list" style="font-size: smaller;"><a href>개인정보 처리방침</a></li>
+            <br><br>
+            <li class ="info-list" style="font-size: small;">상호: 루세트(Lucete) | 대표: 김민희 | 전화: 070-012-3456 | 이메일: lucete@gmail.com</li>
+            <br>
+            <li class="info-list" style="font-size: small;">주소:2222-312,25, Insadong 3-gil, Jongno-gu, Seoul, Republic of Korea</li>
+            <br>
+            <li class="info-list" style="font-size: small;">사업자등록번호:888-06-12345 | 통신판매:2024-서울인사동-0123</li>
+        </ul>
+
+
+    </div>
+</footer>
 </body>
 </html>

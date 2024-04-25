@@ -15,11 +15,18 @@
         <result property="revDeleteStatus" column="REV_DELETE_STATUS"/>
         <result property="revView" column="REV_VIEW"/>
         <association property="memNo" resultMap="memberResultMap"/>
+        <association property="file" resultMap="uploadFileResultMap"></association>
 <!--        <collection property="commList" resultMap="commResultMap"/>-->
     </resultMap>
 
-    <resultMap id="memberResultMap" type="com.lucete.comprehensive.user.member.MemberDTO">
+    <resultMap id="memberResultMap" type="com.lucete.comprehensive.user.member.model.dto.MemberDTO">
         <id property="memNo" column="MEM_NO"/>
+
+    </resultMap>
+
+    <resultMap id="uploadFileResultMap" type="com.lucete.comprehensive.common.file.FileDTO">
+        <id property="fileNo" column="FILE_NO"/>
+        <result property="filePass" column="FILE_PASS"/>
     </resultMap>
 
 <!--        <resultMap type="com.lucete.comprehensive.board.review.dto.CommentDTO" id="commentResultMap">-->
@@ -115,19 +122,9 @@
 
     <insert id="insertReview" parameterType="com.lucete.comprehensive.board.review.dto.ReviewDTO">
         INSERT INTO
-            review
-                (REV_TITLE, REV_CONTENT,REV_CATEGORY, REV_DATE, MEM_NO)
-        values
-                (#{ revTitle },
-                #{ revContent },
-                #{ revCategory },
-                NOW(),
-                (SELECT
-                    MEM_NO
-                from
-                    member_info
-                where
-                    EMAIL = 'janesmith@example.com'))
+            review (REV_NO,REV_CATEGORY,REV_CONTENT,REV_DATE, REV_RE_STATUS)
+        VALUES (#{revNo}, #{revCategory}, #{revContent}, NOW(), 'N')
+
     </insert>
 
     <select id="selectReviewDetail" resultMap="reviewResultMap">
@@ -167,6 +164,20 @@
         WHERE
             REV_NO = #{revNo}
     </update>
+
+    <insert id="reviewFile" parameterType="com.lucete.comprehensive.common.file.FileDTO">
+        INSERT INTO upload_file (FILE_NAME, UPLOAD_DATE, FILE_PASS, FILE_SIZE, REV_NO)
+        VALUES (#{fileName}, #{uploadDate}, #{filePass}, #{fileSize}, #{revNo})
+    </insert>
+
+    <select id="getRevNo" parameterType="java.lang.Integer" resultType="com.lucete.comprehensive.board.review.dto.ReviewDTO">
+        SELECT
+            *
+        FROM
+            review
+        WHERE
+            REV_NO = #{ revNo }
+    </select>
 
 <!--    <insert id="insertComment">-->
 <!--        INSERT-->
@@ -292,6 +303,16 @@
             a.REV_DELETE_STATUS = 'N'
         ORDER BY
             c.COMM_KEY
+    </select>
+
+    <select id="searchLastReview" resultType="com.lucete.comprehensive.board.review.dto.ReviewDTO">
+        SELECT
+            *
+        FROM
+            review
+        ORDER BY
+            REV_NO DESC
+            LIMIT 1
     </select>
 
 
