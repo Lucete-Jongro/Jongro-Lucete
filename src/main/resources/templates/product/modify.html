@@ -207,12 +207,10 @@
 <header class="header">
     <div class="containor">
         <nav class="navbar">
-
             <a href="Admin-MainPage.html"><img src="/image/logo.png" height="90"></a>
             <ul class="navbar-list" style="list-style: none;">
                 </li>
                 <li class="navicon"><a href=""><img src="/image/login_icon.png" height="25"></a></li>
-
                 <li class="searchBar" >
                     <input type="search">
                     <input type="submit">
@@ -270,9 +268,7 @@
             </div>
         </div>
         <div class="inquiry-btn">
-
             <button type="button" onclick="fetchProductInfo()">상품 조회</button>
-
         </div>
     </form>
 
@@ -281,43 +277,33 @@
             <tr>
                 <td id="box2">상품명</td>
                 <td>
-
                     <input type="text" name="prodName" id="name-text" placeholder="상품명을 입력해주세요.">
-
                 </td>
             </tr>
             <tr>
                 <td id="box3">재고량</td>
                 <td>
-
                     <input type="text" name="prodAmount" id="amount-text" placeholder="재고 수량을 입력해주세요.">
-
                 </td>
             </tr>
             <tr>
                 <td id="box4">상품 금액</td>
                 <td>
-
                     <input type="text" name="prodPrice" id="price-text" placeholder="상품 금액을 입력해주세요.">
-
                     &nbsp;원
                 </td>
             </tr>
             <tr>
                 <td id="box5">상세 설명</td>
                 <td>
-
                     <textarea name="prodAccount" id="product-text" cols="100" rows="20" placeholder="상품의 상세 설명을 입력해주세요."></textarea>
-
                 </td>
             </tr>
         </table>
     </div>
     <div class="submit-button">
-
 <!--        <button class="modify-button" style="font-size: 17px; font-weight: bold;" onclick="updateProduct()">상품 수정</button>-->
         <button class="modify-button" style="font-size: 17px; font-weight: bold;" onclick="openSaveModal()">상품 수정</button>
-
 
     </div>
 </div>
@@ -331,7 +317,6 @@
         <button id="cancel_button" onclick="closeSaveModal()">아니오</button>
     </div>
 </div>
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -398,7 +383,6 @@
     function saveChanges() {
         // 저장된 정보를 조회페이지에 반영하는 로직 추가하면됨
 
-
         const prodSerial = $("#select2").val();
         const prodName = $("#name-text").val();
         const prodAmount = $("#amount-text").val();
@@ -425,7 +409,6 @@
                 console.error("오류 발생")
             }
         });
-
         alert("상품 수정이 완료 되었습니다. ")
         closeSaveModal();
     }

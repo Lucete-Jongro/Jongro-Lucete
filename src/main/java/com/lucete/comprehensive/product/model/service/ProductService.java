@@ -40,16 +40,6 @@ public class ProductService {
         return categoryList;
     }
 
-    public void insertProduct(ProductDTO product) {
-
-        productMapper.insertProduct(product);
-    }
-
-    public void insertImage(FileDTO fileDTO) {
-
-        productMapper.insertImage(fileDTO);
-    }
-
     public Map<String, Object> productSelect(Map<String, String> searchMap, int page) {
 
         // 1. 전체 게시글 수 확인
@@ -90,15 +80,8 @@ public class ProductService {
         int rowAffected = productMapper.updateProduct(prodSerial, prodName, prodAmount, prodPrice, prodAccount);
 
         return rowAffected > 0;
-
     }
 
-    public boolean updateProduct(String prodSerial, String prodName, int prodAmount, int prodPrice, String prodAccount) {
-
-        int rowAffected = productMapper.updateProduct(prodSerial, prodName, prodAmount, prodPrice, prodAccount);
-
-        return rowAffected > 0;
-    }
 
     public boolean insertClass(String className, Date startDate, Date endDate, Time setTime, int prodPrice, String teacherName, String prodAccount) {
 
@@ -202,4 +185,61 @@ public class ProductService {
 
         return Affected > 0;
     }
+
+
+    public boolean insertProduct(int prodCategory, String prodName, int prodAmount, int prodPrice, String prodAccount) {
+
+        int Affected = productMapper.insertProduct(prodCategory, prodName, prodAmount, prodPrice, prodAccount);
+
+        return Affected > 0;
+    }
+
+    public ProductDTO insertSerial(String prodName) {
+
+        return productMapper.insertSerial(prodName);
+    }
+
+    public boolean insertFile(MultipartFile file, ProductDTO product) {
+
+        String uploadPath = IMAGE_DIR;
+
+        File dir = new File(uploadPath);
+
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        try {
+            String originalFileName = file.getOriginalFilename();
+            String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+            String savedFileName = UUID.randomUUID() + ext;
+            System.out.println("savedFileName = " + savedFileName);
+
+            String filePath = uploadPath + "/" + savedFileName;
+
+            System.out.println("filePath = " + filePath);
+
+            file.transferTo(new File(filePath));
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setUploadDate(new Date());
+            fileDTO.setFileName(savedFileName);
+            fileDTO.setFilePass(filePath);
+            fileDTO.setFileSize((int)file.getSize());
+            fileDTO.setProdSerial(product.getProdSerial());
+
+            System.out.println("굿");
+
+            productMapper.insertFile(fileDTO);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("반환");
+
+        return true;
+
+    }
+
 }

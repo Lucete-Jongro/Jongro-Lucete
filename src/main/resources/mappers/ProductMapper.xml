@@ -52,20 +52,6 @@
     </select>
 
 
-    <!-- ProductDTO 객체를 삽입하는 SQL 매핑 -->
-    <insert id="insertProduct" parameterType="com.lucete.comprehensive.product.model.dto.ProductDTO">
-        INSERT INTO product (PROD_NAME, PROD_AMOUNT, PROD_PRICE, PROD_ACCOUNT, PROD_SOLD_OUT, PROD_CATEGORY, PROD_VIEW)
-        VALUES (#{prodName}, #{prodAmount}, #{prodPrice}, #{prodAccount}, #{prodSoldOut}, #{prodCategory}, #{prodView});
-        <selectKey keyProperty="prodSerial" order="AFTER" resultType="int">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
-    </insert>
-
-    <insert id="insertImage" parameterType="com.lucete.comprehensive.common.file.FileDTO">
-        INSERT INTO upload_file(FILE_NAME, UPLOAD_DATE, FILE_PASS, FILE_SIZE, PROD_SERIAL, REV_NO)
-        VALUES (#{fileName}, #{uploadDate}, #{filePass}, #{fileSize}, #{prodSerial}, #{revNo});
-    </insert>
-
     <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
 
         SELECT
@@ -125,7 +111,6 @@
             #{offSet}, #{limit}
     </select>
 
-
     <select id="findProductList" resultMap="generalProductResultMap">
 
         SELECT
@@ -136,12 +121,10 @@
     </select>
 
     <select id="selectBySerial" resultMap="generalProductResultMap">
-
         SELECT
             *
         FROM
             product
-
         WHERE
             PROD_SERIAL = #{prodSerial}
     </select>
@@ -168,13 +151,11 @@
     </insert>
 
     <select id="getSerial" parameterType="java.lang.String" resultType="com.lucete.comprehensive.product.model.dto.ProductDTO">
-
         SELECT
             *
         FROM
             product
         WHERE
-
             PROD_NAME = #{prodName}
         LIMIT 1
     </select>
@@ -183,7 +164,6 @@
         INSERT INTO upload_file (FILE_NAME, UPLOAD_DATE, FILE_PASS, FILE_SIZE, PROD_SERIAL)
         VALUES (#{fileName}, #{uploadDate}, #{filePass}, #{fileSize}, #{prodSerial})
     </insert>
-
 
     <select id="getList" resultMap="generalProductResultMap">
         SELECT
@@ -256,5 +236,24 @@
             PROD_NAME = #{className}
     </update>
 
+    <insert id="insertProduct" parameterType="com.lucete.comprehensive.product.model.dto.ProductDTO">
+        INSERT INTO product (PROD_NAME, PROD_AMOUNT, PROD_PRICE, PROD_ACCOUNT, PROD_CATEGORY)
+        VALUES (#{prodName}, #{prodAmount}, #{prodPrice}, #{prodAccount}, #{prodCategory})
+    </insert>
+
+    <select id="insertSerial" parameterType="com.lucete.comprehensive.product.model.dto.ProductDTO">
+        SELECT
+            *
+        FROM
+            product
+        WHERE
+            PROD_NAME = #{prodName}
+        LIMIT 1
+    </select>
+
+    <insert id="insertFile" parameterType="com.lucete.comprehensive.common.file.FileDTO">
+        INSERT INTO upload_file(FILE_NAME, UPLOAD_DATE, FILE_PASS, FILE_SIZE, PROD_SERIAL)
+        VALUES (#{fileName}, #{uploadDate}, #{filePass}, #{fileSize}, #{prodSerial})
+    </insert>
 
 </mapper>

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,77 +42,56 @@ public class ProductController {
 
         model.addAttribute("categories", categoryList);
 
-        return "product/Insert";
+        return "/product/Insert";
     }
 
     @PostMapping("/Insert")
-    public String insertProductAndImage(ProductDTO product, List<MultipartFile> attachImage) {
+    @ResponseBody
+    public String insertProductAndImage(@RequestParam("prodCategory") String prodCategoryStr,
+                                        @RequestParam("prodName") String prodName,
+                                        @RequestParam("prodAmount") String prodAmountStr,
+                                        @RequestParam("prodPrice") String prodPriceStr,
+                                        @RequestParam("prodAccount") String prodAccount,
+                                        @RequestParam(value = "attachImage") MultipartFile attachImage) {
 
-        // 상품 정보를 먼저 데이터베이스에 삽입
-        productService.insertProduct(product);
+        System.out.println("prodCategory = " + prodCategoryStr);
+        System.out.println("prodName = " + prodName);
+        System.out.println("attachImage = " + attachImage);
 
-        String root = "src/main/resources/static";
-        String filePath = root + "/upload";
+        int prodCategory = Integer.parseInt(prodCategoryStr);
+        int prodAmount = Integer.parseInt(prodAmountStr);
+        int prodPrice = Integer.parseInt(prodPriceStr);
 
-        File dir = new File(filePath);
+        boolean isSuccess = productService.insertProduct(prodCategory, prodName, prodAmount, prodPrice, prodAccount);
 
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
+        if (isSuccess) {
 
-        List<FileDTO> fileList = new ArrayList<>();
+            System.out.println("서비스 넘어감");
 
-        try {
-            if (attachImage != null) {
+            ProductDTO product = productService.insertSerial(prodName);
 
-                for(MultipartFile multiFile : attachImage) {
-
-                    if (multiFile != null && multiFile.getSize() > 0) {
-
-                        String originalFileName = multiFile.getOriginalFilename();
-                        System.out.println("originalFileName : " + originalFileName );
-
-                        String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
-                        String savedFileName = UUID.randomUUID() + ext;
-                        System.out.println("savedFileName" + savedFileName);
-
-                        multiFile.transferTo(new File(filePath + "/" + savedFileName));
-
-                        FileDTO file = new FileDTO();
-                        file.setFileName(savedFileName);
-                        System.out.println("file.getFileName : " + file.getFileName());
-
-                        file.setUploadDate(new Date());
-                        System.out.println("file.getUploadDate() : " + file.getUploadDate());
-
-                        file.setFilePass(filePath);
-                        System.out.println("file.getFilePass() = " + file.getFilePass());
-
-                        file.setFileSize(attachImage.size());
-                        System.out.println("file.getFileSize() = " + file.getFileSize());
-
-                        file.setRevNo(1);
-
-                        fileList.add(file);
-
-                    }
-                }
+            if (product == null) {
+                System.out.println("존재 x");
+                throw new RuntimeException("해당 상품 x");
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (NullPointerException e) {
-            throw new RuntimeException(e);
+
+            if (attachImage != null) {
+            boolean isFileUpload = productService.insertFile(attachImage, product);
+
+                if (isFileUpload) {
+                    return "등록";
+                } else {
+                    return "실패";
+                }
+            } else {
+                return "실패";
+            }
+
+        } else {
+            return "실패";
         }
 
-        // 이미지 파일 정보를 데이터베이스에 삽입
-        for (FileDTO file : fileList) {
-            // 상품 정보와 연결된 이미지 정보로 삽입
-            file.setProdSerial(product.getProdSerial());
-            System.out.println(file.getProdSerial());
-            productService.insertImage(file);
-        }
 
-        return "redirect:/product/Insert";
     }
 
     @GetMapping("/select")
@@ -143,7 +123,6 @@ public class ProductController {
 
         return "product/modify";
     }
-
 
 //    @GetMapping("/information")
 //    public String selectBySerial(@RequestParam(value = "prodSerial", required = false)Integer prodSerial){
@@ -190,7 +169,6 @@ public class ProductController {
 
         return "product/category";
     }
-
 
 
 }
