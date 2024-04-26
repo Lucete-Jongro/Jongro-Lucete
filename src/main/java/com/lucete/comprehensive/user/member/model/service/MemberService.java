@@ -4,7 +4,9 @@ import com.lucete.comprehensive.user.member.model.dao.MemberMapper;
 import com.lucete.comprehensive.user.member.model.dto.MemberDTO;
 import com.lucete.comprehensive.user.member.model.dto.SignInDTO;
 import com.lucete.comprehensive.user.member.model.dto.SignUpDTO;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,7 +49,7 @@ public class MemberService {
         if(!Objects.isNull(login)) {
             System.out.println("록긩ㄴ 리턴함");
             return login;
-            
+
         } else {
             return null;
         }
@@ -74,10 +76,25 @@ public class MemberService {
     }
     public List<MemberDTO> selectMembers(String memName, String address, Date startDate, Date endDate){
         List<MemberDTO> result = memberMapper.selectMembers(memName,address,startDate,endDate);
+        System.out.println("불러오긴 했냐");
         return result;
+    }
+    public void updateEmail(String memName,String email){
+        memberMapper.updateEmail(memName, email);
+
     }
 
 
+    public MemberService(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public void changePassword(String memId, String newPassword) {
+        memberMapper.changePassword(memId, newPassword);
+    }
 
 
+    public List<MemberDTO> getAllMembers(){
+       return memberMapper.getAllMembers();
+    }
 }

@@ -255,4 +255,5 @@
         INSERT INTO upload_file(FILE_NAME, UPLOAD_DATE, FILE_PASS, FILE_SIZE, PROD_SERIAL)
         VALUES (#{fileName}, #{uploadDate}, #{filePass}, #{fileSize}, #{prodSerial})
     </insert>
+
 </mapper>

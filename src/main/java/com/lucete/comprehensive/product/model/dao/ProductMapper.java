@@ -54,4 +54,5 @@ public interface ProductMapper {
     ProductDTO insertSerial(String prodName);
 
     void insertFile(FileDTO fileDTO);
+
 }

@@ -186,6 +186,7 @@ public class ProductService {
         return Affected > 0;
     }
 
+
     public boolean insertProduct(int prodCategory, String prodName, int prodAmount, int prodPrice, String prodAccount) {
 
         int Affected = productMapper.insertProduct(prodCategory, prodName, prodAmount, prodPrice, prodAccount);
@@ -240,4 +241,5 @@ public class ProductService {
         return true;
 
     }
+
 }
