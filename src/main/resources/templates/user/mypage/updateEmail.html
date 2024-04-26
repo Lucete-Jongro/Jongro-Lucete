@@ -21,7 +21,7 @@
 
                 </li>
                 <li class="navicon"><a href=""><img src="/image/장바구니 아이콘.png" height="25"></a></li>
-                <li class="navicon"><a href=""><img src="/image/마이페이지 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a th:href="@{/user/mypage}"><img src="/image/마이페이지 아이콘.png" height="25"></a></li>
                 <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
                 <li class="searchBar" >
                     <input type="search">
@@ -62,7 +62,7 @@
 
     <br><br>
     <form action="/user/mypage/updateEmail" method="post">
-        <p>새로운 이메일을 입력해 주세요: <input type="email" name="email"> <input type="submit" value="제출" class="button-quit"></p>
+        <p>새로운 이메일을 입력해 주세요: <input type="email" name="email"><a th:href="@{/user/mypage/myinfo}"> <input type="submit" value="제출" class="button-quit" ></a></p>
     </form>
 
 

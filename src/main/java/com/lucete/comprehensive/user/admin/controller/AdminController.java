@@ -37,7 +37,9 @@ public class AdminController {
 //    public void blacklist(){}
 
     @GetMapping("/userInfo")
-    public String userInfo() {
+    public String userInfo(Model model) {
+        List<MemberDTO> allMembers = memberService.getAllMembers();
+        model.addAttribute("members", allMembers);
         return "admin/userInfo";
     }
 

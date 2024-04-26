@@ -65,7 +65,7 @@
         <li class="information" name=""MEM_ID>아이디 :  <span th:text="${#authentication.principal.memberId}"></span>
         </li>
         <li class="information" name="PASSWORD">비밀번호 : ******** <button class="button-myinfo"><a th:href="@{/user/mypage/changepwd}">비밀번호 변경</a></button></li>
-        <li class="information" name="EMAIL">이메일 : <span th:text="${#authentication.principal.email}"></span> <button class="button-myinfo"><a th:href="@{/user/mypage/updateEmail}">이메일 변경</a></button></li>
+        <li class="information" name="EMAIL">이메일 : <span th:text="${#authentication.principal.email}"></span> <button class="button-myinfo"><a th:href="@{/user/mypage/updateEmail}"method="post">이메일 변경</a></button></li>
         <li class="information" name="PHONE">연락처 :  <span th:text="${#authentication.principal.phone}"></span></li>
     </ul>
 </div>

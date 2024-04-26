@@ -10,6 +10,7 @@ public class SignUpDTO extends MemberDTO implements Serializable{
     private String email;
     private String phone;
     private String address;
+    private String role;
 
 
     public SignUpDTO(String memId, String memName, String password, String email, String phone, String address) {
@@ -19,6 +20,14 @@ public class SignUpDTO extends MemberDTO implements Serializable{
         this.email = email;
         this.phone = phone;
         this.address = address;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getMemId() {

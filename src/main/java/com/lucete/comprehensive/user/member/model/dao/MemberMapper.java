@@ -23,8 +23,9 @@ public interface MemberMapper {
                                    Date startDate,
                                    Date endDate);
 
-    void updateEmail(@Param("memNo") int memNo, @Param("email") String email);
+    void updateEmail(@Param("memName") String memId, @Param("email") String email);
 
     void changePassword(String memId, String password);
 
+    List<MemberDTO> getAllMembers();
 }

@@ -87,7 +87,7 @@
     <update id="updateEmail">
         UPDATE member_info
         SET email = #{email}
-        WHERE mem_No = #{memNo}
+        WHERE mem_Name = #{memName}
     </update>
 
     <update id="changePassword">
@@ -95,4 +95,10 @@
         set password = #{password}
         where mem_name =#{memId}
     </update>
+
+    <select id="getAllMembers">
+        select mem_no, mem_name,
+        mem_id, mem_date, address
+        from member_info
+    </select>
 </mapper>

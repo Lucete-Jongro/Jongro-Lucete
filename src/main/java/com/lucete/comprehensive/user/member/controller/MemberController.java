@@ -58,11 +58,12 @@ public class MemberController {
     @PostMapping("/mypage/updateEmail")
     public void updateEmail(@RequestParam("email") String email, HttpSession session){
         // 세션에서 현재 사용자의 회원 번호 가져오기
-        int memNo = (int) session.getAttribute("memNo");
-
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName(); // 구세주다 정말........!!!!!!!!!!!!!!!!!!!!!
+        System.out.println(username);
 
         // 이메일 업데이트 메서드 호출
-        memberService.updateEmail(memNo, email);
+        memberService.updateEmail(username, email);
     }
 
     @PostMapping("/findid")
@@ -93,6 +94,7 @@ public class MemberController {
 
         if (result > 0) {
             message = "회원가입이 정상적으로 완료되었습니다.";
+
             AuthDetails authDetails = new AuthDetails(signupDTO);
             Authentication authentication = new UsernamePasswordAuthenticationToken(authDetails, null, authDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -167,7 +169,7 @@ public class MemberController {
 
         memberService.changePassword(memId, newPassword); // 사용자 아이디와 새로운 비밀번호 전달
 
-        return "redirect:/profile";
+        return "redirect:/mypage";
     }
 
 

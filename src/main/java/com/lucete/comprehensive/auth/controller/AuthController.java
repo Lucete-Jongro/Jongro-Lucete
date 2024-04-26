@@ -21,14 +21,13 @@ public class AuthController {
     public void login() {}
 
     @PostMapping("/login")
-    public void login(@RequestParam("memName") String username, @RequestParam("password") String password, HttpSession session, int memNo) {
+    public void login(@RequestParam("memName") String username, @RequestParam("password") String password, HttpSession session) {
         // 사용자 인증 및 로그인 처리 로직
 
         // 인증에 성공하면 세션에 사용자 정보 설정
         session.setAttribute("memName", username); // 세션에 사용자 이름 저장
-        session.setAttribute("password",password);
-        session.setAttribute("memNo",memNo);
-
+        session.setAttribute("password", password);
+        // memNo 값은 로그인 성공 후에 어딘가에서 가져와야 합니다.
     }
     @GetMapping("/logout")
     public void logout(){}

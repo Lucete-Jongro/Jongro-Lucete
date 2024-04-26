@@ -18,6 +18,7 @@ public class MemberDTO {
         this.memId = memId;
     }
 
+
     public int getMemNo() {
         return memNo;
     }

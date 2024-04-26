@@ -49,7 +49,7 @@ public class MemberService {
         if(!Objects.isNull(login)) {
             System.out.println("록긩ㄴ 리턴함");
             return login;
-            
+
         } else {
             return null;
         }
@@ -79,8 +79,8 @@ public class MemberService {
         System.out.println("불러오긴 했냐");
         return result;
     }
-    public void updateEmail(int memNo,String email){
-        memberMapper.updateEmail(memNo, email);
+    public void updateEmail(String memName,String email){
+        memberMapper.updateEmail(memName, email);
 
     }
 
@@ -94,4 +94,7 @@ public class MemberService {
     }
 
 
+    public List<MemberDTO> getAllMembers(){
+       return memberMapper.getAllMembers();
+    }
 }
