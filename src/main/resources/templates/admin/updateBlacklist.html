@@ -3,52 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin UserCategory Page</title>
+    <title>Admin InsertBlackList Page</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 
     <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
-
     <style>
-        .product-category{
-            overflow: hidden;
-        }
-        .product-category-box{
-            margin : 30px;
+        .insert-blacklist-container{
             width: 700px;
-            height: 500px;
-            border : 5px solid #969696;
-            border-radius : 10px;
+            height: auto;
             overflow: hidden;
+        }
+        .insert-userInfo{
+            margin-left: 30px;
 
+            background-color: white;
         }
-        .category-box{
-            margin : 10px;
-            width: 680px;
-            height: 235px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
+        .form-table{
+            width: 100%;
+            border-top: 3px solid black;
+            border-bottom: 2px solid #c2c2c2;
+            border-left: 2px solid #c2c2c2;
+            border-right: 2px solid #c2c2c2;
+            border-collapse: collapse;
         }
-        .box{
-            margin: 10px;
-            width: 340px;
-            height: 115px;
-            background-color: gray;
-            border-radius: 30px;
-            background-color: #DEE2E6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
+        tr{
+            border: 2px solid #c2c2c2;
+            background-color: #d9d9d9;
+            text-align: center;
             font-weight: bold;
+        }
+        .form-table td {
+            padding: 0;
+        }
+
+        .form-table input[type="text"],
+        .form-table input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .blacklist-insert{
+            margin-top: 100px;
+        }
+        .reason-table{
+            margin-top: 10px;
+            width: 100%;
+            border-top: 3px solid black;
+            border-bottom: 2px solid #c2c2c2;
+            border-left: 2px solid #c2c2c2;
+            border-right: 2px solid #c2c2c2;
+            border-collapse: collapse;
+        }
+        .reason-table tr{
+            border: 2px solid #c2c2c2;
+            background-color: #d9d9d9;
+            text-align: center;
+            font-weight: bold;
+        }
+        .reason-table td{
+            padding: 0;
+        }
+        .reason-table input[type="date"]{
+            width: 180px;
+        }
+        .reason-table #reason{
+            width: 400px;
+            height: 100px;
+        }
+        .blacklist-btn{
+            background-color: #A2D6A7;
+            border: 2px solid #286B11;
+            font-weight: bold;
+            border-radius: 10px;
         }
     </style>
 </head>
-
 <body>
 <header class="header">
     <div class="containor">
@@ -66,7 +99,6 @@
         </nav>
     </div>
 </header>
-
 <div class="category-banner">
     <nav class="category-navbar">
 
@@ -92,28 +124,51 @@
     </nav>
 </div>
 
-<div class="product-category">
-    <h4 style="font-size: 25px;">&nbsp;&nbsp;회원 관리</h4>
-    <div class="product-category-box">
-        <div class="category-box">
-            <a class="box" href="Admin-BlackListInquiry-Page.html">
-                <img src="/image/블랙리스트 조회.png" height="55px">
-                블랙리스트 조회
-            </a>
-            <a class="box" href="Admin-InsertBlackList-Page.html">
-                <img src="/image/블랙리스트 등록.png" height="45px">
-                블랙리스트 등록
-            </a>
+<div class="insert-blacklist-container">
+    <h4 style="font-weight: bold; font-size: 25px;">&nbsp;&nbsp;블랙리스트 등록</h4>
+    <br>
+    <div class="insert-userInfo">
+        <div class="insert-table">
+            <div class="table-text"><h3>● 회원 정보 등록</h3></div>
+            <table class="form-table">
+                <tr>
+                    <td>이름</td>
+                    <td><input type="text" name="memName" /></td>
+                </tr>
+                <tr>
+                    <td>이메일</td>
+                    <td><input type="email" name="email" /></td>
+                </tr>
+                <tr>
+                    <td>주소</td>
+                    <td><input type="text" name="address" /></td>
+                </tr>
+            </table>
         </div>
-        <div class="category-box">
-            <a class="box" href="Admin-UserInfoInquiry-Page.html">
-                <img src="/image/회원정보조회.png" height="40px">
-                회원 정보 조회
-            </a>
+        <div class="blacklist-insert">
+            <h3>● 블랙리스트 사유</h3>
+            <table class="reason-table">
+                <tr>
+                    <td><label for="black-date">블랙리스트 기간</label></td>
+                    <td>
+                        <input type="date" name="blacklistStartDate" />
+                        <span>~</span>
+                        <input type="date" name="blacklistEndDate" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="reason">사유</label></td>
+                    <td><textarea name="blacklistReason"></textarea></td>
+                </tr>
+            </table>
+            <div style="text-align: right; margin-top: 10px;">
+                <button type="submit" class="blacklist-btn">블랙리스트 등록</button>
+            </div>
         </div>
     </div>
-
 </div>
+
+
 
 <br><br><br><br><br><br><br>
 

@@ -36,6 +36,14 @@ public class MemberDTO {
         this.address = address;
     }
 
+    public MemberDTO(int memNo, String memName, String memId, String address, Date memDate) {
+        this.memNo = memNo;
+        this.memName = memName;
+        this.memId = memId;
+        this.address = address;
+        this.memDate = memDate;
+    }
+
     public int getMemNo() {
         return memNo;
     }

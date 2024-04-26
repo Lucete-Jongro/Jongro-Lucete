@@ -10,14 +10,12 @@
     <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
-
 </head>
 <body>
-
 <header class="header">
     <div class="containor">
         <nav class="navbar">
-            <a th:href="@{/}"><img src="/image/로고 누끼(이름만).png" height="90"></a>
+            <a href="index.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
             <ul class="navbar-list" style="list-style: none;">
 
                 <li class="navicon" id="search"><img src="/image/검색 아이콘.png" height="25">
@@ -35,7 +33,6 @@
         </nav>
     </div>
 </header>
-
 
 <div class="category-banner">
     <nav class="category-navbar">
@@ -60,35 +57,38 @@
     </nav>
 </div>
 
-
-<div class="intro">
-
-    <p th:text="${ #authentication.principal.username }"></p>
-
-    <p>고객님의 마이페이지 입니다</p>
-    <img src="/image/마이페이지 아이콘.png" height="100px" style="position: relative;" class="mypage-img">
-
-    <ul class="mypage-list" style="list-style: none;">
-        <li class="mypage-button">
-            <button class="button"><a th:href="@{/user/mypage/myinfo}">내 정보 관리</a></button>
+<div class="mypage">
+    <h1 class="title">내 정보 관리</h1>
+    <h3 class="sub-title">회원정보</h3>
+    <ul class="myinfo-list">
+        <li class="information" name="MEM_NAME">고객명 :  <span th:text="${ #authentication.principal.username }"></span> <img src="assets/image/trophy_695151.png" height="20px"></li>
+        <li class="information" name=""MEM_ID>아이디 :  <span th:text="${#authentication.principal.memberId}"></span>
         </li>
-        <li class="mypage-button">
-            <button class="button"><a href="orderlist.html">주문 목록</a></button>
-        </li>
-        <li class="mypage-button">
-            <button class="button"><a href="my_boardList.html">내 게시물 관리</a></button>
-        </li>
-    </ul>
-    <ul class="mypage-list" style="list-style: none;">
-        <li class="mypage-button">
-            <button class="button"><a href="refund-list.html">취소 / 교환 목록</a></button>
-        </li>
-        <li class="mypage-button">
-            <button class="button"><a href="coupon.html">쿠폰 / 적립금</a></button>
-        </li>
-
+        <li class="information" name="PASSWORD">비밀번호 : ******** <button class="button-myinfo"><a th:href="@{/user/mypage/changepwd}">비밀번호 변경</a></button></li>
+        <li class="information" name="EMAIL">이메일 : <span th:text="${#authentication.principal.email}"></span> <button class="button-myinfo"><a th:href="@{/user/mypage/updateEmail}"method="post">이메일 변경</a></button></li>
+        <li class="information" name="PHONE">연락처 :  <span th:text="${#authentication.principal.phone}"></span></li>
     </ul>
 </div>
+<div class="mypage">
+
+
+    <div class="mypage">
+        <br><br><br><br><br><br><br><br><br><br><br>
+        <h3 class="sub-title">배송정보</h3>
+        <ul class="myinfo-list">
+
+            <li class="information" NAME="ADRESS">배송지 1 - 서울 종로구 인사동길 12 대일빌딩, 7층 <button class="orderbutton"><a href="edit-adress.html">정보 수정</a></button>
+
+            </li>
+
+        </ul>
+
+    </div>
+    <button class="add-adress"><a href="add-adress.html">주소 추가</a></button>
+
+    <div class="mypage">
+
+        <button class="quit"><a href="quit1.html">회원 탈퇴</a></button>
 
 </body>
 </html>
