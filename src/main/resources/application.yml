@@ -43,6 +43,7 @@ mybatis:
 #    name: myapp.log
 #    path: C:/Users/hi/Desktop/product-jan/Lucete
 
+
 #image upload dir
 image:
     image-dir: C:/practice

@@ -4,20 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
-
 </head>
 <body>
-
 <header class="header">
     <div class="containor">
         <nav class="navbar">
-            <a th:href="@{/}"><img src="/image/로고 누끼(이름만).png" height="90"></a>
+            <a href="index.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
             <ul class="navbar-list" style="list-style: none;">
 
                 <li class="navicon" id="search"><img src="/image/검색 아이콘.png" height="25">
@@ -60,34 +57,15 @@
     </nav>
 </div>
 
+<div class="quit2">
+    <h1>비밀번호 변경</h1>
 
-<div class="intro">
-
-    <p th:text="${ #authentication.principal.username }"></p>
-
-    <p>고객님의 마이페이지 입니다</p>
-    <img src="/image/마이페이지 아이콘.png" height="100px" style="position: relative;" class="mypage-img">
-
-    <ul class="mypage-list" style="list-style: none;">
-        <li class="mypage-button">
-            <button class="button"><a th:href="@{/user/mypage/myinfo}">내 정보 관리</a></button>
-        </li>
-        <li class="mypage-button">
-            <button class="button"><a href="orderlist.html">주문 목록</a></button>
-        </li>
-        <li class="mypage-button">
-            <button class="button"><a href="my_boardList.html">내 게시물 관리</a></button>
-        </li>
-    </ul>
-    <ul class="mypage-list" style="list-style: none;">
-        <li class="mypage-button">
-            <button class="button"><a href="refund-list.html">취소 / 교환 목록</a></button>
-        </li>
-        <li class="mypage-button">
-            <button class="button"><a href="coupon.html">쿠폰 / 적립금</a></button>
-        </li>
-
-    </ul>
+    <br><br>
+    <form action="/changePassword" method="post">
+        <p>현재 비밀번호를 입력해 주세요: <input type="password" name="currentPassword"></p>
+        <p>새로운 비밀번호를 입력해 주세요: <input type="password" name="newPassword"></p>
+        <button type="submit">제출</button>
+    </form>
 </div>
 
 </body>
