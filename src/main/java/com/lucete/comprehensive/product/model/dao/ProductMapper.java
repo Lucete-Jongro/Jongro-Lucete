@@ -14,9 +14,7 @@ import java.util.Map;
 
 @Mapper
 public interface ProductMapper {
-    void insertProduct(ProductDTO productDTO);
 
-    void insertImage(FileDTO fileDTO);
 
     int selectTotalCount(Map<String, String> searchMap);
 
@@ -50,4 +48,10 @@ public interface ProductMapper {
     int updateClass(String classNo, String className, Date startDate, Date endDate, Time setTime);
 
     int updateProdByClass(String className, int prodPrice, String prodAccount);
+
+    int insertProduct(int prodCategory, String prodName, int prodAmount, int prodPrice, String prodAccount);
+
+    ProductDTO insertSerial(String prodName);
+
+    void insertFile(FileDTO fileDTO);
 }

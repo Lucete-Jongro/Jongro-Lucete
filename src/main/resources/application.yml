@@ -46,3 +46,4 @@ mybatis:
 #image upload dir
 image:
     image-dir: C:/practice
+
