@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>AdminInquiry</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>문의 게시판 관리</title>
+    <title>AdminInquiryDetail</title>
     <link rel="stylesheet" th:href="@{ /css/style.css }">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,35 +11,7 @@
 
     <style>
 
-        .input-wrapper1 {
-            text-align: right; /* 모든 내용을 오른쪽 정렬 */
-        }
-
-        .input-wrapper2 {
-            display: inline-block; /* 인라인 블록 요소로 만들어 줌 */
-        }
-
-        /* 셀렉트 박스 스타일 */
-        select {
-            padding: 10px; /* 상하좌우 여백 */
-            border: 1px solid #ccc; /* 테두리 */
-            border-radius: 5px; /* 모서리 둥글게 */
-            background-color: #fff; /* 배경색 */
-            color: #333; /* 글자색 */
-            cursor: pointer;
-        }
-
-        select:hover {
-            border-color: #999; /* 호버 시 테두리 색상 변경 */
-        }
-
-        select:focus {
-            outline: none; /* 포커스 시 아웃라인 제거 */
-            border-color: #4caf50; /* 포커스 시 테두리 색상 변경 */
-        }
-
         /* 삭제 및 등록 버튼 스타일 */
-        .delete_inquiry_list,
         .answer_submit {
             background-color: #4caf50; /* 버튼 배경색 */
             color: white; /* 버튼 글자색 */
@@ -51,12 +22,9 @@
             border-radius: 5px; /* 버튼 모서리 둥글게 */
         }
 
-        .delete_inquiry_list:hover,
         .answer_submit:hover {
             background-color: #45a049; /* 호버 시 배경색 변경 */
         }
-
-
         /* 버튼 스타일 */
         button {
             background-color: #4caf50; /* 버튼 배경색 */
@@ -67,16 +35,13 @@
             transition: background-color 0.3s ease; /* 호버 효과 전환 */
             border-radius: 5px; /* 버튼 모서리 둥글게 */
         }
-
         button:hover {
             background-color: #45a049; /* 마우스 호버 시 배경색 */
         }
-
         /* 테이블 스타일 */
         table {
             border-collapse: collapse; /* 테이블 경계 선 제거 */
         }
-
         th, td {
             padding: 10px; /* 셀 안 여백 */
             border: 1px solid #ddd; /* 셀 테두리 */
@@ -86,37 +51,49 @@
         th {
             background-color: #f2f2f2; /* 테이블 헤더 배경색 */
         }
-
         /* 답변 작성 텍스트 영역 스타일 */
         textarea {
             resize: vertical; /* 수직 리사이즈 */
-            padding: 10px; /* 상하좌우 여백 */
+            padding: 20px; /* 상하좌우 여백 */
             border: 1px solid #ccc; /* 테두리 */
             border-radius: 5px; /* 텍스트 영역 모서리 둥글게 */
+            margin-right: 20px;
         }
-
         /* 답변 등록 버튼 위치 조정 */
         .answer_submit {
             margin-top: 10px; /* 버튼 위 여백 */
         }
-
+        .table-category {
+            width: 30%;  /* 원하는 너비로 설정 */
+        }
+        .table-content {
+            width: 70%;  /* 전체 너비에서 분류 열을 제외한 나머지 너비 */
+        }
+        .b2 {
+            padding-left: 600px;
+            padding-bottom: 50px;
+            padding-top: 10px;
+            margin-right: 40px;
+        }
+        .ask-upload{
+            padding-right: 500px;
+        }
 
     </style>
 </head>
+
 <body>
 <header class="header">
     <div class="containor">
         <nav class="navbar">
             <a href="Admin-MainPage.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
             <ul class="navbar-list" style="list-style: none;">
-                </li>
                 <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
-                <li class="searchBar" >
+                <li class="searchBar">
                     <input type="search">
                     <input type="submit">
                 </li>
             </ul>
-
         </nav>
     </div>
 </header>
@@ -135,7 +112,7 @@
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Customer</li>
 
             <li class="category"><a href="Admin-UserCategory-Page.html">회원관리</a></li>
-            <li class="category"><a href="1.문의_게시판_관리.html">게시판 관리</a></li>
+            <li class="category"><a href="/inquiry/adminList">게시판 관리</a></li>
             <li class="category"><a href="2.리뷰_관리.html">리뷰 게시판 관리</a></li>
             <li class="category"><a href="3.공지사항_관리.html">공지사항 관리</a></li>
             <li class="category"><a href="4.쿠폰_관리.html">쿠폰 관리</a></li>
@@ -146,116 +123,72 @@
     </nav>
 </div>
 
-
-<div class="inquiry_type">
-    <h2>고객문의 관리</h2>
-    <form name="inquirySearchForm" id="inquirySearchForm">
-        <table cellspacing="0" border="1" width="760px">
-            <colgroup>
-                <col class="search_category">
-                <col>
-            </colgroup>
-            <tbody>
-            <tr>
-                <th scope="row">검색어</th>
-                <td>
-                    <select name="search_option" id="search_option">
-                        <option value="memName">질문자명</option>
-                        <option value="memId">질문자ID</option>
-                        <option value="purNo">상품주문번호</option>
-                    </select>
-                    <input type="text" name="search_text" id="search_text">
-                    <button type="submit">검색</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </form>
-
-    <form name="inquiryListForm" id="inquiryListForm">
-        <h5></h5>
-        <div class="input-wrapper1">
-            <div class="input-wrapper2">
-                <button type="submit" value="삭제"
-                        class="delete_inquiry_list" id="delete_inquiry_list">삭제</button>
-            </div>
-        </div>
-        <div class="search_list">
-            <table border="1" cellspacing="0" width="760px" height="auto">
-                <colgroup>
-                    <col class="w50">
-                    <col class="w50">
-                    <col class="w100">
-                    <col>
-                    <col class="w100">
-                    <col class="w80">
-                    <col class="w60">
-                </colgroup>
-                <thead>
-                <th scope="col">
-                    <input type="checkbox" name="check_all" value="1" onclick="check_all(this.form)">
-                </th>
-                <th scope="col">접수일</th>
-                <th scope="col">답변상태</th>
-                <th scope="col">분류</th>
-                <th scope="col">문의제목</th>
-                <th scope="col">질문자</th>
-                <th scope="col">처리일시</th>
-                </thead>
-                <tbody>
-                <tr>
-                    <td colspan="8" class="empty_table" style="text-align: center;">자료가 없습니다.</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </form>
-
-    <form name="inquiryAnswerForm" id="inquiryAnswerForm">
         <div>
             <h4>판매자 답변 처리</h4>
             <table border="1" cellspacing="0" width="760px" height="auto">
                 <tr height="auto">
-                    <th width="20%">분류</th>
-                    <th>내용</th>
+                    <th class="table-category">분류</th>
+                    <th class="table-content">내용</th>
                 </tr>
                 <tr height="auto">
-                    <td>문의 내용</td>
-                    <td></td>
+                    <td>제목</td>
+                    <td th:text="${ inquiry.inquiryTitle }"></td>
                 </tr>
                 <tr height="auto">
-                    <td>답변 내용1</td>
-                    <td></td>
+                    <td>내용</td>
+                    <td th:text="${ inquiry.inquiryContent}"></td>
                 </tr>
                 <tr height="auto">
-                    <td>답변 내용2</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th scope="row">답변 작성</th>
-                    <td style="width:90%; height:90%;">
-                        <textarea name="writeAnswer" id="writeAnswer" cols="30" rows="10" style="width:99%; height:96%;"></textarea>
+                    <td>답변</td>
+                    <td>
+                        <div th:if="${ comm != null }">
+                            <span th:text="${ comm.reComment }"></span>
+                        </div>
                     </td>
                 </tr>
+                <tr height="auto">
+                    <td>등록일</td>
+                    <td th:text="${ comm.reDate }"></td>
+                </tr>
+                    <th scope="row">작성</th>
+                    <td style="width:90%; height:90%;">
+                        <textarea cols="30" rows="5" style="width:600px; height:100px;"></textarea>
+                    </td>
             </table>
-            <br>
-            <button type="submit" class="answer_submit"
-                    id="answer_submit" style="float: right">등록</button>
+            <div class="ask-upload">
+            <form action="/inquiry/askRegist" method="post">
+
+                <button type="submit" class="answer_submit" style="float: right">등록</button>
+                <input type="hidden" id="commKey" th:value="${comm.commKey}"/>
+            </form>
+            </div>
         </div>
+
+
+    <div class="b2">
+    <form action="/inquiry/adminDelete" method="GET" onsubmit="return delete_event()">
+        <input type="hidden" name="inquiryNo" th:value="${inquiry.inquiryNo}"/>
+        <button type="submit" class="answer_submit">게시글 삭제</button>
     </form>
-</div>
 
-
-
+    </div>
+    <script type="text/javascript">
+        function delete_event() {
+            if(confirm("정말 삭제하시겠습니까?") == true) {
+            return true;
+            }else {
+              return false;
+            }
+        }
+    </script>
 
 <br><br><br><br><br><br><br>
-
 <footer class="footer">
     <div class="containor">
         <p>L u c e t e</p>
         <ul class="info" style="list-style: none;">
-            <li class="info-list" style="font-size: smaller;"><a href>이용약관</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="info-list" style="font-size: smaller;"><a href>개인정보 처리방침</a></li>
+            <li class="info-list" style="font-size: smaller;"><a href="#">이용약관</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="info-list" style="font-size: smaller;"><a href="#">개인정보 처리방침</a></li>
             <br><br>
             <li class ="info-list" style="font-size: small;">상호: 루세트(Lucete) | 대표: 김민희 | 전화: 070-012-3456 | 이메일: lucete@gmail.com</li>
             <br>
@@ -263,9 +196,9 @@
             <br>
             <li class="info-list" style="font-size: small;">사업자등록번호:888-06-12345 | 통신판매:2024-서울인사동-0123</li>
         </ul>
-
-
     </div>
 </footer>
+
 </body>
+
 </html>

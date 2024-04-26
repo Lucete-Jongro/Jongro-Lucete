@@ -1,6 +1,6 @@
 package com.lucete.comprehensive.product.model.dto;
 
-import java.sql.Timestamp;
+import java.sql.Time;
 import java.util.Date;
 
 public class OneDayClassDTO {
@@ -11,11 +11,12 @@ public class OneDayClassDTO {
     private Date endDate;
     private String teacherName;
     private ProductCategoryDTO prodCategory;
-    private Timestamp setTime;
+    private Time setTime;
+    private ProductDTO productDTO;
 
     public OneDayClassDTO() {}
 
-    public OneDayClassDTO(int classNo, String className, Date startDate, Date endDate, String teacherName, ProductCategoryDTO prodCategory, Timestamp setTime) {
+    public OneDayClassDTO(int classNo, String className, Date startDate, Date endDate, String teacherName, ProductCategoryDTO prodCategory, Time setTime, ProductDTO productDTO) {
         this.classNo = classNo;
         this.className = className;
         this.startDate = startDate;
@@ -23,6 +24,7 @@ public class OneDayClassDTO {
         this.teacherName = teacherName;
         this.prodCategory = prodCategory;
         this.setTime = setTime;
+        this.productDTO = productDTO;
     }
 
     public int getClassNo() {
@@ -73,12 +75,20 @@ public class OneDayClassDTO {
         this.prodCategory = prodCategory;
     }
 
-    public Timestamp getSetTime() {
+    public Time getSetTime() {
         return setTime;
     }
 
-    public void setSetTime(Timestamp setTime) {
+    public void setSetTime(Time setTime) {
         this.setTime = setTime;
+    }
+
+    public ProductDTO getProductDTO() {
+        return productDTO;
+    }
+
+    public void setProductDTO(ProductDTO productDTO) {
+        this.productDTO = productDTO;
     }
 
     @Override
@@ -91,6 +101,7 @@ public class OneDayClassDTO {
                 ", teacherName='" + teacherName + '\'' +
                 ", prodCategory=" + prodCategory +
                 ", setTime=" + setTime +
+                ", productDTO=" + productDTO +
                 '}';
     }
 }

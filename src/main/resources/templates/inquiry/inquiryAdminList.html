@@ -1,59 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>AdminInquiry</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>문의 게시판 관리</title>
+    <title>AdminInquiry</title>
     <link rel="stylesheet" th:href="@{ /css/style.css }">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <script src="/js/event.js" type="text/javascript"></script>
 
     <style>
-
-        .input-wrapper1 {
-            text-align: right; /* 모든 내용을 오른쪽 정렬 */
-        }
-
-        .input-wrapper2 {
-            display: inline-block; /* 인라인 블록 요소로 만들어 줌 */
-        }
-
-        /* 셀렉트 박스 스타일 */
-        select {
-            padding: 10px; /* 상하좌우 여백 */
-            border: 1px solid #ccc; /* 테두리 */
-            border-radius: 5px; /* 모서리 둥글게 */
-            background-color: #fff; /* 배경색 */
-            color: #333; /* 글자색 */
-            cursor: pointer;
-        }
-
-        select:hover {
-            border-color: #999; /* 호버 시 테두리 색상 변경 */
-        }
-
-        select:focus {
-            outline: none; /* 포커스 시 아웃라인 제거 */
-            border-color: #4caf50; /* 포커스 시 테두리 색상 변경 */
-        }
-
-        /* 삭제 및 등록 버튼 스타일 */
-        .delete_inquiry_list {
-            background-color: #4caf50; /* 버튼 배경색 */
-            color: white; /* 버튼 글자색 */
-            padding: 10px 20px; /* 상하좌우 여백 */
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease; /* 호버 효과 전환 */
-            border-radius: 5px; /* 버튼 모서리 둥글게 */
-        }
-
-        .delete_inquiry_list:hover :hover {
-            background-color: #45a049; /* 호버 시 배경색 변경 */
-        }
-
 
         /* 버튼 스타일 */
         button {
@@ -153,9 +110,9 @@
             <tr>
                 <th scope="row">검색어</th>
                 <td>
-                    <select name="searchCondition" id="searchCondition">
-                        <option value="memName" th:selected="${ paging.searchCondition eq 'memName'}">질문자명</option>
-                        <option value="memId" th:selected="${ paging.searchCondition eq 'memId'}">질문자ID</option>
+                    <select name="searchCondition" id="category-select">
+                        <option value="user" th:selected="${ paging.searchCondition eq 'user'}">질문자명</option>
+                        <option value="userId" th:selected="${ paging.searchCondition eq 'userId'}">질문자ID</option>
                     </select>
                     <input type="search" name="searchValue" id="searchValue" th:value="${ paging.searchValue }">
                     <button type="submit">검색</button>
@@ -165,22 +122,12 @@
         </table>
     </form>
 
-    <form name="inquiryListForm" id="inquiryListForm">
-        <h5></h5>
-        <div class="input-wrapper1">
-            <div class="input-wrapper2">
-                <button type="submit" value="삭제"
-                        class="delete_inquiry_list" id="delete_inquiry_list">삭제</button>
-            </div>
-        </div>
+
         <div class="search_list">
             <table border="1" cellspacing="0" width="760px" height="auto">
 
                 <thead>
                 <tr>
-                    <th scope="col">
-                        <input type="checkbox" name="check_all" value="1" onclick="check_all(this.form)">
-                    </th>
                     <th scope="col">문의 번호</th>
                     <th scope="col">접수일</th>
                     <th scope="col">답변상태</th>
@@ -190,22 +137,21 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="inquiry : ${inquiryList}" th:onclick="|location.href='/inquiry/adminDetail?inquiryNo=${inquiry.inquiryNo}'|">
-                    <td>
-                        <input type="checkbox" name="check_all" value="1" onclick="check_all(this.form)">
-                    </td>
-                    <td th:text="${inquiry.inquiryNo}"></td>
+
+                <tr th:each="inquiry : ${ inquiryList }" th:onclick="|location.href='/inquiry/adminDetail?inquiryNo=${inquiry.inquiryNo}'|">
+                    <td th:text="${ inquiry.inquiryNo }"></td>
                     <td th:text="${#temporals.format(inquiry.inquiryDate, 'yyyy.MM.dd')}"></td>
-                    <td th:text="${inquiry.inquiryReStatus}"></td>
-                    <td th:text="${inquiry.inquiryCategory}"></td>
-                    <td th:text="${inquiry.inquiryTitle}"></td>
-                    <td th:text="${inquiry.memName}"></td>
+                    <td th:text="${ inquiry.inquiryReStatus}"></td>
+                    <td th:text="${ inquiry.inquiryCategory }"></td>
+                    <td th:text="${ inquiry.inquiryTitle }"></td>
+                    <!-- <td th:text="${inquiry.memName}"></td>-->
                 </tr>
+
                 </tbody>
             </table>
         </div>
-    </form>
 </div>
+
 
 <div>
 

@@ -207,10 +207,12 @@
 <header class="header">
     <div class="containor">
         <nav class="navbar">
-            <a href="Admin-MainPage.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
+
+            <a href="Admin-MainPage.html"><img src="/image/logo.png" height="90"></a>
             <ul class="navbar-list" style="list-style: none;">
                 </li>
-                <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/login_icon.png" height="25"></a></li>
+
                 <li class="searchBar" >
                     <input type="search">
                     <input type="submit">
@@ -240,35 +242,37 @@
             <li class="category"><a href="3.공지사항_관리.html">공지사항 관리</a></li>
             <li class="category"><a href="4.쿠폰_관리.html">쿠폰 관리</a></li>
             <li class="category"><a href="5.포인트_지급_관리.html">포인트 관리</a></li>
-            <li class="category"><a href="Admin-OneDayClass-Category-Page.html">원데이 클래스 관리</a></li>
+            <li class="category"><a href="/onedayclass/category">원데이 클래스 관리</a></li>
             <br><br><br><br><br><br><br>
         </ul>
     </nav>
 </div>
 
     <div class="product-modify-container">
-    <form>
+
+    <form action="/product/modify" method="post" id="">
         <h4 style="font-weight: bold; font-size: 25px;">&nbsp;등록 상품 수정</h4>
         <div class="inquiry">
-            <div class="ca-text">카테고리 선택</div>
-            <div class="ca-box">
-                <select name="prodCategory" id="select1">
-                    <option></option>
-                </select>
-            </div>
+<!--            <div class="ca-text">카테고리 선택</div>-->
+<!--            <div class="ca-box">-->
+<!--                <select name="prodCategory" id="select1">-->
+<!--                    <option></option>-->
+<!--                </select>-->
+<!--            </div>-->
             <div class="na-text">상품명 선택</div>
             <div class="na-box">
-                <select name="selectName" id="select2">
-<!--                    <option -->
-<!--                            th:each="product : ${ products }"-->
-<!--                            th:value="${ product.prodSerial }"-->
-<!--                            th:text="${ product.prodName }"-->
-<!--                    ></option>-->
+                <select name="prodSerial" id="select2">
+                    <option th:each="product : ${products}"
+                            th:value="${product.prodSerial}"
+                            th:text="${product.prodName}"></option>
+
                 </select>
             </div>
         </div>
         <div class="inquiry-btn">
-            <button type="button">상품 조회</button>
+
+            <button type="button" onclick="fetchProductInfo()">상품 조회</button>
+
         </div>
     </form>
 
@@ -277,32 +281,44 @@
             <tr>
                 <td id="box2">상품명</td>
                 <td>
-                    <input type="text" name="PROD_NAME" id="name-text" placeholder="상품명을 입력해주세요.">
+
+                    <input type="text" name="prodName" id="name-text" placeholder="상품명을 입력해주세요.">
+
                 </td>
             </tr>
             <tr>
                 <td id="box3">재고량</td>
                 <td>
-                    <input type="text" name="PROD_AMOUNT" id="amount-text" placeholder="재고 수량을 입력해주세요.">
+
+                    <input type="text" name="prodAmount" id="amount-text" placeholder="재고 수량을 입력해주세요.">
+
                 </td>
             </tr>
             <tr>
                 <td id="box4">상품 금액</td>
                 <td>
-                    <input type="text" name="PROD_PRICE" id="price-text" placeholder="상품 금액을 입력해주세요.">
+
+                    <input type="text" name="prodPrice" id="price-text" placeholder="상품 금액을 입력해주세요.">
+
                     &nbsp;원
                 </td>
             </tr>
             <tr>
                 <td id="box5">상세 설명</td>
                 <td>
-                    <textarea name="PROD_ACCOUNT" id="product-text" cols="100" rows="20" placeholder="상품의 상세 설명을 입력해주세요."></textarea>
+
+                    <textarea name="prodAccount" id="product-text" cols="100" rows="20" placeholder="상품의 상세 설명을 입력해주세요."></textarea>
+
                 </td>
             </tr>
         </table>
     </div>
     <div class="submit-button">
-        <div class="modify-button" style="font-size: 17px; font-weight: bold;" onclick="openSaveModal()">상품 수정</div>
+
+<!--        <button class="modify-button" style="font-size: 17px; font-weight: bold;" onclick="updateProduct()">상품 수정</button>-->
+        <button class="modify-button" style="font-size: 17px; font-weight: bold;" onclick="openSaveModal()">상품 수정</button>
+
+
     </div>
 </div>
 
@@ -315,53 +331,62 @@
         <button id="cancel_button" onclick="closeSaveModal()">아니오</button>
     </div>
 </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 
-        // const $prodCategory = document.querySelector('#select1');
-        // $prodCategory.change(function () {
-        //     const selectedCategory = $(this).val();
-        //     console.log(selectedCategory)
-        //
-        //     fetch(`/product/find?prodCategory=${selectedCategory}`)
-        //         .then(res => res.json())
-        //         .then(data => {
-        //         const $prodSelect = document.querySelector('#select2');
-        //
-        //         data.forEach(category => {
-        //             const $option = document.createElement('option');
-        //             $option.textContent = category.categoryName;
-        //             $option.value = category.prodCategory;
-        //             $prodCategory.appendChild($option);
-        //         });
-        //         console.log("1번")
-        //
-        //     })
-        //
-        // })
+    function fetchProductInfo() {
+        const prodSerial = $("#select2").val();
+        console.log("select2.val()" + prodSerial);
 
-        const $prodCategory = document.querySelector('#select1');
+        $.ajax({
+            url: "/product/information?prodSerial=" + prodSerial ,
+            type: "GET",
+            success: function (response) {
+                console.log("여기까지")
+                $("#name-text").val(response.prodName);
+                $("#amount-text").val(response.prodAmount);
+                $("#price-text").val(response.prodPrice);
+                $("#product-text").val(response.prodAccount);
+                console.log("상품ID " + prodSerial);
+            }
+        });
+    }
 
-        fetch(`/product/find?prodCategory=${selectedCategory}`)
-            .then(res => res.json())
-            .then(data => {
-                const $prodSelect = document.querySelector('#select2');
+    // function updateProduct() {
+    //     // 수정 정보를 변수에 할당.
+    //     const prodSerial = $("#select2").val();
+    //     const prodName = $("#name-text").val();
+    //     const prodAmount = $("#amount-text").val();
+    //     const prodPrice = $("#price-text").val();
+    //     const prodAccount = $("#product-text").val();
+    //
+    //     // ajax사용
+    //
+    //     $.ajax({
+    //         url: "/product/update",
+    //         type: "POST",
+    //         data:{
+    //             prodSerial: prodSerial,
+    //             prodName: prodName,
+    //             prodAmount: prodAmount,
+    //             prodPrice: prodPrice,
+    //             prodAccount: prodAccount
+    //         },
+    //         success: function (response) {
+    //             alert("업데이트 완료");
+    //             closeSaveModal();
+    //         },
+    //         error: function (xhr, status, error) {
+    //             console.error("오류 발생")
+    //         }
+    //     });
+    // }
 
-                data.forEach(category => {
-                    const $option = document.createElement('option');
-                    $option.textContent = category.categoryName;
-                    $option.value = category.prodCategory;
-                    $prodCategory.appendChild($option);
-                });
-                console.log("1번")
 
-                $prodCategory.change(function () {
-                    const selectedCategory = $(this).val();
-                    console.log(selectedCategory)
-                })
-            })
-
-
-
+</script>
+<script>
     function openSaveModal() {
         document.getElementById("savemodal").style.display = "block";
     }
@@ -372,6 +397,35 @@
 
     function saveChanges() {
         // 저장된 정보를 조회페이지에 반영하는 로직 추가하면됨
+
+
+        const prodSerial = $("#select2").val();
+        const prodName = $("#name-text").val();
+        const prodAmount = $("#amount-text").val();
+        const prodPrice = $("#price-text").val();
+        const prodAccount = $("#product-text").val();
+
+        // ajax사용
+
+        $.ajax({
+            url: "/product/update",
+            type: "POST",
+            data:{
+                prodSerial: prodSerial,
+                prodName: prodName,
+                prodAmount: prodAmount,
+                prodPrice: prodPrice,
+                prodAccount: prodAccount
+            },
+            success: function (response) {
+                console.log("업데이트 완료");
+                // closeSaveModal();
+            },
+            error: function (xhr, status, error) {
+                console.error("오류 발생")
+            }
+        });
+
         alert("상품 수정이 완료 되었습니다. ")
         closeSaveModal();
     }
