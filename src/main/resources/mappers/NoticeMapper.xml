@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lucete.comprehensive.board.notice.dao.NoticeMapper">
+    <select id="getALlNotice">
+        SELECT
+            NOTICE_NO,
+            NOTICE_CATEGORY,
+            NOTICE_TITLE,
+            NOTICE_DATE
+        FROM
+            notice
+    </select>
+    <select id="getSearchNotice" parameterType="hashmap">
+        SELECT
+        NOTICE_NO,
+        NOTICE_CATEGORY,
+        NOTICE_TITLE,
+        NOTICE_DATE
+        FROM
+        notice
+        <where>
+            <if test="searchConditionColumn == 'notice_title'">
+                NOTICE_TITLE LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchConditionColumn == 'notice_no'">
+                NOTICE_NO LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+
+            <if test="searchConditionCategory == 'normal'">
+                AND NOTICE_CATEGORY = '일반'
+            </if>
+            <if test="searchConditionCategory == 'event'">
+                AND NOTICE_CATEGORY = '이벤트'
+            </if>
+            <if test="searchStartDate != null and searchStartDate != '' and searchEndDate != null and searchEndDate != ''">
+                AND NOTICE_DATE BETWEEN DATE(#{searchStartDate}) AND DATE(#{searchEndDate})
+            </if>
+        </where>
+    </select>
+
+    <insert id="registNotice" parameterType="hashmap" >
+        <choose>
+            <when test="selectConditionCategory == 'normal'">
+                INSERT INTO notice (NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE,
+                NOTICE_CATEGORY, NOTICE_UPDATE, NOTICE_DELETE_STATUS, MEM_NO)
+                VALUES( #{noticeTitle}, #{noticeContent}, #{registDate},'normal', NULL, 'N', 3 )
+            </when>
+            <when test="selectConditionCategory == 'event'">
+                INSERT INTO notice (NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE,
+                NOTICE_CATEGORY, NOTICE_UPDATE, NOTICE_DELETE_STATUS, MEM_NO)
+                VALUES( #{noticeTitle}, #{noticeContent}, #{registDate},'event', NULL, 'N', 3 )
+            </when>
+        </choose>
+    </insert>
+
+
+
+
+
+
+
+
+
+</mapper>
