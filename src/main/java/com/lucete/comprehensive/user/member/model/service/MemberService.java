@@ -1,5 +1,6 @@
 package com.lucete.comprehensive.user.member.model.service;
 
+import com.lucete.comprehensive.product.model.dto.ProductDTO;
 import com.lucete.comprehensive.user.member.model.dao.MemberMapper;
 import com.lucete.comprehensive.user.member.model.dto.MemberDTO;
 import com.lucete.comprehensive.user.member.model.dto.SignInDTO;
@@ -47,7 +48,7 @@ public class MemberService {
         if(!Objects.isNull(login)) {
             System.out.println("록긩ㄴ 리턴함");
             return login;
-            
+
         } else {
             return null;
         }
@@ -74,10 +75,36 @@ public class MemberService {
     }
     public List<MemberDTO> selectMembers(String memName, String address, Date startDate, Date endDate){
         List<MemberDTO> result = memberMapper.selectMembers(memName,address,startDate,endDate);
+        System.out.println("불러오긴 했냐");
         return result;
+    }
+    public void updateEmail(String memName,String email){
+        memberMapper.updateEmail(memName, email);
+
+    }
+
+    public void changeAddress(String memId, String address){
+        memberMapper.changeAddress(memId,address
+        );
+    }
+    public MemberService(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public void changePassword(String memId, String newPassword) {
+        memberMapper.changePassword(memId, newPassword);
     }
 
 
+    public List<MemberDTO> getAllMembers(){
+       return memberMapper.getAllMembers();
+    }
 
 
+    public String getPasswordByUsername(String memId) {
+        return memberMapper.getPasswordByUserName(memId);
+    }
+    public List<ProductDTO> orderList(int memNo){
+        return memberMapper.orderList(memNo);
+    }
 }

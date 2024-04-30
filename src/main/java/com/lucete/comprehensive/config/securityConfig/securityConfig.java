@@ -44,7 +44,7 @@ public class securityConfig {
             auth.requestMatchers("/image/**").permitAll();
             //auth.requestMatchers("/**").permitAll(); //일단 모든 권한 주기
             auth.requestMatchers("/admin/**").hasAuthority(UserRole.ADMIN.getRole());
-           auth.requestMatchers("/user/mypage/*").hasAnyAuthority(UserRole.USER.getRole());
+            auth.requestMatchers("/user/mypage/*").hasAnyAuthority(UserRole.USER.getRole());
 //            auth.requestMatchers("/user/*").hasAnyAuthority(UserRole.USER.getRole());
             auth.anyRequest().authenticated();
 
@@ -84,5 +84,5 @@ public class securityConfig {
     }
 
 
-    }
+}
 

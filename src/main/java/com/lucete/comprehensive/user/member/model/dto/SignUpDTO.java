@@ -10,8 +10,9 @@ public class SignUpDTO extends MemberDTO implements Serializable{
     private String email;
     private String phone;
     private String address;
+    private String detailAddress;
+    private String extraAddress;
     private String role;
-
 
 
     public SignUpDTO(String memId, String memName, String password, String email, String phone, String address) {
@@ -77,5 +78,22 @@ public class SignUpDTO extends MemberDTO implements Serializable{
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getDetailAddress() {
+        return detailAddress;
+    }
+
+    public void setDetailAddress(String detailAddress) {
+        this.detailAddress = detailAddress;
+    }
+
+
+    public String getExtraAddress() {
+        return extraAddress;
+    }
+
+    public void setExtraAddress(String extraAddress) {
+        this.extraAddress = extraAddress;
     }
 }
