@@ -11,6 +11,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
 
     <style>
+
+        button {
+            background-color: #4caf50; /* 버튼 배경색 */
+            color: white; /* 버튼 글자색 */
+            padding: 10px 20px; /* 상하좌우 여백 */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* 호버 효과 전환 */
+            border-radius: 5px; /* 버튼 모서리 둥글게 */
+        }
+
+        button:hover {
+            background-color: #45a049; /* 호버 시 배경색 변경 */
+        }
+
         .title-view {
             padding: 25px 20px 70px;
             position: relative;
@@ -189,30 +204,101 @@
         </div>
     </div>
 
-    <div id="board-list">
-        <div class="containor2">
-            <table class="board-table">
-                <thead>
-                <tr>
-                    <th scope="col" >번호</th>
-                    <th scope="col" >제목</th>
-                    <th scope="col">분류</th>
-                    <th scope="col">작성일</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="notice:${noticeList}" id="notice" >
-                    <td th:text="${notice.noticeNo}"></td>
-                    <td th:text="${notice.noticeTitle}"></td>
-                    <td th:text="${notice.noticeCategory}"></td>
-                    <td th:text="${notice.noticeDate}"></td>
-                </tr>
-                </tbody>
-            </table>
+    <form action="/user/view" method="get">
+        <div id="board-list">
+            <div class="containor2">
+                <table class="board-table">
+                    <thead>
+                    <tr>
+                        <th scope="col" >번호</th>
+                        <th scope="col" >제목</th>
+                        <th scope="col">분류</th>
+                        <th scope="col">작성일</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="notice:${noticeList}" id="notice" >
+                        <td th:text="${notice.noticeNo}"></td>
+                        <td>
+                            <a th:href="@{/notice/user/view(noticeNo=${notice.noticeNo})}"
+                               th:text="${notice.noticeTitle}"></a>
+                        </td>
+                        <td th:text="${notice.noticeCategory}"></td>
+                        <td th:text="${notice.noticeDate}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-    <div class="hp_mb20"></div>
+        <div class="hp_mb20"></div>
+    </form>
 </div>
+
+<!-- 페이징 바 -->
+<div id="paging" align="center" style="margin-top: 20px;">
+
+    <th:block
+            th:if="${ paging.searchCondition != null and paging.searchValue != null }">
+        <!-- 맨 앞으로 이동 -->
+        <button
+                th:onclick="'location.href=\'/notice/user?page=1&searchCondition=' + @{${paging.searchCondition}} + '&searchValue=' + @{${paging.searchValue}} + '\''">&lt;&lt;</button>
+
+        <!-- 이전 페이지로 이동 -->
+        <button
+                th:onclick="'location.href=\'/notice/user?page=' + @{${paging.page - 1}} + '&searchCondition=' + @{${paging.searchCondition}} + '&searchValue=' + @{${paging.searchValue}} + '\''"
+                th:disabled="${ paging.page <= 1 }">&lt;</button>
+
+        <!-- 숫자 버튼 -->
+        <th:block
+                th:each="page : ${ #numbers.sequence(paging.startPage, paging.endPage)}">
+            <button
+                    th:onclick="'location.href=\'/notice/user?page=' + @{${page}} + '&searchCondition=' + @{${paging.searchCondition}} + '&searchValue=' + @{${paging.searchValue}} + '\''"
+                    th:text="${ page }" th:disabled="${ paging.page eq page }">
+            </button>
+        </th:block>
+
+        <!-- 다음 페이지로 이동 -->
+        <button
+                th:onclick="'location.href=\'/notice/user?page=' + @{${paging.page + 1}} + '&searchCondition=' + @{${paging.searchCondition}} + '&searchValue=' + @{${paging.searchValue}} + '\''"
+                th:disabled="${ paging.page >= paging.maxPage }">></button>
+
+        <!-- 맨 끝으로 이동 -->
+        <button
+                th:onclick="'location.href=\'/notice/user?page=' + @{${paging.maxPage}} + '&searchCondition=' + @{${paging.searchCondition}} + '&searchValue=' + @{${paging.searchValue}} + '\''">>></button>
+
+    </th:block>
+
+    <th:block
+            th:if="${ paging.searchCondition == null  || paging.searchValue == null }">
+        <!-- 맨 앞으로 이동 -->
+        <button th:onclick="'location.href=\'/notice/user?page=1\''">&lt;&lt;</button>
+
+        <!-- 이전 페이지로 이동 -->
+        <button
+                th:onclick="'location.href=\'/notice/user?page=' + @{${paging.page - 1}} + '\''"
+                th:disabled="${ paging.page <= 1 }">&lt;</button>
+
+        <!-- 숫자 버튼 -->
+        <th:block
+                th:each="page : ${ #numbers.sequence(paging.startPage, paging.endPage)}">
+            <button
+                    th:onclick="'location.href=\'/notice/user?page=' + @{${page}} + '\''"
+                    th:text="${ page }" th:disabled="${ paging.page eq page }">
+            </button>
+        </th:block>
+
+        <!-- 다음 페이지로 이동 -->
+        <button
+                th:onclick="'location.href=\'/notice/user?page=' + @{${paging.page + 1}} + '\''"
+                th:disabled="${ paging.page >= paging.maxPage }">></button>
+
+        <!-- 맨 끝으로 이동 -->
+        <button
+                th:onclick="'location.href=\'/notice/user?page=' + @{${paging.maxPage}} + '\''">>></button>
+    </th:block>
+
+</div>
+
 
 <!-- 공백용 -->
 <div id="wrapper">

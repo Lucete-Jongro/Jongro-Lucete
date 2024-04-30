@@ -100,12 +100,32 @@ public class NoticeController {
     }
 
     @GetMapping("/user")
-    public String userNoticePage(Model model) {
+    public String userNoticePage(Model model,
+                                 @RequestParam(defaultValue = "1") int page,
+                                 @RequestParam(required = false) String searchCondition,
+                                 @RequestParam(required = false) String searchValue) {
 
-        List<NoticeDTO> noticeList = noticeService.getAllNotice();
+        Map<String, String> searchMap = new HashMap<>();
+        searchMap.put("searchCondition", searchCondition);
+        searchMap.put("searchValue", searchValue);
 
-        model.addAttribute("noticeList", noticeList);
+        Map<String, Object> noticeListAndPaging = noticeService.selectNoticeList(searchMap, page);
+        model.addAttribute("paging", noticeListAndPaging.get("paging"));
+
+        model.addAttribute("noticeList", noticeListAndPaging.get("noticeList"));
 
         return "/notice/user/noticeMainView";
+    }
+
+    @GetMapping("/user/view")
+    public String viewDetailNotice(Model model,
+                                   @RequestParam int noticeNo) {
+
+        List<NoticeDTO> noticeList = noticeService.getDetailNotice(noticeNo);
+
+        model.addAttribute("noticeList",noticeList);
+
+        return "/notice/user/noticeDetailView";
+
     }
 }
