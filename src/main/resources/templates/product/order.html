@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin OrderInquiry Page</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+    <style>
+        .order-admin{
+            height: auto;
+        }
+        .product-category{
+            overflow: hidden;
+        }
+        .product-category-box{
+            width: 700px;
+            height: 500px;
+            border : 5px solid #969696;
+            border-radius : 10px;
+            overflow: hidden;
+
+        }
+        .category-box{
+            margin : 10px;
+            width: 680px;
+            height: 235px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+        .box{
+            margin: 10px;
+            width: 340px;
+            height: 115px;
+            background-color: gray;
+            border-radius: 30px;
+            background-color: #DEE2E6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .order-category{
+            width: 700px;
+            height: 110px;
+            overflow: hidden;
+            display: flex;
+        }
+        .left-text{
+            margin-left: 30px;
+            width: 130px;
+            height: 100px;
+            background-color: #d2d2d2;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 17px;
+            font-weight: bold;
+            border: 2px solid #838383;
+            border-right: 0px;
+        }
+        .right-text{
+            margin-right: 30px;
+            width: 500px;
+            height: 100px;
+            background-color: #e1e1e1;
+            border: 2px solid #838383;
+            overflow: hidden;
+        }
+        .date-box{
+            width: 500px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+        .inner-box{
+            width: 500px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+        .inner-box input{
+            width: 320px;
+        }
+        .inquiry-button{
+            margin-left: 20px;
+            width: 60px;
+            height: 20px;
+            background-color: #9BD3BF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+        }
+        .text-container{
+            width: 700px;
+            height: 700px;
+            overflow: hidden;
+        }
+        .user-container{
+            padding: auto;
+            width: 700px;
+            height: 270px;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+        }
+        .user-table-text{
+            margin-top: 10px;
+            margin-left: 30px;
+            margin-right: 30px;
+            width: 635px;
+            height: 40px;
+            border-collapse: collapse;
+            border: 2px solid #838383;
+            background-color: #d9d9d9;
+        }
+        th{
+            border: 2px solid #838383;
+        }
+        td{
+            width: 50px;
+            height: 65px;
+            background-color: white;
+            border: 2px solid #838383;
+            text-align: center;
+            font-weight: bold;
+        }
+        .non-container{
+            display: flex;
+        }
+        .non-user-container{
+            padding: auto;
+            width: 700px;
+            height: 270px;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+        }
+        .non-user-table-text{
+            margin-top: 10px;
+            margin-left: 30px;
+            margin-right: 30px;
+            width: 635px;
+            height: 40px;
+            border-collapse: collapse;
+            border: 2px solid #838383;
+            background-color: #d9d9d9;
+        }
+    </style>
+
+    <script>
+        // 1. 회원 주문 날짜 : 회원 여부 Y인 사람의 주문 tbl 주문 날짜
+        // 2. 검색 -> 회원여부 Y인 이름
+        // 3. 조회 : select
+        // 4. 내부 테이블 컬럼은 자동추가, #{}로 테이블 tr,td 자동 생성
+        // 5. 비회원 주문 날짜 : 회원 여부 N인 사람의 주문 tbl 주문 날짜
+        // 6. 검색 -> 회원여부 N인 이름
+        // 7. 조회 : select
+        // 주문 일자 : 주문날짜, 상품 상세 내용 : 상품명, 상품 금액 : 상품 개수, 총 결제 금액
+
+    </script>
+</head>
+
+<body>
+<header class="header">
+    <div class="containor">
+        <nav class="navbar">
+            <a href="/index"><img src="/image/logo.png" height="90"></a>
+            <ul class="navbar-list" style="list-style: none;">
+                </li>
+                <li class="navicon"><a href=""><img src="/image/login_icon.png" height="25"></a></li>
+                <li class="searchBar" >
+                    <input type="search">
+                    <input type="submit">
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</header>
+
+<div class="category-banner">
+    <nav class="category-navbar">
+
+
+        <ul class="category-list" style="list-style: none;">
+            <li class="category" style= "font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
+            <li class="category"><a href="Admin-OrderCategory-Page.html">주문관리</a></li>
+            <li class="category"><a href="/product/category">상품관리</a></li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Customer</li>
+
+            <li class="category"><a href="Admin-UserCategory-Page.html">회원관리</a></li>
+            <li class="category"><a href="1.문의_게시판_관리.html">게시판 관리</a></li>
+            <li class="category"><a href="2.리뷰_관리.html">리뷰 게시판 관리</a></li>
+            <li class="category"><a href="3.공지사항_관리.html">공지사항 관리</a></li>
+            <li class="category"><a href="4.쿠폰_관리.html">쿠폰 관리</a></li>
+            <li class="category"><a href="5.포인트_지급_관리.html">포인트 관리</a></li>
+            <li class="category"><a href="/onedayclass/category">원데이 클래스 관리</a></li>
+            <br><br><br><br><br><br><br>
+        </ul>
+    </nav>
+</div>
+
+<div class="order-admin">
+    <h4 style="font-weight: bold; font-size: 25px;">&nbsp;주문 상품 관리</h4>
+    <h4>&nbsp;&nbsp;&nbsp;● 회원 주문 조회</h4>
+    <div class="order-category">
+        <div class="left-text">
+            회원 조회
+        </div>
+        <div class="right-text">
+            <div class="date-box">
+                    <span>
+                        조회 시작일:
+                        <input type="date" name="startDate" id="startDate">
+                    </span>
+                &nbsp;&nbsp;~&nbsp;&nbsp;
+                <span>
+                        조회 종료일:
+                        <input type="date" name="endDate" id="startDate">
+                    </span>
+            </div>
+            <div class="inner-box">
+                    <span>
+                        검색:
+                        <input type="text" name="memName" id="memName" placeholder="검색하실 회원명을 입력해주세요">
+                    </span>
+                <span class="inquiry-button"><a href="">조회</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="text-container">
+        <div class="user-container">
+            <table class="user-table-text">
+                <th>주문 일자</th>
+                <th>상품 상세 내용</th>
+                <th>상품 금액</th>
+                <th>회원(아이디)</th>
+                <th>배송 현황</th>
+                <tr >
+                    <td>2024.03.26</td>
+                    <td>Dolphin necklace</td>
+                    <td>1개, 36,000원</td>
+                    <td>이재현(id)</td>
+                    <td>배송준비</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <!-- 타임리프 넣을 것 -->
+            </table>
+        </div>
+        <h4>&nbsp;&nbsp;&nbsp;● 비회원 주문 조회</h4>
+
+        <div class="non-container">
+            <div class="left-text">
+                비회원 조회
+            </div>
+            <div class="right-text">
+                <div class="date-box">
+                        <span>
+                            조회 시작일:
+                            <input type="date" name="" id="date3">
+                        </span>
+                    &nbsp;&nbsp;~&nbsp;&nbsp;
+                    <span>
+                            조회 종료일:
+                            <input type="date" name="" id="date4">
+                        </span>
+                </div>
+                <div class="inner-box">
+                        <span>
+                            검색 :
+                            <input type="text" name="MEM_NAME" id="text1" placeholder="검색하실 비회원명을 입력해주세요">
+                        </span>
+                    <span class="inquiry-button"><a href="">조회</a></span>
+                </div>
+            </div>
+        </div>
+        <div class="non-user-container">
+            <table class="non-user-table-text">
+                <th>주문 일자</th>
+                <th>상품 상세 내용</th>
+                <th>상품 금액</th>
+                <th>비회원 성함</th>
+                <th>배송 현황</th>
+                <tr >
+                    <td>2024.03.26</td>
+                    <td>Dolphin necklace</td>
+                    <td>1개, 36,000원</td>
+                    <td>이재현</td>
+                    <td>배송준비</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <!-- 타임리프 넣을 것 -->
+            </table>
+        </div>
+    </div>
+    <div>
+
+    </div>
+</div>
+
+<br><br><br><br><br><br><br>
+
+<div id="wrapper">
+    <div></div>
+</div>
+
+<footer class="footer">
+    <div class="containor">
+        <p>L u c e t e</p>
+        <ul class="info" style="list-style: none;">
+            <li class="info-list" style="font-size: smaller;"><a href>이용약관</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="info-list" style="font-size: smaller;"><a href>개인정보 처리방침</a></li>
+            <br><br>
+            <li class ="info-list" style="font-size: small;">상호: 루세트(Lucete) | 대표: 김민희 | 전화: 070-012-3456 | 이메일: lucete@gmail.com</li>
+            <br>
+            <li class="info-list" style="font-size: small;">주소:2222-312,25, Insadong 3-gil, Jongno-gu, Seoul, Republic of Korea</li>
+            <br>
+            <li class="info-list" style="font-size: small;">사업자등록번호:888-06-12345 | 통신판매:2024-서울인사동-0123</li>
+        </ul>
+
+
+    </div>
+</footer>
+</body>
+</html>

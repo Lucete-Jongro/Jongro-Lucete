@@ -47,7 +47,7 @@ public class ProductService {
         System.out.println("totalCount = " + totalCount);
 
         // 2. 페이징 처리 관련 계산 후 SelectCriteria 담는다.
-        int limit = 10;
+        int limit = 7;
         int buttonAmount = 5;
         SelectCriteria selectCriteria = Pagenation.getSelectCriteria(page, totalCount, limit, buttonAmount);
         selectCriteria.setSearchCondition(searchMap.get("searchCondition"));
@@ -93,16 +93,6 @@ public class ProductService {
 
     public boolean classFile(MultipartFile file, ProductDTO product) {
 
-
-//        //경로 지정
-//        String root = "src/main/resources/static";
-//
-//        //경로 파일 지정
-//        String uploadPath = root + "/upload";
-//
-//        //디렉토리 지정
-//        File dir = new File(uploadPath);
-
         String uploadPath = IMAGE_DIR;
 
         File dir = new File(uploadPath);
@@ -131,9 +121,6 @@ public class ProductService {
             fileDTO.setFileSize((int) file.getSize());
             fileDTO.setProdSerial(product.getProdSerial());
 
-            System.out.println(" file PATH !!!!!!!!!!!!!!!!!! "+fileDTO.getFilePass());
-
-            System.out.println("매퍼 들어감");
             productMapper.classFile(fileDTO);
 
 
@@ -239,5 +226,61 @@ public class ProductService {
 
         return true;
 
+    }
+
+    public List<ProductDTO> getViewLeft() {
+
+        return productMapper.getViewLeft();
+    }
+
+    public List<ProductDTO> getViewRight() {
+
+        return productMapper.getViewRight();
+    }
+
+    public List<ProductDTO> getDiyLeft() {
+
+        return productMapper.getDiyLeft();
+    }
+
+    public List<ProductDTO> getDiyRight() {
+
+        return productMapper.getDiyRight();
+    }
+
+    public List<ProductDTO> getKitLeft() {
+
+        return productMapper.getKitLeft();
+    }
+
+    public List<ProductDTO> getKitRight() {
+
+        return productMapper.getKitRight();
+    }
+
+    public List<ProductDTO> getOdcLeft() {
+
+        return productMapper.getOdcLeft();
+    }
+
+    public List<ProductDTO> getOdcRight() {
+
+        return productMapper.getOdcRight();
+    }
+
+    public ProductDTO prodDetail(int prodSerial) {
+
+        return productMapper.prodDetail(prodSerial);
+    }
+
+
+    public ProductDTO payment(int prodSerial) {
+
+        return productMapper.payment(prodSerial);
+    }
+
+    public ProductDTO paymentData(int prodSerial) {
+
+        return productMapper.paymentData(prodSerial);
     }
 }

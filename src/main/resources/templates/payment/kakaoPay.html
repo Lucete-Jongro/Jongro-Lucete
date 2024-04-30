@@ -24,7 +24,7 @@
                 <li class="navicon"><a href="mypage.html"><img src="/image/mypage_icon.png" height="25"></a></li>
                 <li class="navicon"><a href="login.html"><img src="/image/login_icon.png" height="25"></a></li>
                 <li class="navicon"><a href="index.html"><img src="/image/logout_icon.png" height="25"></a></li>
-                <li class="searchBar" >
+                <li class="searchBar">
                     <input type="search">
                     <input type="submit">
                 </li>
@@ -40,19 +40,20 @@
 
 
         <ul class="category-list" style="list-style: none;">
-            <li class="category" style= "font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
+            <li class="category"
+                style="font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
             <br>
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
-            <li class="category"><a href="">주얼리</a></li>
-            <li class="category"><a href="">DIY 자재</a></li>
-            <li class="category"><a href="">DIY Kit</a></li>
+            <li class="category"><a href="/main/prod">주얼리</a></li>
+            <li class="category"><a href="/main/diyProd">DIY 자재</a></li>
+            <li class="category"><a href="/main/kitProd">DIY Kit</a></li>
             <br>
             <li class="category" style="font-weight: bold; background-color: transparent !important;">Library</li>
 
-            <li class="category"><a href="">원데이 클래스</a></li>
-            <li class="category"><a href="">게시판</a></li>
-            <li class="category"><a href="">공지사항</a></li>
-            <br><br><br>
+            <li class="category"><a href="/main/onedayclassView">원데이 클래스</a></li>
+            <li class="category"><a href="BOARD_mainview .html">게시판</a></li>
+            <li class="category"><a href="NOTICE_01mainview.html">공지사항</a></li>
+            <br><br><br><br><br><br><br>
         </ul>
     </nav>
 </div>
@@ -79,12 +80,8 @@
     <br><br><br><br><br><br><br>
     <h3 class="sub-title">카카오페이<input type="radio" name="payment_type"></h3>
     <ul class="customer-information">
-        <li class="information">입금자명 : <input type="text" style="border: none; outline: none;"></li>
-        <li class="information">결제 금액 : <input type="text" style="border: none; outline: none;"></li>
-
-
-
-
+        <li class="information">상품명 : <input type="hidden" th:text="${productDTO.prodName}" th:value="${productDTO.prodName}" id="prodName"></li>
+        <li class="information">결제 금액 : <input type="hidden" th:text="${productDTO.prodPrice}" th:value="${productDTO.prodPrice}" id="prodPrice"></li>
     </ul>
 
 </div>
@@ -138,6 +135,9 @@
     var milliseconds = today.getMilliseconds();
     var makeMerchantUid = `${hours}` + `${minutes}` + `${seconds}` + `${milliseconds}`;
 
+    const prodPrice = parseInt(document.getElementById("prodPrice").value);
+    const prodName = document.getElementById("prodName").value;
+
     function kakaoPay() {
 
         if (confirm("구매 하시겠습니까?")) {
@@ -147,8 +147,8 @@
                 pg: 'kakaopay.TC0ONETIME',
                 pay_method: 'card',
                 merchant_uid: "IMP" + makeMerchantUid,
-                name: '상품명',
-                amount: 100,
+                name: prodName,
+                amount: prodPrice,
                 buyer_email: '안녕',
                 buyer_name: '녕안',
 
@@ -156,7 +156,7 @@
                 if (rsp.success) {
                     console.log(rsp);
                     if (response.status == 200) {
-                        alert('결제 완료')
+                        alert('결제가 완료되었습니다.')
                         window.location.reload();
                     } else {
                         alert('error')

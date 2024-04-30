@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.lucete.comprehensive.user.userRole.UserRole.ADMIN;
 import static com.lucete.comprehensive.user.userRole.UserRole.USER;
 
 public class SignInDTO extends MemberDTO implements Serializable {
@@ -16,7 +17,7 @@ public class SignInDTO extends MemberDTO implements Serializable {
     private String password;
     private String email;
     private char adminAuthority;
-    private UserRole userRole=USER;
+    private UserRole userRole=ADMIN;
     private String phone;
 
     public SignInDTO(int memNo, String memId, String memName, String password, String email, char adminAuthority, String phone) {
@@ -134,4 +135,5 @@ public class SignInDTO extends MemberDTO implements Serializable {
     public UserRole getRole() {
         return userRole;
     }
+
 }

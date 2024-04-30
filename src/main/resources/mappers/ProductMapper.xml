@@ -41,7 +41,163 @@
         <association property="productDTO" resultMap="generalProductResultMap"/>
     </resultMap>
 
+    <select id="getViewLeft" resultMap="generalProductResultMap">
+        SELECT
+            pd.*,
+            file.*
+        FROM
+            product pd
+        LEFT JOIN
+            upload_file file ON pd.PROD_SERIAL = file.PROD_SERIAL
+        WHERE
+            pd.PROD_SERIAL % 2 = 1
+        AND
+            pd.PROD_CATEGORY = 1
+        ORDER BY
+            pd.PROD_SERIAL DESC
+    </select>
 
+    <select id="getViewRight" resultMap="generalProductResultMap">
+        SELECT
+            prod.*,
+            fi.*
+        FROM
+            product prod
+        LEFT JOIN
+            upload_file fi ON prod.PROD_SERIAL = fi.PROD_SERIAL
+        WHERE
+            prod.PROD_SERIAL % 2 = 0
+        AND
+            prod.PROD_CATEGORY = 1
+        ORDER BY
+            prod.PROD_SERIAL DESC
+    </select>
+
+    <select id="getDiyLeft" resultMap="generalProductResultMap">
+        SELECT
+            prod.*,
+            fi.*
+        FROM
+            product prod
+                LEFT JOIN
+            upload_file fi ON prod.PROD_SERIAL = fi.PROD_SERIAL
+        WHERE
+            prod.PROD_SERIAL % 2 = 0
+        AND
+            prod.PROD_CATEGORY = 3
+        ORDER BY
+            prod.PROD_SERIAL DESC
+    </select>
+
+    <select id="getDiyRight" resultMap="generalProductResultMap">
+        SELECT
+            prod.*,
+            fi.*
+        FROM
+            product prod
+                LEFT JOIN
+            upload_file fi ON prod.PROD_SERIAL = fi.PROD_SERIAL
+        WHERE
+            prod.PROD_SERIAL % 2 = 1
+        AND
+            prod.PROD_CATEGORY = 3
+        ORDER BY
+            prod.PROD_SERIAL DESC
+    </select>
+    <select id="getKitLeft" resultMap="generalProductResultMap">
+        SELECT
+            prod.*,
+            fi.*
+        FROM
+            product prod
+                LEFT JOIN
+            upload_file fi ON prod.PROD_SERIAL = fi.PROD_SERIAL
+        WHERE
+            prod.PROD_SERIAL % 2 = 1
+        AND
+            prod.PROD_CATEGORY = 2
+        ORDER BY
+            prod.PROD_SERIAL DESC
+    </select>
+
+    <select id="getKitRight" resultMap="generalProductResultMap">
+        SELECT
+            prod.*,
+            fi.*
+        FROM
+            product prod
+                LEFT JOIN
+            upload_file fi ON prod.PROD_SERIAL = fi.PROD_SERIAL
+        WHERE
+            prod.PROD_SERIAL % 2 = 0
+        AND
+            prod.PROD_CATEGORY = 2
+        ORDER BY
+            prod.PROD_SERIAL DESC
+    </select>
+
+    <select id="getOdcLeft" resultMap="generalProductResultMap">
+        SELECT
+            prod.*,
+            fi.*
+        FROM
+            product prod
+                LEFT JOIN
+            upload_file fi ON prod.PROD_SERIAL = fi.PROD_SERIAL
+        WHERE
+            prod.PROD_SERIAL % 2 = 0
+        AND
+            prod.PROD_CATEGORY = 4
+        ORDER BY
+            prod.PROD_SERIAL DESC
+    </select>
+
+    <select id="getOdcRight" resultMap="generalProductResultMap">
+        SELECT
+            prod.*,
+            fi.*
+        FROM
+            product prod
+                LEFT JOIN
+            upload_file fi ON prod.PROD_SERIAL = fi.PROD_SERIAL
+        WHERE
+            prod.PROD_SERIAL % 2 = 1
+        AND
+            prod.PROD_CATEGORY = 4
+        ORDER BY
+            prod.PROD_SERIAL DESC
+    </select>
+
+
+    <select id="prodDetail" resultMap="generalProductResultMap">
+        SELECT
+            a.*,
+            b.*
+        FROM
+            product a
+        JOIN
+            upload_file b ON a.PROD_SERIAL = b.PROD_SERIAL
+        WHERE
+            a.PROD_SERIAL = #{prodSerial}
+    </select>
+
+    <select id="payment" resultMap="generalProductResultMap">
+        SELECT
+            *
+        FROM
+            product
+        WHERE
+            PROD_SERIAL = #{prodSerial}
+    </select>
+
+    <select id="paymentData" resultMap="generalProductResultMap">
+        SELECT
+            *
+        FROM
+            product
+        WHERE
+            PROD_SERIAL = #{prodSerial}
+    </select>
 
 
     <select id="findCategory" resultMap="categoryResultMap">
@@ -85,7 +241,8 @@
             b.FILE_PASS,
             a.PROD_PRICE,
             a.PROD_AMOUNT,
-            a.PROD_CATEGORY
+            a.PROD_CATEGORY,
+            b.*
         FROM
             product a
         JOIN
@@ -255,4 +412,5 @@
         INSERT INTO upload_file(FILE_NAME, UPLOAD_DATE, FILE_PASS, FILE_SIZE, PROD_SERIAL)
         VALUES (#{fileName}, #{uploadDate}, #{filePass}, #{fileSize}, #{prodSerial})
     </insert>
+
 </mapper>

@@ -171,5 +171,12 @@ public class ProductController {
         return "product/category";
     }
 
+    @GetMapping("/order")
+    public String orderInquiry() {
+
+        return "product/order";
+    }
+
+
 
 }
