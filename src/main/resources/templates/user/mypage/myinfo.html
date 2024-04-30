@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+    <div class="containor">
+        <nav class="navbar">
+            <a href="index.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
+            <ul class="navbar-list" style="list-style: none;">
+
+                <li class="navicon" id="search"><img src="/image/검색 아이콘.png" height="25">
+
+                </li>
+                <li class="navicon"><a href=""><img src="/image/장바구니 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/마이페이지 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="searchBar" >
+                    <input type="search">
+                    <input type="submit">
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</header>
+
+<div class="category-banner">
+    <nav class="category-navbar">
+
+
+        <ul class="category-list" style="list-style: none;">
+            <li class="category"
+                style="font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
+            <li class="category"><a href="PRODUCT_mainview .html">주얼리</a></li>
+            <li class="category"><a href="DIY_PRODUCT_mainview.html">DIY 자재</a></li>
+            <li class="category"><a href="DIYkit_PRODUCT_mainview.html">DIY Kit</a></li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Library</li>
+
+            <li class="category"><a href="ONEDAY_CLASS_mainview .html">원데이 클래스</a></li>
+            <li class="category"><a href="BOARD_mainview .html">게시판</a></li>
+            <li class="category"><a href="NOTICE_01mainview.html">공지사항</a></li>
+            <br><br><br><br><br><br><br>
+        </ul>
+    </nav>
+</div>
+
+<div class="mypage">
+    <h1 class="title">내 정보 관리</h1>
+    <h3 class="sub-title">회원정보</h3>
+    <ul class="myinfo-list">
+        <li class="information" name="MEM_NAME">고객명 :  <span th:text="${ #authentication.principal.username }"></span> <img src="assets/image/trophy_695151.png" height="20px"></li>
+        <li class="information" name=""MEM_ID>아이디 :  <span th:text="${#authentication.principal.memberId}"></span>
+        </li>
+        <li class="information" name="PASSWORD">비밀번호 : ******** <button class="button-myinfo"><a th:href="@{/user/mypage/changepwd}">비밀번호 변경</a></button></li>
+        <li class="information" name="EMAIL">이메일 : <span th:text="${#authentication.principal.email}"></span> <button class="button-myinfo"><a th:href="@{/user/mypage/updateEmail}"method="post">이메일 변경</a></button></li>
+        <li class="information" name="PHONE">연락처 :  <span th:text="${#authentication.principal.phone}"></span></li>
+    </ul>
+</div>
+<div class="mypage">
+
+
+    <div class="mypage">
+        <br><br><br><br><br><br><br><br><br><br><br>
+        <h3 class="sub-title">배송정보</h3>
+        <ul class="myinfo-list">
+
+            <li class="information" NAME="ADRESS">배송지 1 - 서울 종로구 인사동길 12 대일빌딩, 7층 <button class="orderbutton"><a href="edit-adress.html">정보 수정</a></button>
+
+            </li>
+
+        </ul>
+
+    </div>
+    <button class="add-adress"><a href="add-adress.html">주소 추가</a></button>
+
+    <div class="mypage">
+
+        <button class="quit"><a href="quit1.html">회원 탈퇴</a></button>
+
+</body>
+</html>

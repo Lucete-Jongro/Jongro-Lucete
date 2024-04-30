@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
+</head>
+
+</head>
+<body>
+<header class="header">
+    <div class="containor">
+        <nav class="navbar">
+            <a href="index.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
+            <ul class="navbar-list" style="list-style: none;">
+
+                <li class="navicon" id="search"><img src="/image/검색 아이콘.png" height="25">
+
+                </li>
+                <li class="navicon"><a href=""><img src="/image/장바구니 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/마이페이지 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="searchBar" >
+                    <input type="search">
+                    <input type="submit">
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</header>
+
+
+<div class="category-banner">
+    <nav class="category-navbar">
+
+
+        <ul class="category-list" style="list-style: none;">
+            <li class="category"
+                style="font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
+            <li class="category"><a href="PRODUCT_mainview .html">주얼리</a></li>
+            <li class="category"><a href="DIY_PRODUCT_mainview.html">DIY 자재</a></li>
+            <li class="category"><a href="DIYkit_PRODUCT_mainview.html">DIY Kit</a></li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Library</li>
+
+            <li class="category"><a href="ONEDAY_CLASS_mainview .html">원데이 클래스</a></li>
+            <li class="category"><a href="BOARD_mainview .html">게시판</a></li>
+            <li class="category"><a href="NOTICE_01mainview.html">공지사항</a></li>
+            <br><br><br><br><br><br><br>
+        </ul>
+    </nav>
+</div>
+
+
+<div class="coupon">
+    <h1> 주문목록 </h1>
+    <table class="coupon-table">
+        <caption>배송 대기중인 상품</caption>
+        <thead>
+        <tr>
+            <td class="table-data">제품명</td>
+            <td class="table-data">수량</td>
+            <td class="table-data">가격</td>
+            <td class="table-data">주문일자</td>
+            <td class="table-data">주문/배송 취소</td>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 데이터베이스에서 가져온 상품 정보를 반복하여 테이블 행을 생성 -->
+        <tr th:each="product : ${products}">
+            <td class="table-data" th:text="${product.name}">제품명</td>
+            <td class="table-data" th:text="${product.quantity}">수량</td>
+            <td class="table-data" th:text="${product.price}">가격</td>
+            <td class="table-data" th:text="${product.orderDate}">주문일자</td>
+            <td class="table-data">
+                <!-- 주문/배송 취소 버튼 -->
+                <button class="orderbutton">
+                    <a th:href="@{'cancel/' + ${product.id}}">주문/배송 취소</a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="coupon">
+
+    <table class="coupon-table">
+        <caption>배송이 완료된 상품</caption>
+        <thead>
+        <tr>
+
+            <td class="table-data">제품명</td>
+            <td class="table-data">수량</td>
+            <td class="table-data">가격</td>
+            <td class="table-data">주문일자</td>
+
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr>
+
+            <td class="table-data">제품1 <button class="orderbutton"><a href="refund.html">주문/배송 취소</a></button></td>
+
+            <td class="table-data">2</td>
+            <td class="table-data">25000</td>
+            <td class="table-data">2024/02/02 12:09</td>
+
+        </tr>
+        <tr>
+
+            <td class="table-data">제품1 <button class="orderbutton"><a href="refund.html">주문/배송 취소</a></button></td>
+            <td class="table-data">2</td>
+            <td class="table-data">25000</td>
+            <td class="table-data">2024/02/02 12:09</td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+</body>
+
+</html>

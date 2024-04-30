@@ -151,10 +151,10 @@
 <header class="header">
     <div class="containor">
         <nav class="navbar">
-            <a href="Admin-MainPage.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
+            <a href="Admin-MainPage.html"><img src="/image/logo.png" height="90"></a>
             <ul class="navbar-list" style="list-style: none;">
                 </li>
-                <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/login_icon.png" height="25"></a></li>
                 <li class="searchBar" >
                     <input type="search">
                     <input type="submit">
@@ -184,7 +184,7 @@
             <li class="category"><a href="3.공지사항_관리.html">공지사항 관리</a></li>
             <li class="category"><a href="4.쿠폰_관리.html">쿠폰 관리</a></li>
             <li class="category"><a href="5.포인트_지급_관리.html">포인트 관리</a></li>
-            <li class="category"><a href="Admin-OneDayClass-Category-Page.html">원데이 클래스 관리</a></li>
+            <li class="category"><a href="/onedayclass/category">원데이 클래스 관리</a></li>
             <br><br><br><br><br><br><br>
         </ul>
     </nav>
@@ -239,7 +239,7 @@
             </table>
         </div>
         <div class="submit-button">
-            <button type="submit" class="inquiry-button" style="font-size: 17px; font-weight: bold;" onclick="submitProduct()">상품 등록</button>
+            <button type="button" class="inquiry-button" style="font-size: 17px; font-weight: bold;">상품 등록</button>
         </div>
     </form>
 </div>
@@ -256,57 +256,103 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 
+    $(document).ready(function () {
+        $('.inquiry-button').click(function (){
+            submitProduct();
+        });
+    });
+
+
     function submitProduct() {
-        var prodCategory = $('#category-text').val();
-        var prodName = $('#name-text').val();
-        var prodAmount = $('#amount-text').val();
-        var prodPrice = $('#price-text').val();
-        var prodAccount = $('#product-text').val();
+        const prodCategory = $('#category-text').val();
+        const prodName = $('#name-text').val();
+        const prodAmount = $('#amount-text').val();
+        const prodPrice = $('#price-text').val();
+        const prodAccount = $('#product-text').val();
+        const attachImage = $('#image-text')[0].files[0];
 
-        var productData = {
-            prodCategory: prodCategory,
-            prodName: prodName,
-            prodAmount: prodAmount,
-            prodPrice: prodPrice,
-            prodAccount: prodAccount
-        };
+        const formData = new FormData();
+        formData.append('prodCategory', prodCategory);
+        formData.append('prodName', prodName);
+        formData.append('prodAmount', prodAmount);
+        formData.append('prodPrice', prodPrice);
+        formData.append('prodAccount', prodAccount);
+        formData.append('attachImage', attachImage);
 
+        alert(prodCategory);
+
+        console.log(prodCategory);
         $.ajax({
-            url: '/product/Insert',
-            type: 'POST',
-            data: JSON.stringify(productData),
-            contentType: 'application/json',
-            success: function (response) {
-                var prodSerial = response.prodSerial;
-                uploadImage(prodSerial);
-            },
-            error: function (xhr, status, error) {
-                alert("상품 등록 중 오류가 발생했습니다.");
-            }
-        });
-    }
-
-    function uploadImage(prodSerial) {
-        var formData = new FormData();
-        var imageFile = $('#image-text')[0].files[0];
-        formData.append('imageFile', imageFile);
-        formData.append('prodSerial', prodSerial);
-
-        $.ajax({
-            url: '/product/Insert',
-            type: 'POST',
-            data: formData,
-            contentType: false,
+            type: "POST",
+            url: "/product/Insert",
             processData: false,
-            success: function (response) {
-                alert("이미지 업로드가 완료되었습니다.");
-                closeSaveModal();
+            contentType: false,
+            data:formData,
+            success:function (result) {
+                alert("등록 완료");
+                alert("fileName : " + attachImage);
+
+                window.location.reload();
             },
-            error: function (xhr, status, error) {
-                alert("이미지 업로드 중 오류가 발생했습니다.")
+            error:function (e) {
+                console.log("등록 실패");
+                console.log(e);
             }
         });
     }
+
+
+    // function submitProduct() {
+    //     var prodCategory = $('#category-text').val();
+    //     var prodName = $('#name-text').val();
+    //     var prodAmount = $('#amount-text').val();
+    //     var prodPrice = $('#price-text').val();
+    //     var prodAccount = $('#product-text').val();
+    //
+    //     var productData = {
+    //         prodCategory: prodCategory,
+    //         prodName: prodName,
+    //         prodAmount: prodAmount,
+    //         prodPrice: prodPrice,
+    //         prodAccount: prodAccount
+    //     };
+    //
+    //     $.ajax({
+    //         url: '/product/Insert',
+    //         type: 'POST',
+    //         data: JSON.stringify(productData),
+    //         contentType: 'application/json',
+    //         success: function (response) {
+    //             var prodSerial = response.prodSerial;
+    //             uploadImage(prodSerial);
+    //         },
+    //         error: function (xhr, status, error) {
+    //             alert("상품 등록 중 오류가 발생했습니다.");
+    //         }
+    //     });
+    // }
+    //
+    // function uploadImage(prodSerial) {
+    //     var formData = new FormData();
+    //     var imageFile = $('#image-text')[0].files[0];
+    //     formData.append('imageFile', imageFile);
+    //     formData.append('prodSerial', prodSerial);
+    //
+    //     $.ajax({
+    //         url: '/product/Insert',
+    //         type: 'POST',
+    //         data: formData,
+    //         contentType: false,
+    //         processData: false,
+    //         success: function (response) {
+    //             alert("이미지 업로드가 완료되었습니다.");
+    //             closeSaveModal();
+    //         },
+    //         error: function (xhr, status, error) {
+    //             alert("이미지 업로드 중 오류가 발생했습니다.")
+    //         }
+    //     });
+    // }
 
     function openSaveModal() {
         document.getElementById("savemodal").style.display = "block";

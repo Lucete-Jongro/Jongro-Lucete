@@ -23,11 +23,11 @@ public interface InquiryMapper {
 
     void updateInquiry(InquiryDTO inquiryNo);
 
-    void insertComm(CommDTO registComm);
-
-    List<CommDTO> selectCommList(CommDTO loadComm);
-
-    void deleteComm(CommDTO removeComm);
+//    void insertComm(CommDTO registComm);
+//
+//    List<CommDTO> selectCommList(CommDTO loadComm);
+//
+//    void deleteComm(CommDTO removeComm);
 
 
 
@@ -37,6 +37,14 @@ public interface InquiryMapper {
 
     List<InquiryDTO> AdminSelectInquiryList(SelectCriteria selectCriteria);
 
+    InquiryDTO AdminSelectInquiryDetail(int inquiryNo);
+
+    void deleteAdminInquiry(int inquiryNo);
+
+    /* 답변 */
+    CommDTO searchCommDetail(int commKey);
+
+    void insertComm(CommDTO comm);
 }
 
 

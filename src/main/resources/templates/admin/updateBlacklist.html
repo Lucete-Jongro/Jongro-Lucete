@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin InsertBlackList Page</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+
+    <link rel="stylesheet" th:href="@{/css/mystyle.css}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <style>
+        .insert-blacklist-container{
+            width: 700px;
+            height: auto;
+            overflow: hidden;
+        }
+        .insert-userInfo{
+            margin-left: 30px;
+
+            background-color: white;
+        }
+        .form-table{
+            width: 100%;
+            border-top: 3px solid black;
+            border-bottom: 2px solid #c2c2c2;
+            border-left: 2px solid #c2c2c2;
+            border-right: 2px solid #c2c2c2;
+            border-collapse: collapse;
+        }
+        tr{
+            border: 2px solid #c2c2c2;
+            background-color: #d9d9d9;
+            text-align: center;
+            font-weight: bold;
+        }
+        .form-table td {
+            padding: 0;
+        }
+
+        .form-table input[type="text"],
+        .form-table input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .blacklist-insert{
+            margin-top: 100px;
+        }
+        .reason-table{
+            margin-top: 10px;
+            width: 100%;
+            border-top: 3px solid black;
+            border-bottom: 2px solid #c2c2c2;
+            border-left: 2px solid #c2c2c2;
+            border-right: 2px solid #c2c2c2;
+            border-collapse: collapse;
+        }
+        .reason-table tr{
+            border: 2px solid #c2c2c2;
+            background-color: #d9d9d9;
+            text-align: center;
+            font-weight: bold;
+        }
+        .reason-table td{
+            padding: 0;
+        }
+        .reason-table input[type="date"]{
+            width: 180px;
+        }
+        .reason-table #reason{
+            width: 400px;
+            height: 100px;
+        }
+        .blacklist-btn{
+            background-color: #A2D6A7;
+            border: 2px solid #286B11;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="containor">
+        <nav class="navbar">
+            <a href="Admin-MainPage.html"><img src="/image/로고 누끼(이름만).png" height="90"></a>
+            <ul class="navbar-list" style="list-style: none;">
+                </li>
+                <li class="navicon"><a href=""><img src="/image/로그인 아이콘.png" height="25"></a></li>
+                <li class="searchBar" >
+                    <input type="search">
+                    <input type="submit">
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</header>
+<div class="category-banner">
+    <nav class="category-navbar">
+
+
+        <ul class="category-list" style="list-style: none;">
+            <li class="category" style= "font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
+            <li class="category"><a href="Admin-OrderCategory-Page.html">주문관리</a></li>
+            <li class="category"><a href="Admin-ProductCategory-Page.html">상품관리</a></li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Customer</li>
+
+            <li class="category"><a href="Admin-UserCategory-Page.html">회원관리</a></li>
+            <li class="category"><a href="1.문의_게시판_관리.html">게시판 관리</a></li>
+            <li class="category"><a href="2.리뷰_관리.html">리뷰 게시판 관리</a></li>
+            <li class="category"><a href="3.공지사항_관리.html">공지사항 관리</a></li>
+            <li class="category"><a href="4.쿠폰_관리.html">쿠폰 관리</a></li>
+            <li class="category"><a href="5.포인트_지급_관리.html">포인트 관리</a></li>
+            <li class="category"><a href="Admin-OneDayClass-Category-Page.html">원데이 클래스 관리</a></li>
+            <br><br><br><br><br><br><br>
+        </ul>
+    </nav>
+</div>
+
+<div class="insert-blacklist-container">
+    <h4 style="font-weight: bold; font-size: 25px;">&nbsp;&nbsp;블랙리스트 등록</h4>
+    <br>
+    <div class="insert-userInfo">
+        <div class="insert-table">
+            <div class="table-text"><h3>● 회원 정보 등록</h3></div>
+            <table class="form-table">
+                <tr>
+                    <td>이름</td>
+                    <td><input type="text" name="memName" /></td>
+                </tr>
+                <tr>
+                    <td>이메일</td>
+                    <td><input type="email" name="email" /></td>
+                </tr>
+                <tr>
+                    <td>주소</td>
+                    <td><input type="text" name="address" /></td>
+                </tr>
+            </table>
+        </div>
+        <div class="blacklist-insert">
+            <h3>● 블랙리스트 사유</h3>
+            <table class="reason-table">
+                <tr>
+                    <td><label for="black-date">블랙리스트 기간</label></td>
+                    <td>
+                        <input type="date" name="blacklistStartDate" />
+                        <span>~</span>
+                        <input type="date" name="blacklistEndDate" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="reason">사유</label></td>
+                    <td><textarea name="blacklistReason"></textarea></td>
+                </tr>
+            </table>
+            <div style="text-align: right; margin-top: 10px;">
+                <button type="submit" class="blacklist-btn">블랙리스트 등록</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<br><br><br><br><br><br><br>
+
+<footer class="footer">
+    <div class="containor">
+        <p>L u c e t e</p>
+        <ul class="info" style="list-style: none;">
+            <li class="info-list" style="font-size: smaller;"><a href>이용약관</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="info-list" style="font-size: smaller;"><a href>개인정보 처리방침</a></li>
+            <br><br>
+            <li class ="info-list" style="font-size: small;">상호: 루세트(Lucete) | 대표: 김민희 | 전화: 070-012-3456 | 이메일: lucete@gmail.com</li>
+            <br>
+            <li class="info-list" style="font-size: small;">주소:2222-312,25, Insadong 3-gil, Jongno-gu, Seoul, Republic of Korea</li>
+            <br>
+            <li class="info-list" style="font-size: small;">사업자등록번호:888-06-12345 | 통신판매:2024-서울인사동-0123</li>
+        </ul>
+
+
+    </div>
+</footer>
+</body>
+</html>

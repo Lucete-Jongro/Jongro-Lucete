@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -40,21 +41,32 @@ public class securityConfig {
         http.authorizeHttpRequests( auth -> {
             auth.requestMatchers("/auth/login", "/user/signup", "/auth/fail", "/", "/index").permitAll();
             auth.requestMatchers("/user/findid","/user/findpwd").permitAll();
-            auth.requestMatchers("/**").permitAll(); //일단 모든 권한 주기
-//            auth.requestMatchers("/admin/*").hasAnyAuthority(UserRole.ADMIN.getRole());
+            auth.requestMatchers("/image/**").permitAll();
+            //auth.requestMatchers("/**").permitAll(); //일단 모든 권한 주기
+            auth.requestMatchers("/admin/**").hasAuthority(UserRole.ADMIN.getRole());
+           auth.requestMatchers("/user/mypage/*").hasAnyAuthority(UserRole.USER.getRole());
 //            auth.requestMatchers("/user/*").hasAnyAuthority(UserRole.USER.getRole());
             auth.anyRequest().authenticated();
 
-        }).formLogin( login -> {
+
+        }).formLogin(login -> {
             login.loginPage("/auth/login");
-
-
             login.permitAll();
             login.usernameParameter("memId");
             login.passwordParameter("password");
-            login.defaultSuccessUrl("/", true);
-            login.failureHandler(authFailHandler);
+            // Redirect based on user role
+            login.successHandler((request, response, authentication) -> {
+                for (GrantedAuthority authority : authentication.getAuthorities()) {
+                    if (authority.getAuthority().equals(UserRole.ADMIN.getRole())) {
+                        response.sendRedirect("/admin-page"); // Redirect admin to admin page
+                        return;
+                    }
+                }
+                System.out.println(authentication.getAuthorities());
+                response.sendRedirect("/"); // Redirect normal user to index page
 
+            });
+            login.failureHandler(authFailHandler);
 
         }).logout( logout -> {
             logout.logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"));
