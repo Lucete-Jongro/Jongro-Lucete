@@ -192,7 +192,7 @@
             <th>재고량</th>
                 <tr th:each="product : ${productList}">
                     <td th:text="${product.prodName}"></td>
-                    <td><img src="/image/반지10.jpg" style="width: 100%; height: 100%;"></td>
+                    <td><img th:if="${product.file != null}" th:src="@{|/upload/${product.file.fileName}|}" style="width: 100%; height: 100%;"></td>
                     <td th:text="${product.prodPrice}"></td>
                     <td th:text="${product.prodAmount}"></td>
                 </tr>

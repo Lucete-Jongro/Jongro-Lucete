@@ -55,4 +55,26 @@ public interface ProductMapper {
 
     void insertFile(FileDTO fileDTO);
 
+    List<ProductDTO> getViewLeft();
+
+    List<ProductDTO> getViewRight();
+
+    List<ProductDTO> getDiyLeft();
+
+    List<ProductDTO> getDiyRight();
+
+    List<ProductDTO> getKitLeft();
+
+    List<ProductDTO> getKitRight();
+
+    List<ProductDTO> getOdcLeft();
+
+    List<ProductDTO> getOdcRight();
+
+    ProductDTO prodDetail(int prodSerial);
+
+
+    ProductDTO payment(int prodSerial);
+
+    ProductDTO paymentData(int prodSerial);
 }

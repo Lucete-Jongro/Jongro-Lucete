@@ -18,9 +18,9 @@
 <!--        <collection property="commList" resultMap="commResultMap"/>-->
     </resultMap>
 
-    <resultMap id="memberResultMap" type="com.lucete.comprehensive.user.member.MemberDTO">
-        <id property="memNo" column="MEM_NO"/>
-    </resultMap>
+<!--    <resultMap id="memberResultMap" type="com.lucete.comprehensive.user.member.MemberDTO">-->
+<!--        <id property="memNo" column="MEM_NO"/>-->
+<!--    </resultMap>-->
 
 <!--        <resultMap type="com.lucete.comprehensive.board.review.dto.CommentDTO" id="commentResultMap">-->
 <!--            <id property="commKey" column="COMM_KEY"/>-->

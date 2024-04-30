@@ -5,7 +5,7 @@ import com.lucete.comprehensive.board.inquiry.dto.InquiryDTO;
 import com.lucete.comprehensive.board.review.dto.CommentDTO;
 import com.lucete.comprehensive.board.review.dto.ReviewDTO;
 import com.lucete.comprehensive.board.review.service.ReviewService;
-import com.lucete.comprehensive.user.member.MemberDTO;
+import com.lucete.comprehensive.user.member.model.dto.MemberDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

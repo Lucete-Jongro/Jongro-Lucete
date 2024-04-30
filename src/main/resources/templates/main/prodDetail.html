@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+    <style>
+        .pro-mainview {
+            padding: 25px 40px 70px;
+            position: relative;
+            display: flex;
+        }
+
+        #detailRight {
+            position: relative;
+            right: 0;
+            width: 30%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        #detailCenter {
+            width: 60%;
+            margin: 0 auto;
+            margin-top: -240px;
+        }
+
+        .pro1-img {
+            padding-top: 300px;
+            position: center;
+        }
+
+        .detail-1 {
+            text-align: center;
+            font-weight: 600;
+            padding-top: 70px;
+        }
+
+        .detail-2 {
+            text-align: center;
+            border: none;
+        }
+
+        #detail-text {
+            table-layout: fixed;
+            /* white-space : 요소 내부 공백문자 처리와 줄바꿈 규칙지정 */
+            white-space: pre-line;
+            margin-top: 100px;
+        }
+
+        #detail-text2 {
+            table-layout: fixed;
+            white-space: pre-line;
+            text-align: left;
+            margin-top: 300px;
+        }
+
+        .titleDetail {
+            font-size: 20px;
+            padding-top: 80px;
+            font-weight: bolder;
+        }
+
+        .titleDetail2 {
+            font-size: 15px;
+            font-weight: 550;
+        }
+
+        .quantityText {
+            text-align: left;
+            padding-left: 80px;
+            padding-top: 15px;
+        }
+
+        #quantity {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            font-size: 12px;
+            line-height: 25px;
+            text-align: center;
+            margin: 0.5px 0 0
+        }
+
+        .up-qty {
+            width: 18px;
+        }
+        .down-qty {
+            width: 20px;
+        }
+
+        #button-submit2 {
+            background: none;
+            color: black;
+            border: none;
+            width: 80px;
+            height: 30px;
+            border-radius: 5px;
+            border: solid 0.05px;
+        }
+
+        #button-submit3 {
+            background: none;
+            color: black;
+            border: none;
+            width: 80px;
+            height: 30px;
+            border-radius: 5px;
+            border: solid 0.05px;
+        }
+        .b3 {
+            padding-bottom: 50px;
+            padding-top: 50px;
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+<header class="header">
+    <div class="containor">
+        <nav class="navbar">
+            <a href="index.html"><img src="/image/logo.png" height="90"></a>
+            <ul class="navbar-list" style="list-style: none;">
+
+                <li class="navicon" id="search"><img src="/image/search_icon.png" height="25">
+
+                </li>
+                <li class="navicon"><a href="shoppingcart.html"><img src="/image/shopping_cart_icon.png" height="25"></a></li>
+                <li class="navicon"><a href="mypage.html"><img src="/image/mypage_icon.png" height="25"></a></li>
+                <li class="navicon"><a href="login.html"><img src="/image/login_icon.png" height="25"></a></li>
+                <li class="navicon"><a href="index.html"><img src="/image/logout_icon.png" height="25"></a></li>
+                <li class="searchBar">
+                    <input type="search">
+                    <input type="submit">
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</header>
+
+
+<div class="category-banner">
+    <nav class="category-navbar">
+
+
+        <ul class="category-list" style="list-style: none;">
+            <li class="category"
+                style="font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
+            <li class="category"><a href="/main/prod">주얼리</a></li>
+            <li class="category"><a href="/main/diyProd">DIY 자재</a></li>
+            <li class="category"><a href="/main/kitProd">DIY Kit</a></li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Library</li>
+
+            <li class="category"><a href="/main/onedayclassView">원데이 클래스</a></li>
+            <li class="category"><a href="BOARD_mainview .html">게시판</a></li>
+            <li class="category"><a href="NOTICE_01mainview.html">공지사항</a></li>
+            <br><br><br><br><br><br><br>
+        </ul>
+    </nav>
+</div>
+
+
+<div class="pro-mainview">
+
+    <div id="detailCenter" class="">
+        <div class="productDetail"></div>
+
+        <div class="pro1-img">
+            <img th:if="${product.file != null}" th:src="@{|/upload/${product.file.fileName}|}" height="300" class="img1">
+        </div>
+        <!-- 상품 사이즈, 컬러 간단설명   -->
+        <div class="detail-1">
+            <p>size : free</p>
+            <input type="hidden" id="prodSerial" th:value="${product.prodSerial}">
+        </div>
+        <!-- 상품 상세설명  -->
+        <div class="detail-2">
+            <table id="detail-text">
+                <th>
+                <td th:text="${product.prodAccount}"></td>
+                </th>
+            </table>
+
+            <!-- 공지사항  -->
+            <table id="detail-text2">
+                <th>
+                <td>NOTICE
+
+                    A/S
+                    - 제품의 컨디션에 따라 추가비용이 발생할 수 있습니다.
+                    - 기간은 7 ~ 14일 정도 (주말 미포함) 소요됩니다.
+                    - 제품에 대한 보증기간은 1년이며, 1년 이후에는 유·무상으로 A/S가 진행됩니다.
+                    단, 고객부주의로 인한 A/S는 기간에 상관없이 유상처리됩니다.
+                    - A/S기준이나 가능여부는 상품에 따라 다르므로 고객센터로 연락주시면 자세히 안내드리겠습니다.
+
+
+                    Exchange / Refund (교환 / 환불)
+                    - 반품/교환시 왕복택배비 6,000원이 부과됩니다.
+                    - 상품하자, 오배송인 경우 택배비 무료로 반품·교환이 가능합니다.
+                    - 고객 변심에 의한 반품·교환의 경우 배송비는 고객부담입니다.
+                    - 반품·교환은 미사용 제품에 한해 배송완료 후 7일 이내에 접수되어야 합니다.
+                    - 교환·반품을 원할 경우 고객센터 접수해주세요.
+                    - 사용흔적이 있거나 고객부주의로 상품이 훼손된 경우 반품·교환이 불가능합니다.
+                    - 취소·반품·교환은 전자상거래법 규정에 의거한 정책을 준수합니다.
+
+
+                    Shipping (배송)
+                    - 제작기간에 따라서 3~5일 정도 소요됩니다.
+                    - 택배사 사정이나 지역에 따라 소요기간에 차이가 있을 수 있습니다.
+                    - 공휴일 및 휴일은 배송이 불가합니다.
+                </td>
+                </th>
+            </table>
+
+        </div>
+    </div>
+
+    <!-- 오른쪽 상세 -->
+    <div id="detailRight">
+
+        <div class="titleDetail">
+            <p th:text="${product.prodName}" id="prodName"></p>
+        </div>
+        <div class="titleDetail2">
+            <p th:text="${product.prodPrice}" id="prodPrice"></p>
+        </div>
+        <span>
+                <!-- 수량 선택 js 구현필요 -->
+            <div class="quantityText">
+                <span class="down-qty" id="down-qty" alt="감소" ><a href="#" >–</a></span>
+                <input id="quantity" class="quantity" type="text" styleoption-sequence="1" value="1">
+                <span class="up-qty" id="up-qty" alt="증가" ><a href="#" >+</a></span>
+
+
+            </span>
+    </div>
+    <div class="b3">
+        <!-- 해당 페이지 이동 필요  -->
+        <button id="button-submit2"><a th:href="@{/payment/kakaoPay(prodSerial=${product.prodSerial})}" onclick="sendData()">buy now</a></button>
+        <button id="button-submit3"><a href="shoppingcart.html">add to cart</button>
+
+    </div>
+</div>
+
+</div>
+
+
+
+<!-- 공백용 -->
+<div id="wrapper">
+    <div></div>
+</div>
+
+
+<footer class="footer">
+    <div class="containor">
+        <p>L u c e t e</p>
+        <ul class="info" style="list-style: none;">
+            <li class="info-list" style="font-size: smaller;"><a href>이용약관</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="info-list" style="font-size: smaller;"><a href>개인정보 처리방침</a></li>
+            <br><br>
+            <li class="info-list" style="font-size: small;">상호: 루세트(Lucete) | 대표: 김민희 | 전화: 070-012-3456 | 이메일:
+                lucete@gmail.com</li>
+            <br>
+            <li class="info-list" style="font-size: small;">주소:2222-312,25, Insadong 3-gil, Jongno-gu, Seoul,
+                Republic of Korea</li>
+            <br>
+            <li class="info-list" style="font-size: small;">사업자등록번호:888-06-12345 | 통신판매:2024-서울인사동-0123</li>
+        </ul>
+
+    </div>
+
+</footer>
+
+</body>
+
+</html>

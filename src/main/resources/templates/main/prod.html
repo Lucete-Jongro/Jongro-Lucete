@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+    <style>
+        .pro-mainview {
+            padding: 40px 50px 50px;
+            position: relative;
+            display: flex;
+        }
+
+        .pro1-img {
+            padding-top: 300px;
+            position: center;
+        }
+
+
+        #button-submit2 {
+            background: none;
+            color: black;
+            border: none;
+            width: 80px;
+            height: 30px;
+            border-radius: 5px;
+            border: solid 0.05px;
+        }
+
+        #button-submit3 {
+            background: none;
+            color: black;
+            border: none;
+            width: 80px;
+            height: 30px;
+            border-radius: 5px;
+            border: solid 0.05px;
+        }
+
+        .maintitle {
+            margin-left: 280px;
+            padding-top: 30px;
+        }
+
+        .mainview-left {
+            padding-right: 60px;
+
+        }
+        #wrapper {
+            height: 200px;
+            min: height 100px;
+            padding-bottom: 100px;
+        }
+        .pro-select {
+            padding-left:40px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+<header class="header">
+    <div class="containor">
+        <nav class="navbar">
+            <a href="index.html"><img src="/image/logo.png" height="90"></a>
+            <ul class="navbar-list" style="list-style: none;">
+
+                <li class="navicon" id="search"><img src="/image/search_icon.png" height="25">
+
+                </li>
+                <li class="navicon"><a href="shoppingcart.html"><img src="/image/shopping_cart_icon.png" height="25"></a></li>
+                <li class="navicon"><a href="mypage.html"><img src="/image/mypage_icon.png" height="25"></a></li>
+                <li class="navicon"><a href="login.html"><img src="/image/login_icon.png" height="25"></a></li>
+                <li class="navicon"><a href="index.html"><img src="/image/logout_icon.png" height="25"></a></li>
+                <li class="searchBar">
+                    <input type="search">
+                    <input type="submit">
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</header>
+
+
+<div class="category-banner">
+    <nav class="category-navbar">
+
+
+        <ul class="category-list" style="list-style: none;">
+            <li class="category"
+                style="font-weight:bolder; font-size: 18px; background-color: transparent !important;">Category</li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Product</li>
+            <li class="category"><a href="/main/prod">주얼리</a></li>
+            <li class="category"><a href="/main/diyProd">DIY 자재</a></li>
+            <li class="category"><a href="/main/kitProd">DIY Kit</a></li>
+            <br>
+            <li class="category" style="font-weight: bold; background-color: transparent !important;">Library</li>
+
+            <li class="category"><a href="/main/onedayclassView">원데이 클래스</a></li>
+            <li class="category"><a href="BOARD_mainview .html">게시판</a></li>
+            <li class="category"><a href="NOTICE_01mainview.html">공지사항</a></li>
+            <br><br><br><br><br><br><br>
+        </ul>
+    </nav>
+</div>
+
+
+<div class="maintitle">
+    <!-- 카테고리 이름 -->
+    <table style="border-bottom: 1px solid;">
+        <th>
+        <td>주얼리</td>
+        </th>
+    </table>
+</div>
+<div class="hp_mb20"></div>
+
+<!-- 상품 카테고리 선택 해당 상품만 보여주기-->
+<div class="product-select">
+    <table>
+        <tr>
+            <td class="pro-select"><a href="">ALL</td>
+            <td class="pro-select"><a href="">Views</td>
+            <td class="pro-select"><a href="">Necklace</td>
+            <td class="pro-select"><a href="">Ring</td>
+            <td class="pro-select"><a href="">Bracelet</td>
+        </tr>
+    </table>
+</div>
+
+<div class="pro-mainview">
+
+    <!-- 왼쪽 상세 -->
+    <div class="mainview-left">
+        <div class="left"></div>
+        <div th:each="prod :${products}" th:href="@{/main/prodDetail(prodSerial=${prod.prodSerial})}">
+            <a th:href="@{/main/prodDetail(prodSerial=${prod.prodSerial})}"><img th:if="${prod.file != null}" th:src="@{|/upload/${prod.file.fileName}|}" style="height: 300px;" class="img1"/></a>
+            <div class="title">
+                <table>
+                    <td><a th:text="${prod.prodName}"></a></td>
+                </table>
+                <p th:text="${prod.prodPrice}"></p>
+            </div>
+        </div>
+        <br>
+<!--        <div class="left"></div>-->
+<!--        <a href=""><img src="/image/반지4.jfif" height="300" class="img1"></a>-->
+<!--        <div class="title">-->
+<!--            <table>-->
+<!--                <td><a href="">silver cubic ring</a></td>-->
+<!--            </table>-->
+<!--            <p>21,000원</p>-->
+<!--        </div>-->
+<!--        <br>-->
+<!--        <div class="left"></div>-->
+<!--        <a href=""><img src="/image/반지6.jfif" height="300" class="img1"></a>-->
+<!--        <div class="title">-->
+<!--            <table>-->
+<!--                <td><a href="">single Silver Ring</a></td>-->
+<!--            </table>-->
+<!--            <p>18,000원</p>-->
+<!--        </div>-->
+
+
+
+    </div>
+
+
+    <!-- 오른쪽 상세 -->
+    <div id="mainview-right" class="">
+        <div class="right"></div>
+        <div th:each="prod :${products2}">
+            <a th:href="@{/main/prodDetail(prodSerial=${prod.prodSerial})}"><img th:if="${prod.file != null}" th:src="@{|/upload/${prod.file.fileName}|}" style="height: 300px;" class="img1"/></a>
+            <div class="title">
+                <table>
+                    <td><a th:text="${prod.prodName}"></a></td>
+                </table>
+                <p th:text="${prod.prodPrice}"></p>
+            </div>
+        </div>
+        <br>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- 공백용 -->
+<div id="wrapper">
+    <div></div>
+</div>
+
+
+<footer class="footer">
+    <div class="containor">
+        <p>L u c e t e</p>
+        <ul class="info" style="list-style: none;">
+            <li class="info-list" style="font-size: smaller;"><a href>이용약관</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="info-list" style="font-size: smaller;"><a href>개인정보 처리방침</a></li>
+            <br><br>
+            <li class="info-list" style="font-size: small;">상호: 루세트(Lucete) | 대표: 김민희 | 전화: 070-012-3456 | 이메일:
+                lucete@gmail.com</li>
+            <br>
+            <li class="info-list" style="font-size: small;">주소:2222-312,25, Insadong 3-gil, Jongno-gu, Seoul,
+                Republic of Korea</li>
+            <br>
+            <li class="info-list" style="font-size: small;">사업자등록번호:888-06-12345 | 통신판매:2024-서울인사동-0123</li>
+        </ul>
+        <br>
+
+    </div>
+
+</footer>
+
+</body>
+
+</html>

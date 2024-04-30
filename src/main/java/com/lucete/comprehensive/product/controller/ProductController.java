@@ -124,6 +124,7 @@ public class ProductController {
         return "product/modify";
     }
 
+
 //    @GetMapping("/information")
 //    public String selectBySerial(@RequestParam(value = "prodSerial", required = false)Integer prodSerial){
 //
@@ -169,6 +170,13 @@ public class ProductController {
 
         return "product/category";
     }
+
+    @GetMapping("/order")
+    public String orderInquiry() {
+
+        return "product/order";
+    }
+
 
 
 }

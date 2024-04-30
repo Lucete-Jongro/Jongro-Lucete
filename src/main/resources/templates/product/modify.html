@@ -329,7 +329,6 @@
             url: "/product/information?prodSerial=" + prodSerial ,
             type: "GET",
             success: function (response) {
-                console.log("여기까지")
                 $("#name-text").val(response.prodName);
                 $("#amount-text").val(response.prodAmount);
                 $("#price-text").val(response.prodPrice);

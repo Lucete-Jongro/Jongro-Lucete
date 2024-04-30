@@ -6,21 +6,28 @@ import com.lucete.comprehensive.common.paging.Pagenation;
 import com.lucete.comprehensive.common.paging.SelectCriteria;
 import com.lucete.comprehensive.product.controller.ProductController;
 import com.lucete.comprehensive.product.model.dao.ProductMapper;
+import com.lucete.comprehensive.product.model.dto.OneDayClassDTO;
 import com.lucete.comprehensive.product.model.dto.ProductCategoryDTO;
 import com.lucete.comprehensive.product.model.dto.ProductDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.Time;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
 
+    @Value("${image.image-dir}")
+    private String IMAGE_DIR;
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
     private final ProductMapper productMapper;
+
 
     public ProductService(ProductMapper productMapper) {
         this.productMapper = productMapper;
@@ -34,16 +41,6 @@ public class ProductService {
         return categoryList;
     }
 
-    public void insertProduct(ProductDTO product) {
-
-        productMapper.insertProduct(product);
-    }
-
-    public void insertImage(FileDTO fileDTO) {
-
-        productMapper.insertImage(fileDTO);
-    }
-
     public Map<String, Object> productSelect(Map<String, String> searchMap, int page) {
 
         // 1. 전체 게시글 수 확인
@@ -51,7 +48,7 @@ public class ProductService {
         System.out.println("totalCount = " + totalCount);
 
         // 2. 페이징 처리 관련 계산 후 SelectCriteria 담는다.
-        int limit = 10;
+        int limit = 7;
         int buttonAmount = 5;
         SelectCriteria selectCriteria = Pagenation.getSelectCriteria(page, totalCount, limit, buttonAmount);
         selectCriteria.setSearchCondition(searchMap.get("searchCondition"));
@@ -70,10 +67,221 @@ public class ProductService {
     }
 
 
-    @Transactional
-    public List<ProductCategoryDTO> findCategoryList() {
-        return productMapper.findCategoryList();
+    public List<ProductDTO> findProductList() {
+        return productMapper.findProductList();
+    }
+
+    public ProductDTO selectBySerial(Integer prodSerial) {
+
+        return productMapper.selectBySerial(prodSerial);
+    }
+
+    public boolean updateProduct(String prodSerial, String prodName, int prodAmount, int prodPrice, String prodAccount) {
+
+        int rowAffected = productMapper.updateProduct(prodSerial, prodName, prodAmount, prodPrice, prodAccount);
+
+        return rowAffected > 0;
     }
 
 
+    public boolean insertClass(String className, Date startDate, Date endDate, Time setTime, int prodPrice, String teacherName, String prodAccount) {
+
+        int Affected = productMapper.insertClass(className, startDate, endDate, setTime, teacherName);
+        int Affected2 = productMapper.classProduct(prodPrice, prodAccount, className);
+
+        return Affected2 > 0 && Affected > 0 ;
+    }
+
+    public boolean classFile(MultipartFile file, ProductDTO product) {
+
+        String uploadPath = IMAGE_DIR;
+
+        File dir = new File(uploadPath);
+
+        if(!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        try {
+            String originalFileName = file.getOriginalFilename();
+            String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+            String savedFileName = UUID.randomUUID() + ext;
+            System.out.println("savedFileName = " + savedFileName);
+
+            String filePath = uploadPath + "/" + savedFileName;
+
+            System.out.println("filePath 경로 : " + filePath);
+
+            file.transferTo(new File(filePath));
+
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setUploadDate(new Date());
+            fileDTO.setFileName(savedFileName);
+            fileDTO.setFilePass(filePath);
+            fileDTO.setFileSize((int) file.getSize());
+            fileDTO.setProdSerial(product.getProdSerial());
+
+            productMapper.classFile(fileDTO);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        System.out.println("반환");
+
+        return true;
+    }
+
+    public ProductDTO getSerial(String className) {
+        return productMapper.getSerial(className);
+    }
+
+    public List<ProductDTO> getList() {
+
+        return productMapper.getList();
+    }
+
+
+    public List<OneDayClassDTO> findClass() {
+
+        return productMapper.findClass();
+    }
+
+    public OneDayClassDTO selectByClassNo(Integer classNo) {
+
+        return productMapper.selectByClassNo(classNo);
+    }
+
+    public ProductDTO prodByClass(OneDayClassDTO oneDayClass) {
+
+        return productMapper.prodByClass(oneDayClass);
+    }
+
+    public boolean updateClass(String classNo, String className, Date startDate, Date endDate, Time setTime) {
+
+        int Affected = productMapper.updateClass(classNo, className, startDate, endDate, setTime);
+
+        return Affected > 0;
+    }
+
+    public boolean updateProdByClass(String className, int prodPrice, String prodAccount) {
+
+        int Affected = productMapper.updateProdByClass(className, prodPrice, prodAccount);
+
+        return Affected > 0;
+    }
+
+    public boolean insertProduct(int prodCategory, String prodName, int prodAmount, int prodPrice, String prodAccount) {
+
+        int Affected = productMapper.insertProduct(prodCategory, prodName, prodAmount, prodPrice, prodAccount);
+
+        return Affected > 0;
+    }
+
+    public ProductDTO insertSerial(String prodName) {
+
+        return productMapper.insertSerial(prodName);
+    }
+
+    public boolean insertFile(MultipartFile file, ProductDTO product) {
+
+        String uploadPath = IMAGE_DIR;
+
+        File dir = new File(uploadPath);
+
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        try {
+            String originalFileName = file.getOriginalFilename();
+            String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+            String savedFileName = UUID.randomUUID() + ext;
+            System.out.println("savedFileName = " + savedFileName);
+
+            String filePath = uploadPath + "/" + savedFileName;
+
+            System.out.println("filePath = " + filePath);
+
+            file.transferTo(new File(filePath));
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setUploadDate(new Date());
+            fileDTO.setFileName(savedFileName);
+            fileDTO.setFilePass(filePath);
+            fileDTO.setFileSize((int)file.getSize());
+            fileDTO.setProdSerial(product.getProdSerial());
+
+            System.out.println("굿");
+
+            productMapper.insertFile(fileDTO);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("반환");
+
+        return true;
+
+    }
+
+    public List<ProductDTO> getViewLeft() {
+
+        return productMapper.getViewLeft();
+    }
+
+    public List<ProductDTO> getViewRight() {
+
+        return productMapper.getViewRight();
+    }
+
+    public List<ProductDTO> getDiyLeft() {
+
+        return productMapper.getDiyLeft();
+    }
+
+    public List<ProductDTO> getDiyRight() {
+
+        return productMapper.getDiyRight();
+    }
+
+    public List<ProductDTO> getKitLeft() {
+
+        return productMapper.getKitLeft();
+    }
+
+    public List<ProductDTO> getKitRight() {
+
+        return productMapper.getKitRight();
+    }
+
+    public List<ProductDTO> getOdcLeft() {
+
+        return productMapper.getOdcLeft();
+    }
+
+    public List<ProductDTO> getOdcRight() {
+
+        return productMapper.getOdcRight();
+    }
+
+    public ProductDTO prodDetail(int prodSerial) {
+
+        return productMapper.prodDetail(prodSerial);
+    }
+
+
+    public ProductDTO payment(int prodSerial) {
+
+        return productMapper.payment(prodSerial);
+    }
+
+    public ProductDTO paymentData(int prodSerial) {
+
+        return productMapper.paymentData(prodSerial);
+    }
 }

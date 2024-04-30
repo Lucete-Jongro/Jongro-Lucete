@@ -1,6 +1,7 @@
 package com.lucete.comprehensive.board.inquiry.dto;
 
-import com.lucete.comprehensive.user.member.MemberDTO;
+
+import com.lucete.comprehensive.user.member.model.dto.MemberDTO;
 
 import java.time.LocalDateTime;
 
