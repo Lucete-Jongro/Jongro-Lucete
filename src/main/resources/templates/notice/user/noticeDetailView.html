@@ -22,6 +22,25 @@
             border-spacing: 0;
         }
 
+        th{
+            padding: 10px; /* 셀 안 여백 */
+            border: 1px solid #ddd; /* 셀 테두리 */
+            text-align: center;
+            vertical-align : middle;
+
+        }
+
+
+        td {
+            padding: 10px; /* 셀 안 여백 */
+            border: 1px solid #ddd; /* 셀 테두리 */
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2; /* 테이블 헤더 배경색 */
+        }
+
         .container {
             width: 1100px;
             margin: 0 auto;
@@ -113,12 +132,12 @@
 <header class="header">
     <div class="containor">
         <nav class="navbar">
-            <a href="index.html"><img src="assets/image/logo.png" height="90"></a>
+            <a href="index.html"><img src="/image/logo.png" height="90"></a>
             <ul class="navbar-list" style="list-style: none;">
-                <li class="navicon" id="search"><img src="assets/image/search_icon.png" height="25"></li>
-                <li class="navicon"><a href=""><img src="assets/image/shopping_cart_icon.png" height="25"></a></li>
-                <li class="navicon"><a href=""><img src="assets/image/mypage_icon.png" height="25"></a></li>
-                <li class="navicon"><a href=""><img src="assets/image/login_icon.png" height="25"></a></li>
+                <li class="navicon" id="search"><img src="/image/search_icon.png" height="25"></li>
+                <li class="navicon"><a href=""><img src="/image/shopping_cart_icon.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/mypage_icon.png" height="25"></a></li>
+                <li class="navicon"><a href=""><img src="/image/login_icon.png" height="25"></a></li>
                 <li class="searchBar">
                     <input type="search">
                     <input type="submit">
@@ -155,9 +174,7 @@
 <div class="title-view">
     <div>
         <table style="border-bottom: 1px solid;">
-            <th>
-            <td>공지목록</td>
-            </th>
+            <th> 공지목록 </th>
         </table>
     </div>
     <br>
@@ -172,21 +189,27 @@
         <colgroup>
             <col width="100px">
         </colgroup>
-
         <tbody>
-        <tr th:each="notice:${noticeList}">
+        <tr class="article-title" th:each="notice:${noticeList}">
             <th>제목</th>
-            <td th:text="${notice.noticeTitle}"></td>
+            <td colspan="3" th:text="${notice.noticeTitle}"></td>
         </tr>
-        <tr th:each="notice:${noticeList}">
+        <tr class="article-info" th:each="notice:${noticeList}">
             <th>날짜</th>
-            <td th:text="${notice.noticeDate}"></td>
+            <td th:text="${notice.noticeDate}">DATE 2024-01-01 13:52:50</td>
         </tr>
-        <tr th:each="notice:${noticeList}">
-            <td colspan="4" th:text="${notice.noticeContent}"></td>
+        <tr class="article-body" th:each="notice:${noticeList}">
+            <th>내용</th>
+            <td colspan="4" th:text="${notice.noticeContent}">
+
+            </td>
         </tr>
         </tbody>
     </table>
+
+
+
+
 
     <br>
     <!-- 목록으로 돌아가기 -->
