@@ -77,14 +77,14 @@
         <h3 class="sub-title">배송정보</h3>
         <ul class="myinfo-list">
 
-            <li class="information" NAME="ADRESS">배송지 1 - 서울 종로구 인사동길 12 대일빌딩, 7층 <button class="orderbutton"><a href="edit-adress.html">정보 수정</a></button>
+            <li class="information" NAME="ADRESS"><span th:text="${#authentication.principal.address}"></span> <button class="orderbutton"><a th:href="@{/user/mypage/changeAddress}">정보 수정</a></button>
 
             </li>
 
         </ul>
 
     </div>
-    <button class="add-adress"><a href="add-adress.html">주소 추가</a></button>
+
 
     <div class="mypage">
 

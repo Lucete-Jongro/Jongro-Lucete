@@ -42,11 +42,11 @@ public class AuthController {
     }
 
 
-        @GetMapping("/user/signup")
-        public String showSignupForm() {
-            return "signup"; // Thymeleaf 템플릿 이름을 반환합니다. 여기서는 "signup.html"이라고 가정합니다.
+    @GetMapping("/user/signup")
+    public String showSignupForm() {
+        return "signup"; // Thymeleaf 템플릿 이름을 반환합니다. 여기서는 "signup.html"이라고 가정합니다.
 
-        }
+    }
 
 
 }
