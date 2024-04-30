@@ -4,7 +4,6 @@ import com.lucete.comprehensive.user.member.model.dto.MemberDTO;
 import com.lucete.comprehensive.user.member.model.dto.SignInDTO;
 import com.lucete.comprehensive.user.member.model.dto.SignUpDTO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -23,9 +22,5 @@ public interface MemberMapper {
                                    Date startDate,
                                    Date endDate);
 
-    void updateEmail(@Param("memName") String memId, @Param("email") String email);
 
-    void changePassword(String memId, String password);
-
-    List<MemberDTO> getAllMembers();
 }

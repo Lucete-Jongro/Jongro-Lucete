@@ -13,6 +13,7 @@ public class SignUpDTO extends MemberDTO implements Serializable{
     private String role;
 
 
+
     public SignUpDTO(String memId, String memName, String password, String email, String phone, String address) {
         this.memId = memId;
         this.memName = memName;

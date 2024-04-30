@@ -9,8 +9,6 @@
         <result property="memId" column="MEM_ID"/>
         <result property="memName" column="MEM_NAME"/>
         <result property="password" column="PASSWORD"/>
-        <result property="email" column="EMAIL"/>
-        <result property="phone" column="PHONE"/>
         <result property="adminAuthority" column="ADMIN_AUTHORITY"/>
     </resultMap>
     <resultMap id="memInfo" type="com.lucete.comprehensive.user.member.model.dto.MemberDTO">
@@ -48,9 +46,8 @@
         ,MEM_ID
         ,MEM_NAME
         ,PASSWORD
-        ,phone
-        ,email
-        ,admin_authority AS adminAuthority
+        ,admin_authority
+
         FROM  MEMBER_INFO
         WHERE  MEM_ID = #{memId}
     </select>
@@ -78,27 +75,9 @@
         mem_date,
         address
         FROM MEMBER_INFO
-        WHERE mem_name = #{memName}
-        AND address LIKE CONCAT('%', #{address}, '%')
+        WHERE mem_name=#{memName}
+        AND address=#{address}
         AND mem_date BETWEEN #{startDate} AND #{endDate}
         AND mem_YN = 'Y';
-    </select>
-
-    <update id="updateEmail">
-        UPDATE member_info
-        SET email = #{email}
-        WHERE mem_Name = #{memName}
-    </update>
-
-    <update id="changePassword">
-        update member_info
-        set password = #{password}
-        where mem_name =#{memId}
-    </update>
-
-    <select id="getAllMembers">
-        select mem_no, mem_name,
-        mem_id, mem_date, address
-        from member_info
     </select>
 </mapper>
