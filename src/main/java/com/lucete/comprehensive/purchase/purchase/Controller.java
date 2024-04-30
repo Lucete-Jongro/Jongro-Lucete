@@ -2,7 +2,6 @@ package com.lucete.comprehensive.purchase.purchase;
 
 import com.lucete.comprehensive.product.model.dto.ProductDTO;
 import com.lucete.comprehensive.product.model.service.ProductService;
-import com.lucete.comprehensive.user.member.MemberDTO;
 import com.lucete.comprehensive.user.member.model.dto.SignInDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
